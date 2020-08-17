@@ -1,4 +1,4 @@
-let dataset, svg
+let dataset, mexico, svg
 let salarySizeScale, salaryXScale
 let simulation, nodes
 let categoryLegend, salaryLegend
@@ -12,9 +12,9 @@ const margin = {
 const width = 1000 - margin.left - margin.right
 const height = 950 - margin.top - margin.bottom
 
-/* Promise.all([
-    fetch('edoMex.json'),
-    fetch('mexico.json')
+Promise.all([
+    fetch('https://spreadsheets.google.com/feeds/list/1fGCwueHVG-26Fwn0aLBN_wrpsD_aNfMWqrKN4y-MGIE/1/public/values?alt=json'),
+    fetch('data/map.topojson')
   ]).then(async([aa, bb]) => {
     const a = await aa.json();
     const b = await bb.json();
@@ -22,32 +22,52 @@ const height = 950 - margin.top - margin.bottom
   })
   .then((responseText) => {
     //console.log(responseText[0]);
-    //console.log(responseText[0]);
-    dataset = data;
-    //console.log(dataset)
+    //console.log(responseText[1]);
+    dataset = responseText[0].feed.entry;
+    mexico = responseText[1];
     createScales()
-    setTimeout(drawInitial(), 100)
-
+    setTimeout(drawInitial(), 100);
   }).catch((err) => {
     console.log(err);
-}); */
+}); 
 
-d3.csv('data/data.csv', function (d) {
-    return {
-        Entidad: d.entidad,
-        PuntacionTotal: +d.puntacionTotal
-    };
-}).then(data => {
-    dataset = data;
-    createScales()
-    setTimeout(drawInitial(), 100)
-})
+const categories = ['maxNormatividad', 'maxInfraestructura', 'maxCapitalHumano', 'maxMapeoGestion', 'maxDevMecanismos', 'minNormatividad', 'minInfraestructura', 'minCapitalHumano', 'minMapeoGestion', 'minDevMecanismos']
+
+const categoriesXY = {'maxNormatividad': [0, 800, 57382, 23.9],
+        'maxInfraestructura': [0, 600, 43538, 48.3],
+        'maxCapitalHumano': [0, 400, 41890, 50.9],
+        'maxMapeoGestion': [0, 200, 42200, 48.3],
+        'maxDevMecanismos': [300, 400, 42745, 31.2],
+        'minNormatividad': [300, 600, 36900, 40.5],
+        'minInfraestructura': [300, 200, 36342, 35.0],
+        'minCapitalHumano': [600, 200, 33062, 60.4],
+        'minMapeoGestion': [600, 400, 36825, 79.5],
+        'minDevMecanismos': [600, 600, 37344, 55.4],}
 
 
+const colors = ['#ffcc00', '#ff6666', '#cc0066', '#66cccc', '#f688bb', '#65587f', '#baf1a1', '#333333', '#75b79e',  '#66cccc', '#9de3d0', '#f1935c', '#0c7b93', '#eab0d9', '#baf1a1', '#9399ff']
+ 
 function createScales() {
-    salarySizeScale = d3.scaleLinear(d3.extent(dataset, d => d.PuntacionTotal), [5, 35])
-    salaryXScale = d3.scaleLinear(d3.extent(dataset, d => d.PuntacionTotal), [margin.left, margin.left + width])
-    salaryYScale = d3.scaleLinear([20000, 110000], [margin.top + height, margin.top])
+    salarySizeScale = d3.scaleLinear(d3.extent(dataset, d => d.gsx$puntajetotal.$t), [5, 35])
+    salaryXScale = d3.scaleLinear(d3.extent(dataset, d => d.gsx$puntajetotal.$t), [margin.left, margin.left + width])
+    salaryYScale = d3.scaleLinear([20000, 110000], [margin.top + height, margin.top]);
+    categoryColorScale = d3.scaleOrdinal(categories, colors);
+}
+
+function createLegend(x, y){
+    let svg = d3.select('#legend')
+
+    svg.append('g')
+        .attr('class', 'categoryLegend')
+        .attr('transform', `translate(${x},${y})`)
+
+    categoryLegend = d3.legendColor()
+                            .shape('path', d3.symbol().type(d3.symbolCircle).size(150)())
+                            .shapePadding(10)
+                            .scale(categoryColorScale)
+    
+    d3.select('.categoryLegend')
+        .call(categoryLegend)
 }
 
 /* function createChartLegend(mainDiv, group) {
@@ -78,7 +98,7 @@ function drawInitial() {
     */
    // Filtra el top 10 con mayor puntuación
    let topData = dataset.sort(function(a, b) {
-        return d3.descending(+a.PuntacionTotal, +b.PuntacionTotal);
+        return d3.descending(+a.gsx$puntajetotal.$t, +b.gsx$puntajetotal.$t);
     }).slice(0, 10);
 
     //console.log(topData)
@@ -94,7 +114,7 @@ function drawInitial() {
             .attr('y', d => d.y)
     }).force('forceX', d3.forceX(500))
     .force('forceY', d3.forceY(500))
-    .force('collide', d3.forceCollide(d => salarySizeScale(d.PuntacionTotal) * 2.9))
+    .force('collide', d3.forceCollide(d => salarySizeScale(d.gsx$puntajetotal.$t) * 2.9))
     .alpha(0.6).alphaDecay(0.05);
     // Stop the simulation until later
     
@@ -109,7 +129,7 @@ function drawInitial() {
         .data(topData)
         .enter()
         .append('circle')
-        .attr('r', d => salarySizeScale(d.PuntacionTotal) * 2.8)
+        .attr('r', d => salarySizeScale(d.gsx$puntajetotal.$t) * 2.8)
         .attr('fill', '#34b3eb');
         /* .attr('cx', (d, i) => salaryXScale(d.PuntacionTotal))
         .attr('cy', (d, i) => i * 10); */
@@ -122,16 +142,16 @@ function drawInitial() {
         })
         .enter()
         .append('text')
-        .text(d => d.Entidad)
+        .text(d => d.gsx$estado.$t)
         .style('text-anchor', 'middle')
         .style('pointer-events', 'none')
-        .style("font-size", function(d) { return Math.min(2 * d.PuntacionTotal, (2 * d.PuntacionTotal - 8) / this.getComputedTextLength() * 10) + "px"; })
+        .style("font-size", function(d) { return Math.min(2 * d.gsx$puntajetotal.$t, (2 * d.gsx$puntajetotal.$t - 8) / this.getComputedTextLength() * 10) + "px"; })
         .attr("dy", ".35em");
         
 
     // Add mouseover and mouseout events for all circles
     // Changes opacity and adds border
-    svg.selectAll('circle')
+    svg.select('.burbujas').selectAll('circle')
         .on('mouseover', mouseOver)
         .on('mouseout', mouseOut)
 
@@ -147,8 +167,8 @@ function drawInitial() {
             .style('left', (d3.event.pageX + 10) + 'px')
             .style('top', (d3.event.pageY - 25) + 'px')
             .style('display', 'inline-block')
-            .html(`<strong>Estado:</strong> ${d.Entidad[0] + d.Entidad.slice(1,).toLowerCase()} 
-                <br> <strong>Puntuación:</strong> ${d.PuntacionTotal}`)
+            .html(`<strong>Estado:</strong> ${d.gsx$estado.$t[0] + d.gsx$estado.$t.slice(1,).toLowerCase()} 
+                <br> <strong>Puntuación:</strong> ${d.gsx$puntajetotal.$t}`)
     }
 
     function mouseOut(d, i) {
@@ -172,97 +192,72 @@ function drawInitial() {
         .center([-103.34034978813841, 30.012062015793]);
     let path = d3.geoPath(projection);
 
-    // mapa completo
-    d3.json("map.topojson")
-        .then(function (data) {
-            mexico = data;
-            svg.append("g")
-                .attr('visibility', 'hidden')
-                .attr('class', 'mapa')
-                .selectAll("path")
-                .data(topojson.feature(mexico, mexico.objects.collection).features)
-                .join("path")
-                .attr('class', 'entidad')
-                .on('click', function (d) {
-                    alert(d.properties.entidad)
-                })
-                .on('click', function (d) {
-                    /* svg.select('.mapa').append("circle")
-                    .attr("cx", 30)
-                    .attr("cy", 30)
-                    .attr("r", 20); */
-                    // get the data
-                    var x = d3.scaleBand()
-                            .range([0, width])
-                            .padding(0.1);
-                    var y = d3.scaleLinear()
-                            .range([height, 0]);
-                    d3.csv('data/sales.csv').then(data2 => {
-                        //if (error) throw error;
-                    
-                        // format the data
-                        console.log(data2);
-                       
-                    })
-                    }) 
-                .attr("d", path);
-                
-            svg.select('.mapa')
-                .selectAll('.label')
-                .data(topojson.feature(mexico, mexico.objects.collection).features)
-                .enter()
-                .append('text')
-                .attr('class', 'label')
-                .attr("font-size", 10)
-                .text((d)=> Math.round(d.properties.calificacion))
-                .attr('transform', (d)=> {
-                  const centroid = path.centroid(d)
-                  //console.log(centroid)
-                  return `translate(${centroid[0]}, ${centroid[1]})`
-                })
-            let dataLegend = [{"color":"#FFFFFF","value":0},{"color":"#E5FFF2","value":10},{"color":"#CCFFE5","value":20},{"color":"#B2FFD8","value":30},{"color":"#99FFCB","value":40},{"color":"#7FFFBF","value":50},{"color":"#66FFB2","value":60},{"color":"#4CFFA5","value":70},{"color":"#33FF98","value":80},{"color":"#19FF8B","value":90},{"color":"#00FF7F","value":100}];
-            let extent = d3.extent(dataLegend, d => d.value);
-            
-            let padding = 9;
-            let width = 320;
-            let innerWidth = width - (padding * 5);
-            let barHeight = 12;
-            let height = 28;
+    svg.append("g")
+        .attr('visibility', 'hidden')
+        .attr('class', 'mapa')
+        .selectAll("path")
+        .data(topojson.feature(mexico, mexico.objects.collection).features)
+        .join("path")
+        .attr('class', 'entidad')
+        .on('click', function (d) {
+            alert(d.properties.entidad)
+        })
+        .attr("d", path);
+        
+    svg.select('.mapa')
+        .selectAll('.label')
+        .data(topojson.feature(mexico, mexico.objects.collection).features)
+        .enter()
+        .append('text')
+        .attr('class', 'label')
+        .attr("font-size", 10)
+        .text((d)=> Math.round(d.properties.calificacion))
+        .attr('transform', (d)=> {
+            const centroid = path.centroid(d)
+            //console.log(centroid)
+            return `translate(${centroid[0]}, ${centroid[1]})`
+        })
+    let dataLegend = [{"color":"#FFFFFF","value":0},{"color":"#E5FFF2","value":10},{"color":"#CCFFE5","value":20},{"color":"#B2FFD8","value":30},{"color":"#99FFCB","value":40},{"color":"#7FFFBF","value":50},{"color":"#66FFB2","value":60},{"color":"#4CFFA5","value":70},{"color":"#33FF98","value":80},{"color":"#19FF8B","value":90},{"color":"#00FF7F","value":100}];
+    let extent = d3.extent(dataLegend, d => d.value);
+    
+    let padding = 9;
+    let width = 320;
+    let innerWidth = width - (padding * 5);
+    let barHeight = 12;
+    let height = 28;
 
-            let xScale = d3.scaleLinear()
-                .range([0, innerWidth])
-                .domain(extent);
+    let xScale = d3.scaleLinear()
+        .range([0, innerWidth])
+        .domain(extent);
 
-            let xTicks = dataLegend.filter(f => f.value % 10 === 0).map(d => d.value);
+    let xTicks = dataLegend.filter(f => f.value % 10 === 0).map(d => d.value);
 
-            let xAxis = d3.axisBottom(xScale)
-                .tickSize(barHeight * 2)
-                .tickValues(xTicks);
+    let xAxis = d3.axisBottom(xScale)
+        .tickSize(barHeight * 2)
+        .tickValues(xTicks);
 
-            let g2 = svg.select('.mapa')
-                .append("g")
-                .attr("transform", "translate(80, 700)")
-                .attr('class', 'leyendas')
-                .attr('visibility', 'hidden');
+    let g2 = svg.select('.mapa')
+        .append("g")
+        .attr("transform", "translate(80, 700)")
+        .attr('class', 'leyendas')
+        .attr('visibility', 'hidden');
 
-            let defs = svg.append("defs");
-            let linearGradient = defs.append("linearGradient").attr("id", "myGradient");
-            linearGradient.selectAll("stop")
-                .data(dataLegend)
-                .enter().append("stop")
-                .attr("offset", d => ((d.value - extent[0]) / (extent[1] - extent[0]) * 100) + "%")
-                .attr("stop-color", d => d.color);
+    let defs = svg.append("defs");
+    let linearGradient = defs.append("linearGradient").attr("id", "myGradient");
+    linearGradient.selectAll("stop")
+        .data(dataLegend)
+        .enter().append("stop")
+        .attr("offset", d => ((d.value - extent[0]) / (extent[1] - extent[0]) * 100) + "%")
+        .attr("stop-color", d => d.color);
 
-            g2.append("rect")
-                .attr("width", innerWidth)
-                .attr("height", barHeight)
-                .style("fill", "url(#myGradient)");
+    g2.append("rect")
+        .attr("width", innerWidth)
+        .attr("height", barHeight)
+        .style("fill", "url(#myGradient)");
 
-            g2.append("g")
-                .call(xAxis)
-            .select(".domain").remove();
-        });
-
+    g2.append("g")
+        .call(xAxis)
+    .select(".domain").remove();
     /*
         FIN --> chartMexicoPuntuacion
     */
@@ -270,244 +265,43 @@ function drawInitial() {
     /*
         INICIO --> chartStackedBar
     */
-    let group = ["a", "b", "c", "d", "e"];
+   //let puntajeNormatividad = dataset.gsx$puntajenormatividad.$t;
+    let dataStacked = [];
+   dataset.forEach(function(d) {
+        let tempData = {
+            Entidad: d.gsx$estado.$t,
+            cat1: Number.parseFloat(d.gsx$puntajenormatividad.$t),
+            cat2: Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
+            cat3: Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
+            cat4: Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
+            cat5: Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
+            total: d.gsx$puntajetotal.$t
+        };
+        dataStacked.push(tempData);
+    });
+    // console.log(dataStacked);
+
+    let group = ["cat1", "cat2", "cat3", "cat4", "cat5"];
     //let mainDiv = "#vis";
     let mainDivName = "vis";
-    let salesData = [
-        {
-            "groups": "Quintana Roo",
-            "a": 1,
-            "b": 0,
-            "c": 5,
-            "d": 0,
-            "e": 0
-        },
-        {
-            "groups": "Baja California Sur",
-            "a": 5,
-            "b": 0,
-            "c": 2,
-            "d": 0,
-            "e": 0
-        },
-        {
-            "groups": "Querétaro",
-            "a": 0,
-            "b": 7,
-            "c": 0,
-            "d": 0,
-            "e": 0
-        },
-        {
-            "groups": "Tamaulipas",
-            "a": 6,
-            "b": 0,
-            "c": 4,
-            "d": 2,
-            "e": 0
-        },
-        {
-            "groups": "Veracruz",
-            "a": 0,
-            "b": 6,
-            "c": 6,
-            "d": 3,
-            "e": 0
-        },
-        {
-            "groups": "Coahuila",
-            "a": 0,
-            "b": 13,
-            "c": 5,
-            "d": 4,
-            "e": 0
-        },
-        {
-            "groups": "Guanajuato",
-            "a": 6,
-            "b": 6,
-            "c": 10,
-            "d": 0,
-            "e": 0
-        },
-        {
-            "groups": "Nayarit",
-            "a": 6,
-            "b": 6,
-            "c": 10,
-            "d": 1,
-            "e": 0
-        },
-        {
-            "groups": "Hidalgo",
-            "a": 6,
-            "b": 0,
-            "c": 5,
-            "d": 12.66,
-            "e": 0
-        },
-        {
-            "groups": "Baja California",
-            "a": 6,
-            "b": 6,
-            "c": 7,
-            "d": 0,
-            "e": 5
-        },
-        {
-            "groups": "Oaxaca",
-            "a": 8,
-            "b": 6,
-            "c": 7,
-            "d": 6,
-            "e": 5
-        },
-        {
-            "groups": "Colima",
-            "a": 6,
-            "b": 6,
-            "c": 10,
-            "d": 7.99,
-            "e": 5
-        },
-        {
-            "groups": "Yucatan",
-            "a": 6,
-            "b": 13,
-            "c": 9,
-            "d": 2,
-            "e": 5
-        },
-        {
-            "groups": "Guerrero",
-            "a": 6,
-            "b": 6,
-            "c": 10,
-            "d": 0,
-            "e": 14.16
-        },
-        {
-            "groups": "Sinaloa",
-            "a": 6,
-            "b": 6,
-            "c": 5,
-            "d": 9.33,
-            "e": 11.66
-        },
-        {
-            "groups": "Campeche",
-            "a": 6,
-            "b": 13,
-            "c": 8,
-            "d": 6,
-            "e": 10
-        },
-        {
-            "groups": "Chihuahua",
-            "a": 8,
-            "b": 14,
-            "c": 10,
-            "d": 2,
-            "e": 11.66
-        },
-        {
-            "groups": "Durango",
-            "a": 10,
-            "b": 20,
-            "c": 7,
-            "d": 6,
-            "e": 11.66
-        },
-        {
-            "groups": "Zacatecas",
-            "a": 6,
-            "b": 20,
-            "c": 8,
-            "d": 12,
-            "e": 20
-        },
-        {
-            "groups": "Aguascalientes",
-            "a": 10,
-            "b": 20,
-            "c": 10,
-            "d": 2,
-            "e": 26.66
-        },
-        {
-            "groups": "Jalisco",
-            "a": 6,
-            "b": 20,
-            "c": 10,
-            "d": 9,
-            "e": 25
-        },
-        {
-            "groups": "Sonora",
-            "a": 6,
-            "b": 20,
-            "c": 10,
-            "d": 8.99,
-            "e": 26.66
-        },
-        {
-            "groups": "Puebla",
-            "a": 8,
-            "b": 20,
-            "c": 10,
-            "d": 19,
-            "e": 20
-        },
-        {
-            "groups": "Tabasco",
-            "a": 6,
-            "b": 20,
-            "c": 10,
-            "d": 13,
-            "e": 30
-        },
-        {
-            "groups": "Tlaxcala",
-            "a": 6,
-            "b": 20,
-            "c": 10,
-            "d": 13,
-            "e": 30
-        },
-        {
-            "groups": "Michoacán",
-            "a": 6,
-            "b": 20,
-            "c": 7,
-            "d": 18,
-            "e": 30
-        },
-        {
-            "groups": "México",
-            "a": 10,
-            "b": 20,
-            "c": 8,
-            "d": 25.66,
-            "e": 30
-        }
-    ];
+    /* 
     salesData.forEach(function(d) {
         d.total = d3.sum(group, k => +d[k])
         return d
-    });
+    }); */
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
     //console.log(salesData);
     let layers = d3.stack()
         .keys(group)
         .offset(d3.stackOffsetDiverging)
-        (salesData);       
-
-    
+        (dataStacked);          
     let x = d3.scaleLinear().rangeRound([margin.left, width - margin.right]);
     x.domain(['0', '100']);
 
     let y = d3.scaleBand().rangeRound([height - margin.bottom, margin.top]).padding(0.1);
-    y.domain(salesData.map(function(d) {
-        return d.groups;
+    y.domain(dataStacked.map(function(d) {
+        return d.Entidad;
     }))
 
     let z = d3.scaleOrdinal(d3.schemeCategory10);
@@ -542,6 +336,7 @@ function drawInitial() {
             data["total"] = total;
             //console.log(data["total"])
             return JSON.stringify(data);
+            //console.log(data)
         })
         .attr("width", function(d) {
             return x(d[1]) - x(d[0]);
@@ -550,7 +345,7 @@ function drawInitial() {
             return x(d[0]);
         })
         .attr("y", function(d) {
-            return y(d.data.groups);
+            return y(d.data.Entidad);
         })
         .attr("height", y.bandwidth);  
 
@@ -585,7 +380,6 @@ function drawInitial() {
         });
         //CBT:calculate tooltips text
         let tooltipData = JSON.parse(currentEl.attr("data"));
-        let tooltipsText = "";
         d3.selectAll("#recttooltipText_" + mainDivName).text("");
         let yPos = 0;
         d3.selectAll("#recttooltipText_" + mainDivName).append("tspan").attr("x", 0).attr("y", yPos * 10).attr("dy", "1.9em").text(tooltipData.key + ":  " + tooltipData.value);
@@ -599,7 +393,6 @@ function drawInitial() {
         d3.selectAll("#recttooltipRect_" + mainDivName)
             .attr("width", dims.w + 10)
             .attr("height", dims.h + 20);
-
     });
 
     rect.on("mousemove", function() {
@@ -705,7 +498,7 @@ function drawInitial() {
         });
     
     let textTotal = svg.select(".stackedBar").selectAll(".text")
-        .data(salesData, d => d.groups);
+        .data(dataStacked, d => d.Entidad);
 
     textTotal.exit().remove();
     textTotal.enter().append("text")
@@ -713,9 +506,9 @@ function drawInitial() {
         .attr("text-anchor", "start")
         .merge(textTotal)
         .attr("font-size", 12)
-        .attr("y", d => y(d.groups) + y.bandwidth() / 1.5)
+        .attr("y", d => y(d.Entidad) + y.bandwidth() / 1.5)
         .attr("x", d => x(d.total) + 5)
-        .text(d => d.total.toFixed(1))
+        .text(d => d.Total);
 
     let helpers = {
         getDimensions: function(id) {
@@ -738,21 +531,337 @@ function drawInitial() {
     /*
         FIN --> chartStackedBar
     */
+    /////////////////////////
+    /*
+        INICIO --> chartTop3
+    */
+   // Categorias Max
+   let maxNormatividad = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajenormatividad.$t), x])).values()].sort(function(a, b) {
+        return d3.descending(+a.gsx$puntajenormatividad.$t, +b.gsx$puntajenormatividad.$t);
+    }).slice(0, 3);  
+    let maxInfraestructura = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajeinfraestructura.$t), x])).values()].sort(function(a, b) {
+        return d3.descending(+a.gsx$puntajeinfraestructura.$t, +b.gsx$puntajeinfraestructura.$t);
+    }).slice(0, 3);
+    let maxCapitalHumano = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajecapitalhumano.$t), x])).values()].sort(function(a, b) {
+        return d3.descending(+a.gsx$puntajecapitalhumano.$t, +b.gsx$puntajecapitalhumano.$t);
+    }).slice(0, 3);
+    let maxMapeoGestion = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajemapeoygestióndedatos.$t), x])).values()].sort(function(a, b) {
+        return d3.descending(+a.gsx$puntajemapeoygestióndedatos.$t, +b.gsx$puntajemapeoygestióndedatos.$t);
+    }).slice(0, 3);
+    let maxDevMecanismos = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajedesarrollodemecanismosdecomunicación.$t), x])).values()].sort(function(a, b) {
+        return d3.descending(+a.gsx$puntajedesarrollodemecanismosdecomunicación.$t, +b.gsx$puntajedesarrollodemecanismosdecomunicación.$t);
+    }).slice(0, 3);
+
+    let minNormatividad = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajenormatividad.$t), x])).values()].sort(function(a, b) {
+        return d3.ascending(+a.gsx$puntajenormatividad.$t, +b.gsx$puntajenormatividad.$t);
+    }).slice(0, 3); 
+    let minInfraestructura = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajeinfraestructura.$t), x])).values()].sort(function(a, b) {
+        return d3.ascending(+a.gsx$puntajeinfraestructura.$t, +b.gsx$puntajeinfraestructura.$t);
+    }).slice(0, 3);
+    let minCapitalHumano = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajecapitalhumano.$t), x])).values()].sort(function(a, b) {
+        return d3.ascending(+a.gsx$puntajecapitalhumano.$t, +b.gsx$puntajecapitalhumano.$t);
+    }).slice(0, 3);
+    let minMapeoGestion = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajemapeoygestióndedatos.$t), x])).values()].sort(function(a, b) {
+        return d3.ascending(+a.gsx$puntajemapeoygestióndedatos.$t, +b.gsx$puntajemapeoygestióndedatos.$t);
+    }).slice(0, 3);
+    let minDevMecanismos = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajedesarrollodemecanismosdecomunicación.$t), x])).values()].sort(function(a, b) {
+        return d3.ascending(+a.gsx$puntajedesarrollodemecanismosdecomunicación.$t, +b.gsx$puntajedesarrollodemecanismosdecomunicación.$t);
+    }).slice(0, 3);
+
+    /* console.log(minNormatividad);
+    console.log(minInfraestructura);
+    console.log(minCapitalHumano);
+    console.log(minMapeoGestion);
+    console.log(minDevMecanismos);  */
+
+    //console.log(catMax1);
+    let dataTop3 = [];
+    dataset.forEach((d) => {
+        let tempDataset = d;
+        //console.log(tempDataset.gsx$estado.$t);
+        maxNormatividad.forEach(function(d, index) {
+            //console.log(index);
+            if (d.gsx$puntajenormatividad.$t === tempDataset.gsx$puntajenormatividad.$t) {
+                //console.log(tempDataset.gsx$puntajenormatividad.$t);
+                //console.log(d);
+                let tempData = '';
+                tempData = {
+                    entidad: tempDataset.gsx$estado.$t,
+                    puntajeTop: Number.parseFloat(d.gsx$puntajenormatividad.$t),
+                    tipoCat: 'maxNormatividad',
+                    tipoMedalla:  index === 0  ? 'oro' :
+                                    index === 1  ? 'plata' :
+                                    index === 2  ? 'bronce' : ''
+                };
+                dataTop3.push(tempData);
+            }
+        });
+        maxInfraestructura.forEach(function(d, index) {
+            //console.log(index);
+            if (d.gsx$puntajeinfraestructura.$t === tempDataset.gsx$puntajeinfraestructura.$t) {
+                let tempData = '';
+                tempData = {
+                    entidad: tempDataset.gsx$estado.$t,
+                    puntajeTop: Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
+                    tipoCat: 'maxInfraestructura',
+                    tipoMedalla:  index === 0  ? 'oro' :
+                                    index === 1  ? 'plata' :
+                                    index === 2  ? 'bronce' : ''
+                };
+                dataTop3.push(tempData);
+            }
+        });
+        maxCapitalHumano.forEach(function(d, index) {
+            //console.log(index);
+            if (d.gsx$puntajecapitalhumano.$t === tempDataset.gsx$puntajecapitalhumano.$t) {
+                let tempData = '';
+                tempData = {
+                    entidad: tempDataset.gsx$estado.$t,
+                    puntajeTop: Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
+                    tipoCat: 'maxCapitalHumano',
+                    tipoMedalla:  index === 0  ? 'oro' :
+                                    index === 1  ? 'plata' :
+                                    index === 2  ? 'bronce' : ''
+                };
+                dataTop3.push(tempData);
+            }
+        });
+        maxMapeoGestion.forEach(function(d, index) {
+            //console.log(d);
+            if (d.gsx$puntajemapeoygestióndedatos.$t === tempDataset.gsx$puntajemapeoygestióndedatos.$t) {
+                let tempData = '';
+                tempData = {
+                    entidad: tempDataset.gsx$estado.$t,
+                    puntajeTop: Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
+                    tipoCat: 'maxMapeoGestion',
+                    tipoMedalla:  index === 0  ? 'oro' :
+                                    index === 1  ? 'plata' :
+                                    index === 2  ? 'bronce' : ''
+                };
+                dataTop3.push(tempData);
+            }
+        });
+        maxDevMecanismos.forEach(function(d, index) {
+            //console.log(index);
+            if (d.gsx$puntajedesarrollodemecanismosdecomunicación.$t === tempDataset.gsx$puntajedesarrollodemecanismosdecomunicación.$t) {
+                let tempData = '';
+                tempData = {
+                    entidad: tempDataset.gsx$estado.$t,
+                    puntajeTop: Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
+                    tipoCat: 'maxDevMecanismos',
+                    tipoMedalla:  index === 0  ? 'oro' :
+                                    index === 1  ? 'plata' :
+                                    index === 2  ? 'bronce' : ''
+                };
+                dataTop3.push(tempData);
+            }
+        });
+
+
+        minNormatividad.forEach(function(d, index) {
+            //console.log(index);
+            if (d.gsx$puntajenormatividad.$t === tempDataset.gsx$puntajenormatividad.$t) {
+                //console.log(tempDataset.gsx$puntajenormatividad.$t);
+                //console.log(d);
+                let tempData = '';
+                tempData = {
+                    entidad: tempDataset.gsx$estado.$t,
+                    puntajeTop: Number.parseFloat(d.gsx$puntajenormatividad.$t),
+                    tipoCat: 'minNormatividad',
+                    tipoMedalla:  index === 0  ? 'oro' :
+                                    index === 1  ? 'plata' :
+                                    index === 2  ? 'bronce' : ''
+                };
+                dataTop3.push(tempData);
+            }
+        });
+        minInfraestructura.forEach(function(d, index) {
+            //console.log(index);
+            if (d.gsx$puntajeinfraestructura.$t === tempDataset.gsx$puntajeinfraestructura.$t) {
+                let tempData = '';
+                tempData = {
+                    entidad: tempDataset.gsx$estado.$t,
+                    puntajeTop: Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
+                    tipoCat: 'minInfraestructura',
+                    tipoMedalla:  index === 0  ? 'oro' :
+                                    index === 1  ? 'plata' :
+                                    index === 2  ? 'bronce' : ''
+                };
+                dataTop3.push(tempData);
+            }
+        });
+        minCapitalHumano.forEach(function(d, index) {
+            //console.log(index);
+            if (d.gsx$puntajecapitalhumano.$t === tempDataset.gsx$puntajecapitalhumano.$t) {
+                let tempData = '';
+                tempData = {
+                    entidad: tempDataset.gsx$estado.$t,
+                    puntajeTop: Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
+                    tipoCat: 'minCapitalHumano',
+                    tipoMedalla:  index === 0  ? 'oro' :
+                                    index === 1  ? 'plata' :
+                                    index === 2  ? 'bronce' : ''
+                };
+                dataTop3.push(tempData);
+            }
+        });
+        minMapeoGestion.forEach(function(d, index) {
+            //console.log(d);
+            if (d.gsx$puntajemapeoygestióndedatos.$t === tempDataset.gsx$puntajemapeoygestióndedatos.$t) {
+                let tempData = '';
+                tempData = {
+                    entidad: tempDataset.gsx$estado.$t,
+                    puntajeTop: Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
+                    tipoCat: 'minMapeoGestion',
+                    tipoMedalla:  index === 0  ? 'oro' :
+                                    index === 1  ? 'plata' :
+                                    index === 2  ? 'bronce' : ''
+                };
+                dataTop3.push(tempData);
+            }
+        });
+        minDevMecanismos.forEach(function(d, index) {
+            //console.log(index);
+            if (d.gsx$puntajedesarrollodemecanismosdecomunicación.$t === tempDataset.gsx$puntajedesarrollodemecanismosdecomunicación.$t) {
+                let tempData = {};
+                //console.log(tempDataset.gsx$estado.$t)
+                tempData = {
+                    entidad: tempDataset.gsx$estado.$t,
+                    puntajeTop: Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
+                    tipoCat: 'minDevMecanismos',
+                    tipoMedalla:  index === 0  ? 'oro' :
+                                    index === 1  ? 'plata' :
+                                    index === 2  ? 'bronce' : ''
+                };
+                dataTop3.push(tempData);
+            }
+        });
+    }); 
+    //console.log(dataTop3);
+    function mouseOver2(d, i) {
+        //console.log('hi')
+        d3.select(this)
+            .transition('mouseover').duration(100)
+            .attr('opacity', 1)
+            .attr('stroke-width', 5)
+            .attr('stroke', 'black')
+
+        d3.select('#tooltip')
+            .style('left', (d3.event.pageX + 10) + 'px')
+            .style('top', (d3.event.pageY - 25) + 'px')
+            .style('display', 'inline-block')
+            .html(`<strong>Estado:</strong> ${d.entidad[0] + d.entidad.slice(1,).toLowerCase()} 
+                <br> <strong>Puntuación por categoría:</strong> ${d.puntajeTop}`)
+    }
+
+    function mouseOut2(d, i) {
+        d3.select('#tooltip')
+            .style('display', 'none')
+
+        d3.select(this)
+            .transition('mouseout').duration(100)
+            .attr('opacity', 0.8)
+            .attr('stroke-width', 0)
+    }
+ 
+    salarySizeScale2 = d3.scaleLinear(d3.extent(dataTop3, d => d.puntajeTop), [5, 28])
+    simulation2 = d3.forceSimulation(dataTop3)
+    simulation2.on('tick', () => {
+        nodes2
+            .attr('cx', d => d.x)
+            .attr('cy', d => d.y)
+    })
+    nodes2 = svg
+    .append("g")
+    .attr('class', 'top3')
+    .attr('visibility', 'hidden')
+    .selectAll('circle')
+    .data(dataTop3)
+    .enter()
+    .append('circle')
+        .attr('fill', 'black')
+        .attr('r', 3)
+        .attr('cx', (d, i) => (d.puntajeTop))
+    svg.select('.top3').selectAll('.lab-text')
+        .data(categories).enter()
+        .append('text')
+        .attr('class', 'lab-text')
+        .attr('opacity', 1)
+        .raise()
+    svg.select('.top3').selectAll('.lab-text')
+        .attr('font-family', 'Noto Sans SC')
+        .attr('font-size', '14px')
+        .attr('fill', 'black')
+        .attr('text-anchor', 'middle')       
+    simulation2
+        .force('charge', d3.forceManyBody().strength([2]))
+        // posicionan las burbujas y titulos
+        .force('forceX', d3.forceX(d => categoriesXY[d.tipoCat][0] + 200))
+        .force('forceY', d3.forceY(d => categoriesXY[d.tipoCat][1] - 50))
+        .force('collide', d3.forceCollide(d => salarySizeScale2(d.puntajeTop) + 4))
+        .alphaDecay([0.02])
+
+    svg.select('.top3').selectAll('circle')
+        .transition().duration(400).delay((d, i) => i * 5)
+        .attr('r', d => salarySizeScale2(d.puntajeTop) * 1.2)
+        .attr('fill', d => {
+            //categoryColorScale(d.tipoCat)
+            return d.tipoMedalla === 'oro' ? '#ffcc01' :
+                    d.tipoMedalla === 'plata' ? '#b4b8bc' :
+                    d.tipoMedalla === 'bronce' ? '#d1a684' :
+                                '#fff';
+        });
+
+    svg.select('.top3').selectAll('.cat-rect').transition().duration(300).delay((d, i) => i * 30)
+        .attr('opacity', 1);            
+    svg.select('.top3').selectAll('.lab-text').transition().duration(300).delay((d, i) => i * 30)
+        .text(d => {
+            return d === 'maxNormatividad' ? 'Max Normatividad' :
+                    d === 'maxInfraestructura' ? 'Max Infraestructura' :
+                    d === 'maxCapitalHumano' ? 'Max Capital Humano' :
+                    d === 'maxMapeoGestion' ? 'Max Mapeo y gestión de datos' :
+                    d === 'maxDevMecanismos' ? 'Max Desarrollo de mecanismos de comunicación' :
+                    d === 'minNormatividad' ? 'Min Normatividad' :
+                    d === 'minInfraestructura' ? 'Min Infraestructura' :
+                    d === 'minCapitalHumano' ? 'Min Capital Humano' :
+                    d === 'minMapeoGestion' ? 'Min Mapeo y gestión de datos' :
+                    d === 'minDevMecanismos' ? 'Min Desarrollo de mecanismos de comunicación' :
+                                '?';
+        })
+        // posicionan las burbujas y titulos
+        .attr('x', d => categoriesXY[d][0] + 200)   
+        .attr('y', d => categoriesXY[d][1] + 50)
+        .attr('opacity', 1)
+    svg.select('.top3').selectAll('circle')
+        .on('mouseover', mouseOver2) 
+        .on('mouseout', mouseOut2) 
+    simulation2.stop()
+    
 }
 
 //Cleaning Function
 function clean(chartType) {
     let svg = d3.select('#vis').select('svg')
     if (chartType !== "chartStackedBar") {
-        svg.select('.stackedBar').transition().attr('visibility', 'hidden')
+        svg.select('.stackedBar').transition().attr('visibility', 'hidden');
     }
     if (chartType !== "chartBurbujas") {
         svg.selectAll('.burbujas').transition().attr('visibility', 'hidden');
     }
     if (chartType !== "chartMexicoPuntuacion") {
-        svg.select('.mapa').transition().attr('visibility', 'hidden')
-        svg.select('.leyendas').transition().attr('visibility', 'hidden')
+        svg.select('.mapa').transition().attr('visibility', 'hidden');
+        svg.select('.leyendas').transition().attr('visibility', 'hidden');
     }
+    if (chartType !== "chartTop3") {
+        svg.select('.top3').transition().attr('visibility', 'hidden');
+    }
+}
+
+function chartTop3() {
+    clean('chartTop3');
+    let svg = d3.select("#vis").select('svg');   
+    svg.selectAll('.top3').attr('visibility', 'visible');
+    simulation2.alpha(0.9).restart();
 }
 
 function chartStackedBar() {
@@ -841,7 +950,7 @@ function chartBurbujas() {
     simulation.restart()
 }
 
-let activationFunctions = [ chartStackedBar, chartMexicoPuntuacion, chartBurbujas, chartMaxPuntuacion, chartMinPuntuacion ]
+let activationFunctions = [ chartStackedBar, chartMexicoPuntuacion, chartBurbujas, chartTop3, chartMaxPuntuacion, chartMinPuntuacion ]
 let scroll = scroller().container(d3.select('#graphic'));
 scroll();
 
