@@ -5,7 +5,7 @@ let categoryLegend, salaryLegend
 
 const margin = {
     left: 170,
-    top: 50,
+    top: 80,
     bottom: 50,
     right: 20
 }
@@ -310,6 +310,22 @@ function drawInitial() {
         .attr('class', 'stackedBar')
         .selectAll("g")
         .data(layers);
+    
+    let background = svg.select(".stackedBar")
+        .append("g")
+        .selectAll(".barBG")
+        .data(dataStacked, d => d.Entidad);
+    
+    background.enter()
+        .append('rect')
+        .attr("class", "barBG")
+        .attr("style", "opacity: 0.08")
+        .attr('x', function(d) {return x(0);})
+        .attr('y', function(d) {return y(d.Entidad)})
+        .attr('height', y.bandwidth)
+        .attr('width', function(d) {return x(100);} )
+        .attr('fill', 'gray');
+
         
     let g = maing.enter().append("g")
         .attr("fill", function(d) {
@@ -335,10 +351,11 @@ function drawInitial() {
             });
             data["total"] = total;
             //console.log(data["total"])
+            console.log(data);
             return JSON.stringify(data);
-            //console.log(data)
         })
         .attr("width", function(d) {
+            //console.log(x(d[1]))
             return x(d[1]) - x(d[0]);
         })
         .attr("x", function(d) {
@@ -347,7 +364,9 @@ function drawInitial() {
         .attr("y", function(d) {
             return y(d.data.Entidad);
         })
-        .attr("height", y.bandwidth);  
+        .attr("height", y.bandwidth);
+    
+    
 
     rect.on("mouseover", function() {
         let currentEl = d3.select(this);
@@ -445,7 +464,7 @@ function drawInitial() {
         .attr("fill", "#000")
         .attr("font-weight", "bold")
         .attr("text-anchor", "start")
-        .text("Puntuación");
+        .text("Puntuación Total");
 
     let ele = svg.select(".stackedBar").append("g")
         .attr("transform", "translate(" + margin.left + ",0)")
@@ -500,7 +519,7 @@ function drawInitial() {
     let textTotal = svg.select(".stackedBar").selectAll(".text")
         .data(dataStacked, d => d.Entidad);
 
-    textTotal.exit().remove();
+    //textTotal.exit().remove();
     textTotal.enter().append("text")
         .attr("class", "text")
         .attr("text-anchor", "start")
@@ -508,7 +527,9 @@ function drawInitial() {
         .attr("font-size", 12)
         .attr("y", d => y(d.Entidad) + y.bandwidth() / 1.5)
         .attr("x", d => x(d.total) + 5)
-        .text(d => d.Total);
+        .text(d => d.total);
+
+    
 
     let helpers = {
         getDimensions: function(id) {
