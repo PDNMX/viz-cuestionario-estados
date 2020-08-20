@@ -311,6 +311,7 @@ function drawInitial() {
         .selectAll("g")
         .data(layers);
     
+    // bar background
     let background = svg.select(".stackedBar")
         .append("g")
         .selectAll(".barBG")
@@ -351,7 +352,7 @@ function drawInitial() {
             });
             data["total"] = total;
             //console.log(data["total"])
-            console.log(data);
+            //console.log(data);
             return JSON.stringify(data);
         })
         .attr("width", function(d) {
@@ -366,8 +367,6 @@ function drawInitial() {
         })
         .attr("height", y.bandwidth);
     
-    
-
     rect.on("mouseover", function() {
         let currentEl = d3.select(this);
         let fadeInSpeed = 120;
@@ -413,7 +412,6 @@ function drawInitial() {
             .attr("width", dims.w + 10)
             .attr("height", dims.h + 20);
     });
-
     rect.on("mousemove", function() {
         let currentEl = d3.select(this);
         currentEl.attr("r", 7);
@@ -515,6 +513,20 @@ function drawInitial() {
         .text(function(d, i) {
             return "";
         });
+
+    let colorLegend = d3.legendColor()
+        .scale(z)
+        .shapePadding(6.24)
+        .shapeWidth(25)
+        .shapeHeight(25)
+        .labelOffset(5);
+    let colorLegendG = svg.select(".stackedBar").append("g")
+        .attr("class", "color-legend")
+        //.attr("transform", "translate(596, 0)")
+        .attr("transform", "translate(" + (width - 100) + ", 85)")
+    colorLegendG.call(colorLegend);
+    // Move the text down a bit.
+    //colorLegendG.selectAll("text").attr("y", 4);
     
     let textTotal = svg.select(".stackedBar").selectAll(".text")
         .data(dataStacked, d => d.Entidad);
@@ -982,12 +994,13 @@ scroll.on('active', function (index) {
         .transition().duration(500)
         .style('opacity', function (d, i) {
             return i === index ? 1 : 0.1;
-        });
+    });
     activeIndex = index;
     let sign = (activeIndex - lastIndex) < 0 ? -1 : 1;
     //console.log(sign)
     let scrolledSections = d3.range(lastIndex + sign, activeIndex + sign, sign);
     scrolledSections.forEach(i => {
+        //i = i+2;
         activationFunctions[i]();
     })
     lastIndex = activeIndex;
