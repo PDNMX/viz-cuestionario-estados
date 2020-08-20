@@ -983,7 +983,7 @@ function chartBurbujas() {
     simulation.restart()
 }
 
-let activationFunctions = [ chartStackedBar, chartMexicoPuntuacion, chartBurbujas, chartTop3, chartMaxPuntuacion, chartMinPuntuacion ]
+let activationFunctions = [ chartStackedBar, chartMexicoPuntuacion, chartBurbujas, chartTop3, chartTop3, chartTop3, chartTop3, chartTop3 ]
 let scroll = scroller().container(d3.select('#graphic'));
 scroll();
 
