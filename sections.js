@@ -743,7 +743,7 @@ function mouseOut2(d, i) {
 
 function chartMaxMin(data, classObject) {
     let categories = ['max', 'min'];
-    let categoriesXY = {'max': [200, 400],'min': [500, 400]};
+    let categoriesXY = {'max': [200, 500],'min': [500, 500]};
     let svg = d3.select("#vis").select('svg'); 
     svg.select(`.${classObject}`).remove();
     let dataset = data;
@@ -763,8 +763,8 @@ function chartMaxMin(data, classObject) {
     .enter()
     .append('circle')
         .attr('fill', 'black')
-        .attr('r', 3)
-        .attr('cx', (d, i) => (d.puntajeTop))
+        .attr('r', 4)
+        /* .attr('cx', (d, i) => (d.puntajeTop)) */
     svg.select(`.${classObject}`).selectAll('.lab-text')
         .data(categories).enter()
         .append('text')
@@ -779,7 +779,7 @@ function chartMaxMin(data, classObject) {
         .attr('text-anchor', 'middle');
 
     svg.select(`.${classObject}`).selectAll('circle')
-        .transition().duration(400).delay((d, i) => i * 5)
+        .transition().duration(500).delay((d, i) => i * 50)
         .attr('r', d => tempEscala(d.puntajeTop) * 1.2)
         .attr('fill', d => {
             //categoryColorScale(d.tipoCat)
@@ -787,10 +787,7 @@ function chartMaxMin(data, classObject) {
                     d.tipoMedalla === 'plata' ? '#b4b8bc' :
                     d.tipoMedalla === 'bronce' ? '#d1a684' :
                                 '#fff';
-    });
-
-    svg.select(`.${classObject}`).selectAll('.cat-rect').transition().duration(300).delay((d, i) => i * 30)
-        .attr('opacity', 1);            
+    });       
     svg.select(`.${classObject}`).selectAll('.lab-text').transition().duration(300).delay((d, i) => i * 30)
         .text(d => {
             return d === 'max' ? 'Mejores Puntados' :
@@ -805,7 +802,7 @@ function chartMaxMin(data, classObject) {
         .on('mouseover', mouseOver2) 
         .on('mouseout', mouseOut2)
     tempSimulation
-        .force('charge', d3.forceManyBody().strength([2]))
+        /* .force('charge', d3.forceManyBody().strength([2])) */
         // posicionan las burbujas y titulos
         .force('x', d3.forceX(d => categoriesXY[d.tipoCat][0] + 200))
         .force('y', d3.forceY(d => categoriesXY[d.tipoCat][1] - 100))
