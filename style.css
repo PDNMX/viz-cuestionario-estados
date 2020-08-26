@@ -8,10 +8,10 @@ body {
 #sections {
     position: relative;
     display: inline-block;
-    width: 400px;
+    /* width: 400px; */
     top: 60px;
     z-index: 5;
-    margin-right: 50px;
+    /* margin-right: 50px; */
 }
 
 .categoryLegend {
@@ -68,8 +68,8 @@ strong {
     top: 0px;
     z-index: 1;
     margin-left: 0;
-    height: 1000px;
-    width: 1000px;
+    /* height: 1000px;
+    width: 1000px; */
 }
 
 .tick line {
@@ -179,3 +179,24 @@ a.txtFooter {
     float: left;
     display: block;
 }
+
+#tablaScore {
+    position: fixed;
+    /* width: 100%;
+    height: 100%; */
+    /* z-index: 110; */
+    /* left: 0px; */
+    /* background: blue; */
+    top: 70px;
+    /* display: block;  */
+    /* visibility: hidden; */
+}
+
+.containerPrincipal {
+    max-width: 1800px !important;
+}
+
+.centerProgress{
+    display:flex;
+    align-items:center;
+  }
