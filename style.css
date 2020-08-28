@@ -19,6 +19,9 @@ body {
     font-family: 'Noto Sans SC', sans-serif;
 }
 
+.tituloSeccion{
+    text-align: left;
+}
 .step {
     margin-bottom: 100px;
     height: 800px;
