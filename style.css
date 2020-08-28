@@ -14,13 +14,14 @@ body {
     /* margin-right: 50px; */
 }
 
+
 .categoryLegend {
     font-family: 'Noto Sans SC', sans-serif;
 }
 
 .step {
     margin-bottom: 100px;
-    height: 700px;
+    height: 800px;
     font-family: 'Noto Sans SC', sans-serif;
     font-weight: 400;
     line-height: 1.4em;
@@ -179,7 +180,11 @@ a.txtFooter {
     float: left;
     display: block;
 }
+#intro {
+    position: fixed;
+    top: 300px;
 
+}
 #tablaScore {
     position: fixed;
     /* width: 100%;
@@ -194,9 +199,28 @@ a.txtFooter {
 
 .containerPrincipal {
     max-width: 1800px !important;
+    font-family: 'Noto Sans SC', sans-serif;
 }
 
 .centerProgress{
     display:flex;
     align-items:center;
   }
+
+#principalTitle {
+    position: relative;
+    display: inline-block;
+    top: 60px;
+    width: 100%;
+}
+.centerText{
+    text-align: center;
+}
+#graficaUno {
+    position: relative;
+    display: inline-block;
+    /* width: 400px; */
+    top: 60px;
+    z-index: 5;
+    /* margin-right: 50px; */
+}

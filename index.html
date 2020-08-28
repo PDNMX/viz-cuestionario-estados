@@ -3,150 +3,246 @@
     <meta charset="UTF-8">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.css" />
-    <title>Resultado Cuestionarios</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.css"/>
+    <title>Avances de interconexión subnacional</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="background-color: rgba(102, 102, 102, 1) !important; z-index: 10;">
-		<div class="container containerPrincipal">
-			<div class="row">
-				<div class="col-md-12">
-					<a class="navbar-brand" href="https://plataformadigitalnacional.org"><img id="logoHeader" alt="PDN" src="img/pdn.png"></a>
-				</div>
-			</div>
-		</div>
-    </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+     style="background-color: rgba(102, 102, 102, 1) !important; z-index: 10;">
     <div class="container containerPrincipal">
-        <div id="tooltip"></div>
-        <div id="descargas" class="infoMap" style="display: block;">
-            <a class="btn btn-outline-secondary" href="https://docs.google.com/document/d/140jlza4x4kcLrDZvI4pARB8FfETwOG_IRZ6ICy9ma7A/export?format=pdf">Descarga la metodología</a>
-        </div>
         <div class="row">
-            
-            <div class="col-12 col-md-4">
-                <div id="descargas" class="infoMap" style="display: block;">
-                        <a class="btn btn-outline-secondary" href="https://docs.google.com/document/d/140jlza4x4kcLrDZvI4pARB8FfETwOG_IRZ6ICy9ma7A/export?format=pdf">Descarga la metodología</a>
-                    </div>
-                <div id="sections">
-                    
-                    <section class="step">
-                        <div class="title"></div>
-                        <br><br>
-                        <h1>Plataforma Digital Nacional y avances (pendiente)</h1>
-                        <p>Este tablero refleja el grado de avance en el desarrollo de los Sistemas 2 y 3 de la Plataforma Digital Nacional (PDN) por parte de las Secretarías Ejecutivas Estatales. Los resultados derivan de las respuestas al cuestionario que se realiza de manera trimestral y que es enviado por la SESNA y evalúa las siguientes categorías: I. Normatividad, II. Infraestructura, III. Capital Humano, IV. Mapeo y gestión de datos y V. Desarrollo de mecanismos de comunicación. 
-                            Haz click en el trimestre que quieras consultar para ver los resultados.
-                        </p>
-                        <select class="selectpicker">
-                            <option>Mustard</option>
-                            <option>Ketchup</option>
-                            <option>Barbecue</option>
-                          </select>
-                        <b>Aquí va copy de ultimo trimestre (Copy trimestre 1)</b>
-                        
-                    </section>
-                    <section class="step">
-                        <h2>Puntuación por entidad</h2>
-                        <p>Este mapa muestra la calificación total de cada uno de los estados. Al dar clic en cualquiera de los estados es posible consultar sus resultados en los cinco rubros evaluados. </p>
-                    </section>
-                    <section class = 'step'>
-                        <h2>Entidades con mayor puntaje</h2>
-                        <p>Esta visualización presenta los 10 estados con mayor puntuación.</p>
-                    </section>
-                    <section class="step">
-                        <h2>Normatividad</h2>
-                        <p>Esta categoría refiere al grado de avance de cada estado, en términos de la normatividad que deben aprobar para el funcionamiento de su Plataforma Digital Estatal o Sistema de Información. </p>
-                        <p>Aquí va copy de ultimo trimestre (Copy trimestre 1)</p>
-                    </section>
-                    <section class="step">
-                        <h2>Infraestructura</h2>
-                        <p>Esta categoría permite conocer si la Secretaría Ejecutiva Estatal cuenta con la infraestructura necesaria para almacenar y procesar la información que se desprende de los Sistemas 2 y 3, y si cuenta con los recursos financieros necesarios para adquirir/arrendar la infraestructura.</p>
-                        <p>Aquí va copy de ultimo trimestre por default (Copy trimestre 1)</p>
-                    </section>
-                    <section class="step">
-                        <h2>Capital humano</h2>
-                        <p>Esta categoría muestra si la Secretaría Ejecutiva Estatal cuenta con personal suficiente (interno o externo) para el desarrollo de su Plataforma Estatal o Sistema de información, así como su grado de conocimiento tecnológico y técnico para lograr la interconexión con la PDN.</p>
-                        <p>Aquí va copy de ultimo trimestre por default (Copy trimestre 1)</p>
-                    </section>
-                    <section class="step">
-                        <h2>Mapeo y gestión de datos</h2>
-                        <p>El mapeo y la gestión de datos consisten en identificar a los proveedores/generadores de la información de los Sistemas 2 y 3, así como el proceso para establecer una comunicación y los mecanismos necesarios para la transferencia y actualización de datos entre los generadores y la Secretaría Local. </p>
-                        <p>Aquí va copy de ultimo trimestre por default (Copy trimestre 1)</p>
-                    </section>
-                    <section class="step">
-                        <h2>Desarrollo de mecanismos de comunicación </h2>
-                        <p>Los mecanismos de comunicación o APIs son las piezas que permiten la comunicación o transferencia de datos entre las Secretarías Ejecutivas Estatales y la PDN. Esta categoría indica el avance en el desarrollo de los mismos. </p>
-                        <p>Aquí va copy de ultimo trimestre por default (Copy trimestre 1)</p>
-                        <span></span><span></span><span></span><span></span>
-                        
-                    </section>
-                </div>
-            </div>
-            <div class="col-12 col-md-8">
-                <div id="vis">
-                    <!-- <svg id='vector' preserveAspectRatio="xMinYMin meet" viewBox="0 0 960 500" style="width:100%;height:auto;"></svg> -->
-                </div>
-                <div class="container" id="tablaScore">
-                    <div class="row">
-                        <div class="offset-md-2 col-md-2" style="font-size: 11px;">Capital humano</div>
-                        <div class="col-md-2" style="font-size: 11px;">Desarrollo de mecanismos de comunicación</div>
-                        <div class="col-md-2" style="font-size: 11px;">Infraestructura</div>
-                        <div class="col-md-2" style="font-size: 11px;">Mapeo y gestión de datos</div>
-                        <div class="col-md-2" style="font-size: 11px;">Normatividad</div>
-                      </div>
-                </div>
+            <div class="col-md-12">
+                <a class="navbar-brand" href="https://plataformadigitalnacional.org"><img id="logoHeader" alt="PDN"
+                                                                                          src="img/pdn.png"></a>
             </div>
         </div>
-      </div>
-    
+
+    </div>
+</nav>
+
+<div class="container containerPrincipal">
+    <div id="tooltip"></div>
+    <div id="descargas" class="infoMap" style="display: block;">
+        <a class="btn btn-outline-secondary"
+           href="https://docs.google.com/document/d/140jlza4x4kcLrDZvI4pARB8FfETwOG_IRZ6ICy9ma7A/export?format=pdf">Descarga
+            la metodología</a>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <div id="descargas" class="infoMap" style="display: block;">
+                <a class="btn btn-outline-secondary"
+                   href="https://docs.google.com/document/d/140jlza4x4kcLrDZvI4pARB8FfETwOG_IRZ6ICy9ma7A/export?format=pdf">Descarga
+                    la metodología</a>
+            </div>
+            <div id="sections">
+                <section class="step">
+                    <h2>Avances de interconexión subnacional Sistemas 2 y 3
+                    </h2>
+                    <p>Este tablero refleja el grado de avance en el desarrollo de los Sistemas 2 y 3 de la Plataforma
+                        Digital
+                        Nacional (PDN) por parte de las Secretarías Ejecutivas Estatales. Los resultados derivan de las
+                        respuestas a los cuestionarios que se realizan de manera trimestral por parte de la SESNA y que
+                        evalúan
+                        las siguientes categorías:
+                    <ol>
+                        <li>Normatividad</li>
+                        <li>Infraestructura</li>
+                        <li>Capital Humano</li>
+                        <li>Mapeo y gestión de datos</li>
+                        <li>Desarrollo de mecanismos de comunicación</li>
+                    </ol>
+                    </p>
+                    <p>La tabla de la derecha presenta los resultados de los estados que respondieron el cuestionario.
+                        Cada columna corresponde una categoría evaluada, en la barra sombreada se presenta el resultado
+                        máximo posible, la parte con color presenta el porcentaje de avance de la Secretaría Ejecutiva
+                        Local.
+                    </p>
+                    <p>
+                        En el primer trimestre se cuenta con los resultados de la participación de 27 estados.Cabe
+                        señalar que Nuevo León, Morelos y San Luis Potosí no reportaron avances mientras que Chiapas y
+                        la Ciudad de México no han completado la conformación de su Sistema Local Anticorrupción.
+
+                    </p>
 
 
-    <footer class="footer">
-		<div class="container">
-			<!-- <span class="text-muted">Place sticky footer content here.</span> -->
-			<div id="footer1" class="row">
-				<div class="col-md-6">
-					<img id="logoFooter" alt="PDN" src="img/pdn.png">
-					<p style="font-weight: bold;">Plataforma Digital Nacional</p>
-					<br>
-					<br>
-					<p>Inteligencia de Datos Anticorrupción</p>
-					<img id="libreUso" alt="PDN" src="img/libre_uso.png">
-					
-				</div>
-				<div class="col-md-3">
-					<b class="txtFooter" style="color: #34b3eb; font-weight: bold;">Sistemas</b>
-					<p class="txtFooter"></p>
-					<p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/declaraciones">Declaraciones</a></p>
-					<p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/servidores">Servidores en contrataciones</a></p>
-					<p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/sancionados">Sanciones</a></p>
-					<p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/contrataciones">Contrataciones</a></p>
-				</div>
-				<div class="col-md-3">
-					<b class="txtFooter" style="color: #34b3eb; font-weight: bold">PDN</b>
-					<p class="txtFooter"></p>
-					<p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/blog">Blog</a></p>
-					<p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/faq">Preguntas frecuentes</a></p>
-					<p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/about">¿Qué es la PDN?</a></p>
-					<p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/terminos">Términos de uso</a></p>
-				</div>
-			</div>
-			
-		</div>
-		<div id="footerFin">
-			<div class="col-md-12" align="center">
-				<img id="logoSesna" alt="PDN" src="img/logoSesna.png">
-			</div>
-		</div>
-	</footer>
-    
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
-    <script src="https://d3js.org/d3-geo.v1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js" integrity="sha512-wNH6xsp2n8CfB91nrBtfc4sfLwYPBMjSWVUwQOp60AYYXH6i8yCwuKFZ4rgK2i6pQek/b+bSyR7b01/922IBzQ==" crossorigin="anonymous"></script>
+                </section>
+                <section class="step">
+                    <h2>Puntuación por entidad</h2>
+                    <p>Este mapa muestra la calificación total de cada uno de los estados. Al dar clic en cualquiera de
+                        los estados es posible consultar sus resultados en los cinco rubros evaluados. </p>
+                </section>
+                <section class='step'>
+                    <h2>Entidades con mayor puntaje</h2>
+                    <p>Esta visualización presenta los 10 estados con mayor puntuación total, al seleccionar cada uno
+                        podrás obtener su puntaje general.</p>
+                    <p>En el primer trimestre, los 10 estados con mayor puntuación son: Estado de México (94 puntos),
+                        Michoacán(81 puntos), Tlaxcala (79 puntos), Tabasco(79 puntos), Puebla(77 puntos), Sonora(72
+                        puntos), Jalisco(70 puntos), Aguascalientes(69 puntos), Zacatecas(66 puntos) y Durango(55
+                        puntos).
+                    </p>
+                </section>
+                <section class="step">
+                    <h2>Normatividad</h2>
+                    <p>Esta categoría se refiere al grado de avance de cada Secretaría Ejecutiva Local, en términos de
+                        la normatividad que deben aprobar para el funcionamiento de su Plataforma Digital Estatal o
+                        Sistema de Información.
+                        El puntaje total de la categoría son <b>10 puntos</b>.
+                    </p>
+                    <p>En el primer trimestre los estados de: Estado de México, Durango y Aguascalientes mostraron el
+                        mayor grado de avance con 10 puntos; seguidos por Puebla, Chihuahua y Oaxaca con 8 puntos y
+                        Michoacán, Tlaxcala, Tabasco, Sonora, Jalisco, Zacatecas, Campeche, Sinaloa, Guerrero, Yucatán,
+                        Colima, Baja California, Hidalgo, Nayarit, Guanajuato y
+                        Tamaulipas con 6 puntos.
+                        Los estados de: Veracruz, Querétaro y Coahuila mostraron el menor grado de avance con 0 puntos;
+                        seguidos por Quintana Roo con 1 punto y Baja California Sur con 5 puntos.
+                    </p>
+                </section>
+                <section class="step">
+                    <h2>Infraestructura</h2>
+                    <p>Esta categoría permite conocer si la Secretaría Ejecutiva Estatal cuenta con la infraestructura
+                        necesaria(o los recursos para rentarla o adquirirla) para almacenar y procesar la información
+                        que se desprende de los Sistemas 2 y 3.
+                        El puntaje total de la categoría son <b>20 puntos</b>.
+                    </p>
+                    <p>En el primer trimestre los estados de: Estado de México, Durango, Aguascalientes, Puebla,
+                        Zacatecas, Tlaxcala, Tabasco, Sonora, Michoacán y Jalisco mostraron el mayor grado de avance con
+                        20 puntos; seguido por Chihuahua con 14 puntos y; Campeche, Yucatán y Coahuila con 13 puntos.
+                        Los estados de: Tamaulipas, Hidalgo, Baja California Sur y Quintana Roo muestran el menor grado
+                        de avance con 0 puntos; seguidos por Oaxaca, Sinaloa, Guerrero, Colima, Baja California,
+                        Nayarit, Guanajuato y Veracruz con 6 puntos y Querétaro con 7 puntos.
+                    </p>
+                </section>
+                <section class="step">
+                    <h2>Capital humano</h2>
+                    <p>Esta categoría muestra si la Secretaría Ejecutiva Estatal cuenta con personal suficiente (interno
+                        o externo) para el desarrollo de su Plataforma Estatal o Sistema de información, así como si
+                        éste cuenta con el grado de conocimiento técnico vigente necesario para lograr la interconexión
+                        con la PDN.
+                        El puntaje total para esta categoría son <b>10 puntos</b>.
+                    </p>
+                    <p>En el primer trimestre los estados de: Aguascalientes, Puebla, Tlaxcala, Tabasco, Sonora,
+                        Jalisco, Chihuahua, Guerrero, Colima, Nayarit, Guanajuato, muestran el mayor puntaje con 10
+                        puntos; seguidos por Yucatán con 9 y el Estado de México, Zacatecas y
+                        Campeche con 8 puntos.
+                        Los estados de: Querétaro,Baja California Sur y Tamaulipas muestran el menor grado de avance con
+                        0, 2 y 4 puntos respectivamente.
+                    </p>
+                </section>
+                <section class="step">
+                    <h2>Mapeo y gestión de datos</h2>
+                    <p>El mapeo y la gestión de datos consisten en identificar a los proveedores/generadores de la
+                        información de los Sistemas 2 y 3, así como el proceso para establecer comunicación y los
+                        mecanismos necesarios para la transferencia y actualización de datos entre los
+                        proveedores/generadores y la Secretaría Ejecutiva Estatal.
+                        El puntaje total para la categoría son <b>30 puntos</b>.
+                    </p>
+                    <p>En el primer trimestre trimestre los estados de: Estado de México (26 puntos), Puebla (19 puntos)
+                        y Michoacán (18 puntos) mostraron el mayor grado de avance. En el caso del Estado de México,su
+                        puntuación refleja en que ya existe una conexión con 2 de las 3 APIs consideradas.
+                        Los estados de: Guerrero, Guanajuato, Baja California, Quintana Roo, Baja California Sur y
+                        Querétaro, mostraron el menor grado de avance con 0 puntos; seguidos por Nayarit con 1 punto y
+                        Aguascalientes, Chihuahua, Yucatán y Tamaulipas con 2 puntos.
+                    </p>
+                </section>
+                <section class="step">
+                    <h2>Desarrollo de mecanismos de comunicación </h2>
+                    <p>Los mecanismos de comunicación o APIs son las piezas que permiten la comunicación o transferencia
+                        de datos entre las Secretarías Ejecutivas Estatales y la PDN. Esta categoría indica el avance en
+                        el desarrollo de los mismos para los Sistemas 2 y 3.
+                        El puntaje total para la categoría son
+                        <b>30 puntos</b>
+                        .
+                        </d>
+                    <p>En el primer trimestre los estados de: Estado de México, Michoacán, Tlaxcala y Tabasco mostraron
+                        el mayor grado de avance con 30 puntos, seguidos por: Sonora y Aguascalientes (27 puntos) y
+                        Jalisco (25 puntos).
+                        Los estados de: Hidalgo, Coahuila, Veracruz, Tamaulipas, Nayarit, Guanajuato, Quintana Roo, Baja
+                        California Sur y Querétaro mostraron el menor grado de avance con 0 puntos; seguidos por Colima,
+                        Oaxaca, Yucatán y Baja California con 5 puntos y Campeche con 10 puntos.
+                    </p>
+                    <span></span><span></span><span></span><span></span>
 
-    <script src = 'scroller.js'></script>
-    <script src = 'sections.js'></script>
+                </section>
+            </div>
+        </div>
+        <div class="col-12 col-md-8">
+            <div id="vis">
+
+                <!-- <svg id='vector' preserveAspectRatio="xMinYMin meet" viewBox="0 0 960 500" style="width:100%;height:auto;"></svg> -->
+            </div>
+            <div class="container" id="tablaScore">
+                <div class="row">
+                    <div class="offset-md-2 col-md-2" style="font-size: 11px;">Capital humano</div>
+                    <div class="col-md-2" style="font-size: 11px;">Desarrollo de mecanismos de comunicación</div>
+                    <div class="col-md-2" style="font-size: 11px;">Infraestructura</div>
+                    <div class="col-md-2" style="font-size: 11px;">Mapeo y gestión de datos</div>
+                    <div class="col-md-2" style="font-size: 11px;">Normatividad</div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <div class="container">
+        <!-- <span class="text-muted">Place sticky footer content here.</span> -->
+        <div id="footer1" class="row">
+            <div class="col-md-6">
+                <img id="logoFooter" alt="PDN" src="img/pdn.png">
+                <p style="font-weight: bold;">Plataforma Digital Nacional</p>
+                <br>
+                <br>
+                <p>Inteligencia de Datos Anticorrupción</p>
+                <img id="libreUso" alt="PDN" src="img/libre_uso.png">
+
+            </div>
+            <div class="col-md-3">
+                <b class="txtFooter" style="color: #34b3eb; font-weight: bold;">Sistemas</b>
+                <p class="txtFooter"></p>
+                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/declaraciones">Declaraciones</a>
+                </p>
+                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/servidores">Servidores
+                    en contrataciones</a></p>
+                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/sancionados">Sanciones</a>
+                </p>
+                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/contrataciones">Contrataciones</a>
+                </p>
+            </div>
+            <div class="col-md-3">
+                <b class="txtFooter" style="color: #34b3eb; font-weight: bold">PDN</b>
+                <p class="txtFooter"></p>
+                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/blog">Blog</a></p>
+                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/faq">Preguntas
+                    frecuentes</a></p>
+                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/about">¿Qué es la
+                    PDN?</a></p>
+                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/terminos">Términos
+                    de uso</a></p>
+            </div>
+        </div>
+
+    </div>
+    <div id="footerFin">
+        <div class="col-md-12" align="center">
+            <img id="logoSesna" alt="PDN" src="img/logoSesna.png">
+        </div>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"
+        integrity="sha512-wNH6xsp2n8CfB91nrBtfc4sfLwYPBMjSWVUwQOp60AYYXH6i8yCwuKFZ4rgK2i6pQek/b+bSyR7b01/922IBzQ=="
+        crossorigin="anonymous"></script>
+
+<script src='scroller.js'></script>
+<script src='sections.js'></script>
 
 </body>
 </html>

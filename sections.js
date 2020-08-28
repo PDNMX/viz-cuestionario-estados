@@ -589,6 +589,12 @@ function createTabla(data) {
     });
 }
 
+function intro() {
+    let classShow = 'intro';
+    clean(classShow);
+    document.getElementById("intro").style.display = "block";
+}
+
 function chartTabla() {
     let classShow = 'tablaScore';
     clean(classShow);
@@ -681,7 +687,7 @@ scroll.on('active', function (index) {
     });
     activeIndex = index;
     let sign = (activeIndex - lastIndex) < 0 ? -1 : 1;
-    //console.log(sign)
+    console.log(sign)
     let scrolledSections = d3.range(lastIndex + sign, activeIndex + sign, sign);
     scrolledSections.forEach(i => {
         //i = i+2;
