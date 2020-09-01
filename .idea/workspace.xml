@@ -4,6 +4,8 @@
     <list default="true" id="f5a6b4ec-4e2f-466d-97f5-f131595fee0e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sections.js" beforeDir="false" afterPath="$PROJECT_DIR$/sections.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +39,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -48,7 +51,8 @@
       <updated>1598465738141</updated>
       <workItem from="1598465739203" duration="2770000" />
       <workItem from="1598549092532" duration="6062000" />
-      <workItem from="1598565779560" duration="12393000" />
+      <workItem from="1598565779560" duration="17492000" />
+      <workItem from="1598886323993" duration="20451000" />
     </task>
     <servers />
   </component>

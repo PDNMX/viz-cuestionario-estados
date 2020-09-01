@@ -227,3 +227,22 @@ a.txtFooter {
     z-index: 5;
     /* margin-right: 50px; */
 }
+
+.barraCH {
+    background-color: #674ea7 !important;
+}
+.barraMC {
+    background-color: #fbbc04 !important;
+}
+
+.barraInf{
+    background-color: #34a853 !important;
+}
+
+.barraGD{
+    background-color: #ff6d01 !important;
+}
+
+.barraNor{
+    background-color: #317A93 !important;
+}
