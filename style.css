@@ -9,7 +9,7 @@ body {
     position: relative;
     display: inline-block;
     /* width: 400px; */
-    top: 60px;
+    top: 100px;
     z-index: 5;
     /* margin-right: 50px; */
 }
@@ -29,7 +29,7 @@ body {
     font-weight: 400;
     line-height: 1.4em;
     text-align: justify;
-    display: flex;
+    /*display: flex;*/
     flex-direction: column;
     justify-content: space-around;
 }
@@ -48,6 +48,7 @@ h1, h2 {
     font-weight: 700;
     text-align: right;
     line-height: 32px;
+    margin-bottom: 2rem !important;
 }
 
 h1 {
@@ -195,7 +196,7 @@ a.txtFooter {
     /* z-index: 110; */
     /* left: 0px; */
     /* background: blue; */
-    top: 70px;
+    top: 100px;
     /* display: block;  */
     /* visibility: hidden; */
 }
@@ -245,4 +246,8 @@ a.txtFooter {
 
 .barraNor{
     background-color: #34B3EB !important;
+}
+
+p{
+    margin-bottom: 2rem !important;
 }
