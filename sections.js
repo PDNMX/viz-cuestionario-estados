@@ -504,12 +504,12 @@ function chartMaxMin(data, classObject) {
             return d.tipoMedalla === 'oro' ? '#1f6e89' :
                 d.tipoMedalla === 'plata' ? '#519ebe' :
                     d.tipoMedalla === 'bronce' ? '#adccd9' :
-                        d.tipoMedalla === 'oroNor' ? '#317A93':
-                            d.tipoMedalla === 'plataNor' ? '#649BAE':
-                                d.tipoMedalla === 'bronceNor' ? '#8BB4C2':
+                        d.tipoMedalla === 'oroNor' ? '#34B3EB':
+                            d.tipoMedalla === 'plataNor' ? '#8BCBD3':
+                                d.tipoMedalla === 'bronceNor' ? '#C4E3E4':
                                     d.tipoMedalla === 'oroInf' ? '#34A853':
-                                        d.tipoMedalla === 'plataInf' ? '#7BBCA0':
-                                            d.tipoMedalla === 'bronceInf' ? '#9CCDB8':
+                                        d.tipoMedalla === 'plataInf' ? '#8BCE9D':
+                                            d.tipoMedalla === 'bronceInf' ? '#E1F4E7':
                                                 d.tipoMedalla === 'oroCH' ? '#674EA7':
                                                     d.tipoMedalla === 'plataCH' ? '#737FA6':
                                                         d.tipoMedalla === 'bronceCH' ? '#96A0BD':
