@@ -442,7 +442,7 @@ function mouseOver2(d, i) {
             return ['oroNor','plataNor','bronceNor'].includes(d.tipoMedalla) ? '#34B3EB' :
                 ['oroInf','plataInf','bronceInf'].includes(d.tipoMedalla)? '#34A853' :
                 ['oroCH','plataCH','bronceCH'].includes(d.tipoMedalla) ? '#674EA7' :
-               ['oroDG','plataDG','bronceDG'].includes(d.tipoMedalla) ? '#FF6D01' :
+               ['oroDG','plataDG','bronceGD'].includes(d.tipoMedalla) ? '#FF6D01' :
                ['oroMC','plataMC','bronceMC'].includes(d.tipoMedalla) ? '#FBBC04' :
                                                                         '#fff';
         })
