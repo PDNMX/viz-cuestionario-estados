@@ -60,7 +60,6 @@ function drawInitial() {
         return d3.descending(+a.gsx$puntajetotal.$t, +b.gsx$puntajetotal.$t);
     }).slice(0, 10);
 
-    //console.log(topData)
     simulation = d3.forceSimulation(topData)
     // Define each tick of simulation
     simulation.on('tick', () => {
@@ -93,17 +92,17 @@ function drawInitial() {
         .attr('fill', (d, i) => {
             return colorScaleBlue[i]
         });
-
-    labels = svg.select('.burbujas').selectAll('circle')
-        .data(topData, d => d)
+    labels = svg.select('.burbujas').selectAll('text')
+        .data(topData)
         .enter()
         .append('text')
-        .text(d => d.gsx$estado.$t)
+        .text(function (d){return  d.gsx$estado.$t;})
         .style('text-anchor', 'middle')
         .style('pointer-events', 'none')
         .style("font-size", function (d) {
             return Math.min(2 * d.gsx$puntajetotal.$t, (2 * d.gsx$puntajetotal.$t - 8) / this.getComputedTextLength() * 10) + "px";
-        });
+        })
+    ;
 
     // Add mouseover and mouseout events for all circles
     // Changes opacity and adds border

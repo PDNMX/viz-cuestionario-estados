@@ -231,21 +231,26 @@ a.txtFooter {
 
 .barraCH {
     background-color: #674ea7 !important;
+    font-size: 0.9375rem !important;;
 }
 .barraMC {
     background-color: #fbbc04 !important;
+    font-size: 0.9375rem !important;;
 }
 
 .barraInf{
     background-color: #34a853 !important;
+    font-size: 0.9375rem !important;;
 }
 
 .barraGD{
     background-color: #ff6d01 !important;
+    font-size: 0.9375rem !important;;
 }
 
 .barraNor{
     background-color: #34B3EB !important;
+    font-size: 0.9375rem !important;;
 }
 
 p{
