@@ -251,3 +251,8 @@ a.txtFooter {
 p{
     margin-bottom: 2rem !important;
 }
+
+.categoryName{
+    font-size: 0.9375rem;
+    text-align: center;
+}
