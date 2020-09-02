@@ -439,11 +439,11 @@ function mouseOver2(d, i) {
         .attr('opacity', 1)
         .attr('stroke-width', 5)
         .attr('stroke', function (d) {
-            return ['oroNor','plataNor','bronceNor'].includes(d.tipoMedalla) ? '#34B3EB' :
-                ['oroInf','plataInf','bronceInf'].includes(d.tipoMedalla)? '#34A853' :
-                ['oroCH','plataCH','bronceCH'].includes(d.tipoMedalla) ? '#674EA7' :
-               ['oroDG','plataDG','bronceGD'].includes(d.tipoMedalla) ? '#FF6D01' :
-               ['oroMC','plataMC','bronceMC'].includes(d.tipoMedalla) ? '#FBBC04' :
+            return ['oroNor','plataNor','bronceNor'].includes(d.tipoMedalla) ? '#237BA1' :
+                ['oroInf','plataInf','bronceInf'].includes(d.tipoMedalla)? '#1A562A' :
+                ['oroCH','plataCH','bronceCH'].includes(d.tipoMedalla) ? '#463672' :
+               ['oroGD','plataGD','bronceGD'].includes(d.tipoMedalla) ? '#9F4401' :
+               ['oroMC','plataMC','bronceMC'].includes(d.tipoMedalla) ? '#AB8004' :
                                                                         '#fff';
         })
 
