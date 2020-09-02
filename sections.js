@@ -46,7 +46,6 @@ function createScales() {
 }
 
 function drawInitial() {
-    console.log("Entre");
     let svg = d3.select("#vis")
         .append('svg')
         .attr('width', 1000)
@@ -59,7 +58,7 @@ function drawInitial() {
     let topData = dataset.sort(function (a, b) {
         return d3.descending(+a.gsx$puntajetotal.$t, +b.gsx$puntajetotal.$t);
     }).slice(0, 10);
-
+   // console.log("topData:", topData)
     simulation = d3.forceSimulation(topData)
     // Define each tick of simulation
     simulation.on('tick', () => {
@@ -78,7 +77,7 @@ function drawInitial() {
     simulation.stop()
     // Selection of all the circles
 
-    let colorScaleBlue =  ["#1f6e89","#317a93","#43869d","#5592a7","#669db1","#78a9bb","#8ab5c5","#9cc1cf","#a5c7d4", "#ADCCD8"];
+    let colorScaleBlue = ["#1f6e89", "#317a93", "#43869d", "#5592a7", "#669db1", "#78a9bb", "#8ab5c5", "#9cc1cf", "#a5c7d4", "#ADCCD8"];
 
     nodes = svg
         .append("g")
@@ -96,7 +95,9 @@ function drawInitial() {
         .data(topData)
         .enter()
         .append('text')
-        .text(function (d){return  d.gsx$estado.$t;})
+        .text(function (d) {
+            return d.gsx$estado.$t;
+        })
         .style('text-anchor', 'middle')
         .style('pointer-events', 'none')
         .style("font-size", function (d) {
@@ -123,7 +124,7 @@ function drawInitial() {
             .style('top', (d3.event.pageY - 25) + 'px')
             .style('display', 'inline-block')
             .html(`<strong>Estado:</strong> ${d.gsx$estado.$t[0] + d.gsx$estado.$t.slice(1,).toLowerCase()} 
-                <br> <strong>Puntuación:</strong> ${d.gsx$puntajetotal.$t}`)
+                <br> <strong>Puntuación:</strong> ${Math.round(d.gsx$puntajetotal.$t)}`)
     }
 
     function mouseOut(d, i) {
@@ -433,19 +434,25 @@ function drawInitial() {
 }
 
 function mouseOver2(d, i) {
-    //console.log('hi')
     d3.select(this)
         .transition('mouseover').duration(100)
         .attr('opacity', 1)
         .attr('stroke-width', 5)
-        .attr('stroke', 'black')
+        .attr('stroke', function (d) {
+            return ['oroNor','plataNor','bronceNor'].includes(d.tipoMedalla) ? '#34B3EB' :
+                ['oroInf','plataInf','bronceInf'].includes(d.tipoMedalla)? '#34A853' :
+                ['oroCH','plataCH','bronceCH'].includes(d.tipoMedalla) ? '#674EA7' :
+               ['oroDG','plataDG','bronceDG'].includes(d.tipoMedalla) ? '#FF6D01' :
+               ['oroMC','plataMC','bronceMC'].includes(d.tipoMedalla) ? '#FBBC04' :
+                                                                        '#fff';
+        })
 
     d3.select('#tooltip')
         .style('left', (d3.event.pageX + 10) + 'px')
         .style('top', (d3.event.pageY - 25) + 'px')
         .style('display', 'inline-block')
         .html(`<strong>Estado:</strong> ${d.entidad[0] + d.entidad.slice(1,).toLowerCase()} 
-            <br> <strong>Puntuación por categoría:</strong> ${d.puntajeTop}`)
+            <br> <strong>Puntuación:</strong> ${d.puntajeTop}`)
 }
 
 function mouseOut2(d, i) {
@@ -460,7 +467,7 @@ function mouseOut2(d, i) {
 
 function chartMaxMin(data, classObject) {
     let categories = ['max', 'min'];
-    let categoriesXY = {'max': [200, 500], 'min': [500, 500]};
+    let categoriesXY = {'max': [200, 500], 'min': [600, 500]};
     let svg = d3.select("#vis").select('svg');
     svg.select(`.${classObject}`).remove();
     let dataset = data;
@@ -479,7 +486,6 @@ function chartMaxMin(data, classObject) {
         .data(dataset)
         .enter()
         .append('circle')
-        .attr('fill', 'black')
         .attr('r', 4)
     /* .attr('cx', (d, i) => (d.puntajeTop)) */
     svg.select(`.${classObject}`).selectAll('.lab-text')
@@ -491,7 +497,7 @@ function chartMaxMin(data, classObject) {
         .raise()
     svg.select(`.${classObject}`).selectAll('.lab-text')
         .attr('font-family', 'Noto Sans SC')
-        .attr('font-size', '14px')
+        .attr('font-size', '0.9375rem')
         .attr('fill', 'black')
         .attr('text-anchor', 'middle');
 
@@ -503,27 +509,28 @@ function chartMaxMin(data, classObject) {
             return d.tipoMedalla === 'oro' ? '#1f6e89' :
                 d.tipoMedalla === 'plata' ? '#519ebe' :
                     d.tipoMedalla === 'bronce' ? '#adccd9' :
-                        d.tipoMedalla === 'oroNor' ? '#34B3EB':
-                            d.tipoMedalla === 'plataNor' ? '#8BCBD3':
-                                d.tipoMedalla === 'bronceNor' ? '#C4E3E4':
-                                    d.tipoMedalla === 'oroInf' ? '#34A853':
-                                        d.tipoMedalla === 'plataInf' ? '#8BCE9D':
-                                            d.tipoMedalla === 'bronceInf' ? '#E1F4E7':
-                                                d.tipoMedalla === 'oroCH' ? '#674EA7':
-                                                    d.tipoMedalla === 'plataCH' ? '#737FA6':
-                                                        d.tipoMedalla === 'bronceCH' ? '#96A0BD':
-                                                            d.tipoMedalla === 'oroGD' ? '#FF6D01':
-                                                                d.tipoMedalla === 'plataGD' ? '#EC9054':
-                                                                    d.tipoMedalla === 'bronceGD' ? '#F1AE82':
-                                                                        d.tipoMedalla === 'oroMC' ? '#FBBC04':
-                                                                            d.tipoMedalla === 'plataMC' ? '#FAD15A':
-                                                                                d.tipoMedalla === 'bronceMC' ? '#FAE9B2':
-                        '#fff';
+                        d.tipoMedalla === 'oroNor' ? '#34B3EB' :
+                            d.tipoMedalla === 'plataNor' ? '#8BCBD3' :
+                                d.tipoMedalla === 'bronceNor' ? '#C4E3E4' :
+                                    d.tipoMedalla === 'oroInf' ? '#34A853' :
+                                        d.tipoMedalla === 'plataInf' ? '#8BCE9D' :
+                                            d.tipoMedalla === 'bronceInf' ? '#E1F4E7' :
+                                                d.tipoMedalla === 'oroCH' ? '#674EA7' :
+                                                    d.tipoMedalla === 'plataCH' ? '#737FA6' :
+                                                        d.tipoMedalla === 'bronceCH' ? '#96A0BD' :
+                                                            d.tipoMedalla === 'oroGD' ? '#FF6D01' :
+                                                                d.tipoMedalla === 'plataGD' ? '#EC9054' :
+                                                                    d.tipoMedalla === 'bronceGD' ? '#F1AE82' :
+                                                                        d.tipoMedalla === 'oroMC' ? '#FBBC04' :
+                                                                            d.tipoMedalla === 'plataMC' ? '#FAD15A' :
+                                                                                d.tipoMedalla === 'bronceMC' ? '#FAE9B2' :
+                                                                                    '#fff';
         });
+
     svg.select(`.${classObject}`).selectAll('.lab-text').transition().duration(300).delay((d, i) => i * 30)
         .text(d => {
-            return d === 'max' ? 'Mejores Puntados' :
-                d === 'min' ? 'Peores Puntuados' :
+            return d === 'max' ? 'Mayor puntaje' :
+                d === 'min' ? 'Menor puntaje' :
                     '?';
         })
         // posicionan las burbujas y titulos
