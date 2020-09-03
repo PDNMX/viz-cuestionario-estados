@@ -437,7 +437,7 @@ function mouseOver2(d, i) {
     d3.select(this)
         .transition('mouseover').duration(100)
         .attr('opacity', 1)
-        .attr('stroke-width', 5)
+        .attr('stroke-width', 3)
         .attr('stroke', function (d) {
             return ['oroNor','plataNor','bronceNor'].includes(d.tipoMedalla) ? '#237BA1' :
                 ['oroInf','plataInf','bronceInf'].includes(d.tipoMedalla)? '#1A562A' :
