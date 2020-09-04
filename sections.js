@@ -116,8 +116,8 @@ function drawInitial() {
         d3.select(this)
             .transition('mouseover').duration(100)
             .attr('opacity', 1)
-            .attr('stroke-width', 5)
-            .attr('stroke', 'black')
+            .attr('stroke-width', 3)
+            .attr('stroke', '#154B5F')
 
         d3.select('#tooltip')
             .style('left', (d3.event.pageX + 10) + 'px')
@@ -157,7 +157,8 @@ function drawInitial() {
         .join("path")
         .attr('class', 'entidad')
         .on('click', function (d) {
-            alert(d.properties.entidad)
+            alert(d.properties.entidad);
+
         })
         .attr("d", path);
 
@@ -694,10 +695,6 @@ function chartMexicoPuntuacion() {
                                                     d.properties.calificacion === 0 ? '#DC143C' :
                                                         'rgba(255, 255, 255, 0)';
         })
-        /*let dataLegend = [{"color":"#b64547","value":0},{"color":"#b64547","value":10},{"color":"#cb5859","value":20},{"color":"#f06c6e","value":30},
-            {"color":"#f49899","value":40},{"color":"#efbcbd","value":50},{"color":"#adccd9","value":60},
-            {"color":"#58accf","value":70},{"color":"#519ebe","value":80},{"color":"#3887a8","value":90},{"color":"#1f6e89","value":100}];
-    */
         .attr("stroke-width", 2)
         .attr("stroke-opacity", 1)
         .attr("fill-opacity", 0.5)
