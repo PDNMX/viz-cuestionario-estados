@@ -58,7 +58,7 @@ function drawInitial() {
     let topData = dataset.sort(function (a, b) {
         return d3.descending(+a.gsx$puntajetotal.$t, +b.gsx$puntajetotal.$t);
     }).slice(0, 10);
-   // console.log("topData:", topData)
+    // console.log("topData:", topData)
     simulation = d3.forceSimulation(topData)
     // Define each tick of simulation
     simulation.on('tick', () => {
@@ -133,7 +133,7 @@ function drawInitial() {
 
         d3.select(this)
             .transition('mouseout').duration(100)
-            .attr('opacity', 0.8)
+            /*.attr('opacity', 0.8)*/
             .attr('stroke-width', 0)
     }
 
@@ -157,8 +157,15 @@ function drawInitial() {
         .join("path")
         .attr('class', 'entidad')
         .on('click', function (d) {
-            alert(d.properties.entidad);
-
+            $('#mapaModal').modal('toggle')
+            $('#modalTitle').text(d.properties.entidad);
+            $('#pntTotal').val(Math.round(d.properties.calificacion));
+            $('#pntNormatividad').val(Math.round(d.properties.pntNor));
+            $('#pntInf').val(Math.round(d.properties.pntInf));
+            $('#pntCH').val(Math.round(d.properties.pntCH));
+            $('#pntGD').val(Math.round(d.properties.pntGD));
+            $('#pntMC').val(Math.round(d.properties.pntMC));
+            $('#modalHeader').css('background-color', d.color);
         })
         .attr("d", path);
 
@@ -440,12 +447,12 @@ function mouseOver2(d, i) {
         .attr('opacity', 1)
         .attr('stroke-width', 3)
         .attr('stroke', function (d) {
-            return ['oroNor','plataNor','bronceNor'].includes(d.tipoMedalla) ? '#237BA1' :
-                ['oroInf','plataInf','bronceInf'].includes(d.tipoMedalla)? '#1A562A' :
-                ['oroCH','plataCH','bronceCH'].includes(d.tipoMedalla) ? '#463672' :
-               ['oroGD','plataGD','bronceGD'].includes(d.tipoMedalla) ? '#9F4401' :
-               ['oroMC','plataMC','bronceMC'].includes(d.tipoMedalla) ? '#AB8004' :
-                                                                        '#fff';
+            return ['oroNor', 'plataNor', 'bronceNor'].includes(d.tipoMedalla) ? '#237BA1' :
+                ['oroInf', 'plataInf', 'bronceInf'].includes(d.tipoMedalla) ? '#1A562A' :
+                    ['oroCH', 'plataCH', 'bronceCH'].includes(d.tipoMedalla) ? '#463672' :
+                        ['oroGD', 'plataGD', 'bronceGD'].includes(d.tipoMedalla) ? '#9F4401' :
+                            ['oroMC', 'plataMC', 'bronceMC'].includes(d.tipoMedalla) ? '#AB8004' :
+                                '#fff';
         })
 
     d3.select('#tooltip')
@@ -462,7 +469,7 @@ function mouseOut2(d, i) {
 
     d3.select(this)
         .transition('mouseout').duration(100)
-        .attr('opacity', 0.8)
+        /*.attr('opacity', 0.8)*/
         .attr('stroke-width', 0)
 }
 
@@ -682,22 +689,57 @@ function chartMexicoPuntuacion() {
     let svg = d3.select("#vis").select('svg');
     svg.selectAll('.entidad')
         .attr("fill", function (d) {
-            return d.properties.calificacion > 90 ? '#3887a8' :
-                d.properties.calificacion > 80 ? '#519ebe' :
-                    d.properties.calificacion > 70 ? '#58accf' :
-                        d.properties.calificacion > 60 ? '#adccd9' :
-                            d.properties.calificacion > 50 ? '#efbcbd' :
-                                d.properties.calificacion > 40 ? '#f49899' :
-                                    d.properties.calificacion > 30 ? '#f06c6e' :
-                                        d.properties.calificacion > 20 ? '#cb5859' :
-                                            d.properties.calificacion > 10 ? '#b64547' :
-                                                d.properties.calificacion > 0 ? '#b64547' :
-                                                    d.properties.calificacion === 0 ? '#DC143C' :
-                                                        'rgba(255, 255, 255, 0)';
+            switch (true) {
+                case d.properties.calificacion > 90:
+                    d.color = '#3887a8';
+                    return '#3887a8';
+                    break;
+                case  d.properties.calificacion > 80:
+                    d.color = '#519ebe';
+                    return '#519ebe';
+                    break;
+                case  d.properties.calificacion > 70:
+                    d.color = '#58accf';
+                    return '#58accf';
+                    break;
+                case  d.properties.calificacion > 60:
+                    d.color = '#adccd9';
+                    return '#adccd9';
+                    break;
+                case  d.properties.calificacion > 50:
+                    d.color = '#efbcbd';
+                    return '#efbcbd';
+                    break;
+                case  d.properties.calificacion > 40:
+                    d.color = '#f49899';
+                    return '#f49899';
+                    break;
+                case  d.properties.calificacion > 30:
+                    d.color = '#f06c6e';
+                    return '#f06c6e';
+                    break;
+                case  d.properties.calificacion > 20:
+                    d.color = '#cb5859';
+                    return '#cb5859';
+                    break;
+                case  d.properties.calificacion > 10:
+                    d.color = '#b64547';
+                    return '#b64547';
+                    break;
+                case  d.properties.calificacion > 0:
+                    d.color = '#b64547';
+                    return '#b64547';
+                    break;
+                case  d.properties.calificacion === 0:
+                    d.color = '#b64547';
+                    return '#b64547';
+                    break;
+            }
+            return d.color;
         })
         .attr("stroke-width", 2)
         .attr("stroke-opacity", 1)
-        .attr("fill-opacity", 0.5)
+        .attr("fill-opacity", 0.8)
         .attr("stroke", "#666666");
     svg.select('.mapa').transition().duration(300).delay((d, i) => i * 30)
         .attr('visibility', 'visible');
