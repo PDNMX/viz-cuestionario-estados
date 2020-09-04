@@ -159,7 +159,7 @@ function drawInitial() {
         .on('click', function (d) {
             $('#mapaModal').modal('toggle')
             $('#modalTitle').text(d.properties.entidad);
-            $('#pntTotal').val(Math.round(d.properties.calificacion));
+            $('#pntTotal').text(Math.round(d.properties.calificacion));
             $('#pntNormatividad').val(Math.round(d.properties.pntNor));
             $('#pntInf').val(Math.round(d.properties.pntInf));
             $('#pntCH').val(Math.round(d.properties.pntCH));
