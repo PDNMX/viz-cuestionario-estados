@@ -247,10 +247,14 @@ a.txtFooter {
     background-color: #ff6d01 !important;
     font-size: 0.9375rem !important;;
 }
-
+.barraCero{
+    background-color: #e9ecef !important;
+    font-size: 0.9375rem !important;
+    color: rgba(102, 102, 102, 1) !important;
+}
 .barraNor{
     background-color: #34B3EB !important;
-    font-size: 0.9375rem !important;;
+    font-size: 0.9375rem !important;
 }
 
 p{
