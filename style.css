@@ -265,3 +265,7 @@ p{
     font-size: 0.9375rem;
     text-align: center;
 }
+
+.progress {
+    border-radius: 0px !important;
+}
