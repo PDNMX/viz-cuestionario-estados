@@ -134,6 +134,7 @@ a {
     background-color: rgba(102, 102, 102, 1);
     color: #fff;
     min-height: 150px;
+    z-index: 11;
 }
 
 #footer1 {
@@ -180,9 +181,13 @@ a.txtFooter {
     position: fixed;
     bottom: 10px;
     left: 20px;
-    display: none;
     float: left;
     display: block;
+    z-index: 10;
+}
+
+#descargas .btn {
+background-color: white !important;
 }
 #intro {
     position: fixed;
