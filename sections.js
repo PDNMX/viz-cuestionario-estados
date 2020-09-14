@@ -17,6 +17,9 @@ const dataMaxMinCapitalHumano = [];
 const dataMaxMinMapeoGestion = [];
 const dataMaxDevMinMecanismos = [];
 
+// Normatividad, Infraestructura, Capital Humano, Mapeo y gestión, Dev Mecanismos de comunicación
+const colorsCategorias = ['#34B3EB', '#34a853', '#674ea7', '#ff6d01', '#fbbc04'];
+
 Promise.all([
     fetch('https://spreadsheets.google.com/feeds/list/1fGCwueHVG-26Fwn0aLBN_wrpsD_aNfMWqrKN4y-MGIE/1/public/values?alt=json'),
     fetch('data/map.topojson')
@@ -40,7 +43,7 @@ Promise.all([
 ///const colors = ['#ffcc00', '#ff6666', '#cc0066', '#66cccc', '#f688bb', '#65587f', '#baf1a1', '#333333', '#75b79e',  '#66cccc', '#9de3d0', '#f1935c', '#0c7b93', '#eab0d9', '#baf1a1', '#9399ff']
 
 function createScales() {
-    console.log(dataset)
+    //console.log(dataset)
     sizeScale = d3.scaleLinear(d3.extent(dataset, d => d.gsx$puntajetotal.$t), [5, 35])
     /* salaryXScale = d3.scaleLinear(d3.extent(dataset, d => d.gsx$puntajetotal.$t), [margin.left, margin.left + width])
     salaryYScale = d3.scaleLinear([20000, 110000], [margin.top + height, margin.top]); */
@@ -215,7 +218,7 @@ function drawInitial() {
         .attr('class', 'leyendas')
         .attr('visibility', 'hidden');
 
-    let defs = svg.append("defs");
+    let defs = svg.select('.mapa').append("defs");
     let linearGradient = defs.append("linearGradient").attr("id", "myGradient");
     linearGradient.selectAll("stop")
         .data(dataLegend)
@@ -239,17 +242,17 @@ function drawInitial() {
         INICIO --> chart MAX y MIN
     */
     // Categorias Max
-    console.log("DS", dataset)
+    /* console.log("DS", dataset)
     let temp = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajenormatividad.$t), x])).values()].sort(function (a, b) {
         return d3.descending(+a.gsx$puntajenormatividad.$t, +b.gsx$puntajenormatividad.$t);
     });
-    console.log("temp: ", temp)
+    console.log("temp: ", temp) */
 
     let maxNormatividad = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajenormatividad.$t), x])).values()].sort(function (a, b) {
         return d3.descending(+a.gsx$puntajenormatividad.$t, +b.gsx$puntajenormatividad.$t);
     }).slice(0, 3);
 
-    console.log("Max: ", maxNormatividad)
+    //console.log("Max: ", maxNormatividad)
     let minNormatividad = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajenormatividad.$t), x])).values()].sort(function (a, b) {
         return d3.ascending(+a.gsx$puntajenormatividad.$t, +b.gsx$puntajenormatividad.$t);
     }).slice(0, 3);
@@ -482,13 +485,14 @@ function mouseOut2(d, i) {
         .attr('stroke-width', 0)
 }
 
-function chartMaxMin(data, classObject) {
+function chartMaxMin(data, classObject, colorBase) {
     let categories = ['max', 'min'];
     let categoriesXY = {'max': [200, 500], 'min': [600, 500]};
     let svg = d3.select("#vis").select('svg');
     svg.select(`.${classObject}`).remove();
     let dataset = data;
-    tempEscala = d3.scaleLinear([5, 7])
+    let colorBurbujas = colorBase;
+    //tempEscala = d3.scaleLinear(dataset)
     tempSimulation = d3.forceSimulation(dataset)
     tempSimulation.on('tick', () => {
         tempNodes
@@ -503,8 +507,8 @@ function chartMaxMin(data, classObject) {
         .data(dataset)
         .enter()
         .append('circle')
-        .attr('r', 4)
-    /* .attr('cx', (d, i) => (d.puntajeTop)) */
+        .attr('r', 5)
+        /*.attr('cx', (d, i) => (d.puntajeTop)) */
     svg.select(`.${classObject}`).selectAll('.lab-text')
         .data(categories).enter()
         .append('text')
@@ -517,12 +521,26 @@ function chartMaxMin(data, classObject) {
         .attr('font-size', '0.9375rem')
         .attr('fill', 'black')
         .attr('text-anchor', 'middle');
+    
+    let max = d3.max(dataset, d => d.puntajeTop)
+    let domainData = [];
+    domainData = d3.scaleLinear()
+        .domain([0, max])
+        .ticks(6);
+    //console.log(domainData);
+    let indexToColor = d3.scaleLinear()
+        .domain([0, 10])
+        .range(['#D3D3D3', colorBurbujas]);
+    let range = d3.range(domainData.length).map(indexToColor);
+    console.log(range)
 
     svg.select(`.${classObject}`).selectAll('circle')
         .transition().duration(500).delay((d, i) => i * 50)
-        .attr('r', d => tempEscala(d.puntajeTop) * 1.2)
+        .attr('r', d => (d.puntajeTop + 5) * 1.5)
+        .attr('opacity', 0.8)
         .attr('fill', d => {
             //categoryColorScale(d.tipoCat)
+            
             return d.tipoMedalla === 'oro' ? '#1f6e89' :
                 d.tipoMedalla === 'plata' ? '#519ebe' :
                     d.tipoMedalla === 'bronce' ? '#adccd9' :
@@ -553,16 +571,68 @@ function chartMaxMin(data, classObject) {
         // posicionan las burbujas y titulos
         .attr('x', d => categoriesXY[d][0] + 200)
         .attr('y', d => categoriesXY[d][1] + 100)
-        .attr('opacity', 1)
+        .attr('opacity', 1);
+    
+    
+    //console.log(range);
+    let dataLegend = [];
+    domainData.forEach(function (d, index) {
+        //console.log(d);
+        let tempData = '';
+        tempData = {"color": range[index], "value": domainData[index]}
+        dataLegend.push(tempData);
+    });
+    //console.log(dataLegend); 
+
+    let extent = d3.extent(dataLegend, d => d.value);
+    let padding = 9;
+    let width = 320;
+    let innerWidth = width - (padding * 5);
+    let barHeight = 12;
+    let height = 28;
+
+    let xScale = d3.scaleLinear()
+        .range([0, innerWidth])
+        .domain(extent);
+
+    let xTicks = dataLegend.map(d => d.value);
+
+    let xAxis = d3.axisBottom(xScale)
+        .tickSize(barHeight * 2)
+        .tickValues(xTicks);
+
+    let g2 = svg.select(`.${classObject}`)
+        .append("g")
+        .attr("transform", "translate(500, 700)")
+        .attr('class', 'leyendas');
+        
+    let defs = svg.select(`.${classObject}`).append("defs");
+    let linearGradient = defs.append("linearGradient").attr("id", `${classObject}`);
+    linearGradient.selectAll("stop")
+        .data(dataLegend)
+        .enter().append("stop")
+        .attr("offset", d => ((d.value - extent[0]) / (extent[1] - extent[0]) * 100) + "%")
+        .attr("stop-color", d => d.color);
+
+    g2.append("rect")
+        .attr("width", innerWidth)
+        .attr("height", barHeight)
+        .style("fill", `url(#${classObject})`);
+
+    g2.append("g")
+        .call(xAxis)
+        .select(".domain").remove();    
+    
     svg.select(`.${classObject}`).selectAll('circle')
         .on('mouseover', mouseOver2)
-        .on('mouseout', mouseOut2)
+        .on('mouseout', mouseOut2);
+    
     tempSimulation
         /* .force('charge', d3.forceManyBody().strength([2])) */
         // posicionan las burbujas y titulos
         .force('x', d3.forceX(d => categoriesXY[d.tipoCat][0] + 200))
         .force('y', d3.forceY(d => categoriesXY[d.tipoCat][1] - 100))
-        .force('collide', d3.forceCollide(d => tempEscala(d.puntajeTop) + 6))
+        .force('collide', d3.forceCollide(d => ((d.puntajeTop + 5) * 1.5)))
         .alphaDecay([0.02]);
     tempSimulation.restart();
 }
@@ -659,12 +729,6 @@ function createTabla(data) {
     });
 }
 
-/* function intro() {
-    let classShow = 'intro';
-    clean(classShow);
-    document.getElementById("intro").style.display = "block";
-} */
-
 function chartTabla() {
     let classShow = 'tablaScore';
     clean(classShow);
@@ -674,31 +738,36 @@ function chartTabla() {
 function chartNormatividad() {
     let classShow = 'chartNormatividad';
     clean(classShow);
-    chartMaxMin(dataMaxMinNormatividad, classShow);
+    let colorBurbujas = colorsCategorias[0];
+    chartMaxMin(dataMaxMinNormatividad, classShow, colorBurbujas);
 }
 
 function chartInfraestructura() {
     let classShow = 'chartInfraestructura';
     clean(classShow);
-    chartMaxMin(dataMaxMinInfraestructura, classShow);
+    let colorBurbujas = colorsCategorias[1];
+    chartMaxMin(dataMaxMinInfraestructura, classShow, colorBurbujas);
 }
 
 function chartCapitalHumano() {
     let classShow = 'chartCapitalHumano';
     clean(classShow);
-    chartMaxMin(dataMaxMinCapitalHumano, classShow);
+    let colorBurbujas = colorsCategorias[2];
+    chartMaxMin(dataMaxMinCapitalHumano, classShow, colorBurbujas);
 }
 
 function chartMapeoGestion() {
     let classShow = 'chartMapeoGestion';
     clean(classShow);
-    chartMaxMin(dataMaxMinMapeoGestion, classShow);
+    let colorBurbujas = colorsCategorias[3];
+    chartMaxMin(dataMaxMinMapeoGestion, classShow, colorBurbujas);
 }
 
 function chartDevMecanismos() {
     let classShow = 'chartDevMecanismos';
     clean(classShow);
-    chartMaxMin(dataMaxDevMinMecanismos, classShow);
+    let colorBurbujas = colorsCategorias[4];
+    chartMaxMin(dataMaxDevMinMecanismos, classShow, colorBurbujas);
 }
 
 function chartStackedBar() {
@@ -792,7 +861,7 @@ scroll.on('active', function (index) {
         });
     activeIndex = index;
     let sign = (activeIndex - lastIndex) < 0 ? -1 : 1;
-    console.log(sign)
+    //console.log(sign)
     let scrolledSections = d3.range(lastIndex + sign, activeIndex + sign, sign);
     scrolledSections.forEach(i => {
         //i = i+2;
