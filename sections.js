@@ -173,19 +173,6 @@ function drawInitial() {
         })
         .attr("d", path);
 
-    svg.select('.mapa')
-        .selectAll('.label')
-        .data(topojson.feature(mexico, mexico.objects.collection).features)
-        .enter()
-        .append('text')
-        .attr('class', 'label')
-        .attr("font-size", 10)
-        /*.text((d) => Math.round(d.properties.calificacion))*/
-        .attr('transform', (d) => {
-            const centroid = path.centroid(d)
-            //console.log(centroid)
-            return `translate(${centroid[0]}, ${centroid[1]})`
-        })
     let dataLegend = [{"color": "#b64547", "value": 0}, {"color": "#b64547", "value": 10}, {
         "color": "#cb5859",
         "value": 20
@@ -233,7 +220,8 @@ function drawInitial() {
 
     g2.append("g")
         .call(xAxis)
-        .select(".domain").remove();
+        .select(".domain").remove(); 
+
     /*
         FIN --> chartMexicoPuntuacion
     */
@@ -242,11 +230,6 @@ function drawInitial() {
         INICIO --> chart MAX y MIN
     */
     // Categorias Max
-    /* console.log("DS", dataset)
-    let temp = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajenormatividad.$t), x])).values()].sort(function (a, b) {
-        return d3.descending(+a.gsx$puntajenormatividad.$t, +b.gsx$puntajenormatividad.$t);
-    });
-    console.log("temp: ", temp) */
 
     let maxNormatividad = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajenormatividad.$t), x])).values()].sort(function (a, b) {
         return d3.descending(+a.gsx$puntajenormatividad.$t, +b.gsx$puntajenormatividad.$t);
