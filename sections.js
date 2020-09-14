@@ -871,3 +871,10 @@ scroll.on('active', function (index) {
 
 })
 
+$(document).ready(function () {
+    // Handler for .ready() called.
+    $('html, body').animate({
+        scrollTop: 0
+    }, 'slow');
+});
+
