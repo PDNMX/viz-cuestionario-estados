@@ -17,6 +17,7 @@ const dataMaxMinCapitalHumano = [];
 const dataMaxMinMapeoGestion = [];
 const dataMaxDevMinMecanismos = [];
 
+// Colores para categorias 
 // Normatividad, Infraestructura, Capital Humano, Mapeo y gestión, Dev Mecanismos de comunicación
 const colorsCategorias = ['#34B3EB', '#34a853', '#674ea7', '#ff6d01', '#fbbc04'];
 
@@ -40,13 +41,9 @@ Promise.all([
     console.log(err);
 });
 
-///const colors = ['#ffcc00', '#ff6666', '#cc0066', '#66cccc', '#f688bb', '#65587f', '#baf1a1', '#333333', '#75b79e',  '#66cccc', '#9de3d0', '#f1935c', '#0c7b93', '#eab0d9', '#baf1a1', '#9399ff']
-
 function createScales() {
     //console.log(dataset)
     sizeScale = d3.scaleLinear(d3.extent(dataset, d => d.gsx$puntajetotal.$t), [5, 35])
-    /* salaryXScale = d3.scaleLinear(d3.extent(dataset, d => d.gsx$puntajetotal.$t), [margin.left, margin.left + width])
-    salaryYScale = d3.scaleLinear([20000, 110000], [margin.top + height, margin.top]); */
 }
 
 function drawInitial() {
@@ -80,7 +77,6 @@ function drawInitial() {
 
     simulation.stop()
     // Selection of all the circles
-
     let colorScaleBlue = ["#1f6e89", "#317a93", "#43869d", "#5592a7", "#669db1", "#78a9bb", "#8ab5c5", "#9cc1cf", "#a5c7d4", "#ADCCD8"];
 
     nodes = svg
@@ -128,7 +124,7 @@ function drawInitial() {
             .style('top', (d3.event.pageY - 25) + 'px')
             .style('display', 'inline-block')
             .html(`<strong>Estado:</strong> ${d.gsx$estado.$t[0] + d.gsx$estado.$t.slice(1,).toLowerCase()} 
-                <br> <strong>Puntuación:</strong> ${Math.round(d.gsx$puntajetotal.$t)}`)
+                <br> <strong>Puntuación:</strong> ${Math.round(d.gsx$puntajetotal.$t)}/100`)
     }
 
     function mouseOut(d, i) {
@@ -470,7 +466,7 @@ function mouseOut2(d, i) {
 
 function chartMaxMin(data, classObject, colorBase) {
     let categories = ['max', 'min'];
-    let categoriesXY = {'max': [200, 500], 'min': [600, 500]};
+    let categoriesXY = {'max': [200, 600], 'min': [600, 600]};
     let svg = d3.select("#vis").select('svg');
     svg.select(`.${classObject}`).remove();
     let dataset = data;
@@ -506,8 +502,7 @@ function chartMaxMin(data, classObject, colorBase) {
         .attr('text-anchor', 'middle');
     
     let max = d3.max(dataset, d => d.puntajeTop)
-    let domainData = [];
-    domainData = d3.scaleLinear()
+    let domainData = d3.scaleLinear()
         .domain([0, max])
         .ticks(6);
     //console.log(domainData);
@@ -515,11 +510,11 @@ function chartMaxMin(data, classObject, colorBase) {
         .domain([0, 10])
         .range(['#D3D3D3', colorBurbujas]);
     let range = d3.range(domainData.length).map(indexToColor);
-    console.log(range)
+    //console.log(range)
 
     svg.select(`.${classObject}`).selectAll('circle')
         .transition().duration(500).delay((d, i) => i * 50)
-        .attr('r', d => (d.puntajeTop + 5) * 1.5)
+        .attr('r', d => (d.puntajeTop + 5) * 2.1)
         .attr('opacity', 0.8)
         .attr('fill', d => {
             //categoryColorScale(d.tipoCat)
@@ -553,7 +548,7 @@ function chartMaxMin(data, classObject, colorBase) {
         })
         // posicionan las burbujas y titulos
         .attr('x', d => categoriesXY[d][0] + 200)
-        .attr('y', d => categoriesXY[d][1] + 100)
+        .attr('y', d => categoriesXY[d][1])
         .attr('opacity', 1);
     
     
@@ -586,9 +581,9 @@ function chartMaxMin(data, classObject, colorBase) {
 
     let g2 = svg.select(`.${classObject}`)
         .append("g")
-        .attr("transform", "translate(500, 700)")
+        .attr("transform", "translate(500, 650)")
         .attr('class', 'leyendas');
-        
+    
     let defs = svg.select(`.${classObject}`).append("defs");
     let linearGradient = defs.append("linearGradient").attr("id", `${classObject}`);
     linearGradient.selectAll("stop")
@@ -614,8 +609,8 @@ function chartMaxMin(data, classObject, colorBase) {
         /* .force('charge', d3.forceManyBody().strength([2])) */
         // posicionan las burbujas y titulos
         .force('x', d3.forceX(d => categoriesXY[d.tipoCat][0] + 200))
-        .force('y', d3.forceY(d => categoriesXY[d.tipoCat][1] - 100))
-        .force('collide', d3.forceCollide(d => ((d.puntajeTop + 5) * 1.5)))
+        .force('y', d3.forceY(d => categoriesXY[d.tipoCat][1] - 250))
+        .force('collide', d3.forceCollide(d => ((d.puntajeTop + 5) * 2.1)))
         .alphaDecay([0.02]);
     tempSimulation.restart();
 }

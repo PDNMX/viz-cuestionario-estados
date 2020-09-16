@@ -55,9 +55,6 @@ h1 {
     font-size: 35px;
 }
 
-strong {
-    color: rgb(245, 155, 155);
-}
 
 #graphic {
     margin: auto;
@@ -85,14 +82,18 @@ strong {
     position: absolute;
     display: none;
     background: rgba(0, 0, 0, .7);
-    border-radius: 3px;
+    /* border-radius: 3px; */
     box-shadow: -3px 3px 15px #939393;
     color: white;
     padding: 6px;
     font-family: 'Noto Sans SC', sans-serif;
     font-size: 1.1em;
     max-width: 400px;
-    z-index: 100;
+    z-index: 20;
+}
+
+#tooltip strong {
+    color: #34b3eb;
 }
 
 svg circle:hover{
@@ -188,6 +189,10 @@ a.txtFooter {
 
 #descargas .btn {
 background-color: white !important;
+}
+
+#descargas .btn-outline-secondary:hover {
+    color: #34b3eb;
 }
 #intro {
     position: fixed;
