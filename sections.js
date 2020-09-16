@@ -163,12 +163,12 @@ function drawInitial() {
         .on('click', function (d) {
             $('#mapaModal').modal('toggle')
             $('#modalTitle').text(d.properties.entidad);
-            $('#pntTotal').text(Math.round(d.properties.calificacion));
-            $('#pntNormatividad').val(Math.round(d.properties.pntNor));
-            $('#pntInf').val(Math.round(d.properties.pntInf));
-            $('#pntCH').val(Math.round(d.properties.pntCH));
-            $('#pntGD').val(Math.round(d.properties.pntGD));
-            $('#pntMC').val(Math.round(d.properties.pntMC));
+            $('#pntTotal').text(`${Math.round(d.properties.calificacion)}/100`); // Total 100
+            $('#pntNormatividad').val(`${Math.round(d.properties.pntNor)}/10`); // Total 10
+            $('#pntInf').val(`${Math.round(d.properties.pntInf)}/20`); // Total 20
+            $('#pntCH').val(`${Math.round(d.properties.pntCH)}/10`); // Total 10
+            $('#pntGD').val(`${Math.round(d.properties.pntGD)}/30`); // Total 30
+            $('#pntMC').val(`${Math.round(d.properties.pntMC)}/30`); // Total 30
             $('#modalHeader').css('background-color', d.color);
         })
         .attr("d", path);
