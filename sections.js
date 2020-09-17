@@ -23,7 +23,7 @@ const colorsCategorias = ['#34B3EB', '#34a853', '#674ea7', '#ff6d01', '#fbbc04']
 
 Promise.all([
     fetch('https://spreadsheets.google.com/feeds/list/1fGCwueHVG-26Fwn0aLBN_wrpsD_aNfMWqrKN4y-MGIE/1/public/values?alt=json'),
-    fetch('data/map.topojson')
+    fetch('data/mexico.json')
 ]).then(async ([aa, bb]) => {
     const a = await aa.json();
     const b = await bb.json();
@@ -149,6 +149,31 @@ function drawInitial() {
         .center([-103.34034978813841, 30.012062015793]);
     let path = d3.geoPath(projection);
 
+    // Mergea los datos del Google Spreadsheets con el TopoJSON
+    mexico.objects.collection.geometries.forEach(function(element){
+        // dataset -> Data Google Spreadsheets
+        element.properties.calificacion=0;
+        element.properties.pntNor=0;
+        element.properties.pntInf=0;
+        element.properties.pntCH=0;
+        element.properties.pntGD=0;
+        element.properties.pntMC=0;
+        dataset.forEach(function(newElement) {
+            if(parseInt(element.properties.clave)===parseInt(newElement.gsx$clavedeagee.$t)){
+                // Set data of Google Spreadsheets
+                element.properties.entidad=newElement.gsx$estado.$t;
+                element.properties.calificacion=newElement.gsx$puntajetotal.$t;
+                element.properties.pntNor=parseInt(newElement.gsx$puntajenormatividad.$t);
+                element.properties.pntInf=parseInt(newElement.gsx$puntajeinfraestructura.$t);
+                element.properties.pntCH=parseInt(newElement.gsx$puntajecapitalhumano.$t);
+                element.properties.pntGD=parseInt(newElement.gsx$puntajemapeoygestióndedatos.$t);
+                element.properties.pntMC=parseInt(newElement.gsx$puntajedesarrollodemecanismosdecomunicación.$t);
+            }
+        });
+        
+    }); 
+    //console.log(mexico);
+
     svg.append("g")
         .attr('visibility', 'hidden')
         .attr('class', 'mapa')
@@ -169,15 +194,43 @@ function drawInitial() {
         })
         .attr("d", path);
 
-    let dataLegend = [{"color": "#b64547", "value": 0}, {"color": "#b64547", "value": 10}, {
-        "color": "#cb5859",
-        "value": 20
-    }, {"color": "#f06c6e", "value": 30},
-        {"color": "#f49899", "value": 40}, {"color": "#efbcbd", "value": 50}, {"color": "#adccd9", "value": 60},
-        {"color": "#58accf", "value": 70}, {"color": "#519ebe", "value": 80}, {
+    let dataLegend = [{
+            "color": "#b64547",
+            "value": 0
+        }, {
+            "color": "#b64547",
+            "value": 10
+        }, {
+            "color": "#cb5859",
+            "value": 20
+        }, {
+            "color": "#f06c6e",
+            "value": 30
+        },
+        {
+            "color": "#f49899",
+            "value": 40
+        }, {
+            "color": "#efbcbd",
+            "value": 50
+        }, {
+            "color": "#adccd9",
+            "value": 60
+        },
+        {
+            "color": "#58accf",
+            "value": 70
+        }, {
+            "color": "#519ebe",
+            "value": 80
+        }, {
             "color": "#3887a8",
             "value": 90
-        }, {"color": "#1f6e89", "value": 100}];
+        }, {
+            "color": "#1f6e89",
+            "value": 100
+        }
+    ];
     let extent = d3.extent(dataLegend, d => d.value);
     let padding = 9;
     let width = 320;
@@ -217,6 +270,8 @@ function drawInitial() {
     g2.append("g")
         .call(xAxis)
         .select(".domain").remove(); 
+    
+    // console.log(mexico)
 
     /*
         FIN --> chartMexicoPuntuacion
