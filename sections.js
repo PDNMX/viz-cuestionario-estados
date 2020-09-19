@@ -52,6 +52,7 @@ function drawInitial() {
         .attr('width', 1000)
         .attr('height', 950)
         .attr('opacity', 1)
+        .attr('display', 'none')
     /*
         INICIO --> chartBurbujas
     */
@@ -101,7 +102,8 @@ function drawInitial() {
         .style('text-anchor', 'middle')
         .style('pointer-events', 'none')
         .style("font-size", function (d) {
-            return Math.min(2 * d.gsx$puntajetotal.$t, (2 * d.gsx$puntajetotal.$t - 8) / this.getComputedTextLength() * 10) + "px";
+            let sizeLetter = Math.min(0.3 * d.gsx$puntajetotal.$t, (2 * d.gsx$puntajetotal.$t - 8) / this.getComputedTextLength() * 0.5);
+            return  `${sizeLetter}px`;
         })
     ;
 
@@ -573,39 +575,37 @@ function chartMaxMin(data, classObject, colorBase) {
         .attr('opacity', 0.8)
         .attr('fill', d => {
             //categoryColorScale(d.tipoCat)
-            
             return d.tipoMedalla === 'oro' ? '#1f6e89' :
                 d.tipoMedalla === 'plata' ? '#519ebe' :
-                    d.tipoMedalla === 'bronce' ? '#adccd9' :
-                        d.tipoMedalla === 'oroNor' ? '#34B3EB' :
-                            d.tipoMedalla === 'plataNor' ? '#8BCBD3' :
-                                d.tipoMedalla === 'bronceNor' ? '#C4E3E4' :
-                                    d.tipoMedalla === 'oroInf' ? '#34A853' :
-                                        d.tipoMedalla === 'plataInf' ? '#8BCE9D' :
-                                            d.tipoMedalla === 'bronceInf' ? '#E1F4E7' :
-                                                d.tipoMedalla === 'oroCH' ? '#674EA7' :
-                                                    d.tipoMedalla === 'plataCH' ? '#737FA6' :
-                                                        d.tipoMedalla === 'bronceCH' ? '#96A0BD' :
-                                                            d.tipoMedalla === 'oroGD' ? '#FF6D01' :
-                                                                d.tipoMedalla === 'plataGD' ? '#EC9054' :
-                                                                    d.tipoMedalla === 'bronceGD' ? '#F1AE82' :
-                                                                        d.tipoMedalla === 'oroMC' ? '#FBBC04' :
-                                                                            d.tipoMedalla === 'plataMC' ? '#FAD15A' :
-                                                                                d.tipoMedalla === 'bronceMC' ? '#FAE9B2' :
-                                                                                    '#fff';
+                d.tipoMedalla === 'bronce' ? '#adccd9' :
+                d.tipoMedalla === 'oroNor' ? '#34B3EB' :
+                d.tipoMedalla === 'plataNor' ? '#8BCBD3' :
+                d.tipoMedalla === 'bronceNor' ? '#C4E3E4' :
+                d.tipoMedalla === 'oroInf' ? '#34A853' :
+                d.tipoMedalla === 'plataInf' ? '#8BCE9D' :
+                d.tipoMedalla === 'bronceInf' ? '#E1F4E7' :
+                d.tipoMedalla === 'oroCH' ? '#674EA7' :
+                d.tipoMedalla === 'plataCH' ? '#737FA6' :
+                d.tipoMedalla === 'bronceCH' ? '#96A0BD' :
+                d.tipoMedalla === 'oroGD' ? '#FF6D01' :
+                d.tipoMedalla === 'plataGD' ? '#EC9054' :
+                d.tipoMedalla === 'bronceGD' ? '#F1AE82' :
+                d.tipoMedalla === 'oroMC' ? '#FBBC04' :
+                d.tipoMedalla === 'plataMC' ? '#FAD15A' :
+                d.tipoMedalla === 'bronceMC' ? '#FAE9B2' :
+                '#fff';
         });
 
     svg.select(`.${classObject}`).selectAll('.lab-text').transition().duration(300).delay((d, i) => i * 30)
         .text(d => {
             return d === 'max' ? 'Mayor puntaje' :
                 d === 'min' ? 'Menor puntaje' :
-                    '?';
+                '?';
         })
         // posicionan las burbujas y titulos
         .attr('x', d => categoriesXY[d][0] + 200)
         .attr('y', d => categoriesXY[d][1])
         .attr('opacity', 1);
-    
     
     //console.log(range);
     let dataLegend = [];
@@ -707,13 +707,12 @@ function clean(chartType) {
 function createTabla(data) {
     let idShow = 'tablaScore';
     clean(idShow);
-    document.getElementById(idShow).style.display = "block";
 
     let sortData = data.sort(function (a, b) {
         return d3.descending(+a.gsx$puntajetotal.$t, +b.gsx$puntajetotal.$t);
     });
     //console.log(sortData);
-    let targetNode = document.getElementById(idShow);
+    let targetNode = document.getElementById('tablaData');
     sortData.forEach(function (d) {
         let barraNor = d.gsx$porcentajenormatividad.$t > 0 ? `<div class="barraNor progress-bar" role="progressbar" style="width: ${d.gsx$porcentajenormatividad.$t}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><small>${d.gsx$porcentajenormatividad.$t}%</small></div>`
             :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
@@ -730,42 +729,46 @@ function createTabla(data) {
         let barraDMC = d.gsx$porcentajedesarrollodemecanismosdecomunicación.$t > 0 ? `<div class="barraMC progress-bar" role="progressbar" style="width: ${d.gsx$porcentajedesarrollodemecanismosdecomunicación.$t}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><small>${d.gsx$porcentajedesarrollodemecanismosdecomunicación.$t}%</small></div>`
             :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
 
-
-        targetNode.innerHTML += `<div class="row centerProgress" style="margin-top: 9px">
-        <div class="col-md-2"><small>${d.gsx$estado.$t}</small></div>
-            <div class="col-md-2">
+        targetNode.innerHTML += `
+        <tr>
+            <td>
+                <small>${d.gsx$estado.$t}</small>
+            </td>
+            <td>
                 <div class="progress" style="height: 15px;">
                     ${barraNor}
                 </div>
-            </div>
-            <div class="col-md-2">
+            </td>
+            <td>
                 <div class="progress" style="height: 15px;">
                     ${barraInf}            
                 </div>
-            </div>
-            <div class="col-md-2">
+            </td>
+            <td>
                 <div class="progress" style="height: 15px;">
                     ${barraCH}    
                 </div>
-            </div>
-            <div class="col-md-2">
+            </td>
+            <td>
                 <div class="progress" style="height: 15px;">
                     ${barraMGD}    
                 </div>
-            </div>
-            <div class="col-md-2">
+            </td>
+            <td>
                 <div class="progress" style="height: 15px;">
                     ${barraDMC}
                 </div>
-            </div>
-      </div>`
+            </td>
+        </tr>
+      `
     });
 }
 
 function chartTabla() {
     let classShow = 'tablaScore';
     clean(classShow);
-    document.getElementById("tablaScore").style.display = "block";
+    document.getElementById(classShow).style.display = "block";
+    document.getElementById('vis').style.display = "none";
 }
 
 function chartNormatividad() {
@@ -803,16 +806,18 @@ function chartDevMecanismos() {
     chartMaxMin(dataMaxDevMinMecanismos, classShow, colorBurbujas);
 }
 
-function chartStackedBar() {
+/* function chartStackedBar() {
     clean('chartStackedBar');
     let svg = d3.select("#vis").select('svg');
     svg.selectAll('.stackedBar').attr('visibility', 'visible');
-}
+} */
 
 // Mapa MEX 
 function chartMexicoPuntuacion() {
     clean('chartMexicoPuntuacion');
     let svg = d3.select("#vis").select('svg');
+    svg.attr('display', 'block');
+    document.getElementById('vis').style.display = "block";
     svg.selectAll('.entidad')
         .attr("fill", function (d) {
             switch (true) {
