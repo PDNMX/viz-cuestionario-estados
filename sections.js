@@ -75,10 +75,10 @@ function drawInitial() {
         labels
             .attr('x', d => d.x)
             .attr('y', d => d.y)
-    }).force('x', d3.forceX(500))
-        .force('y', d3.forceY(500))
+    }).force('x', d3.forceX(450))
+        .force('y', d3.forceY(450))
         .force('collide', d3.forceCollide(d => sizeScale(d.gsx$puntajetotal.$t) * 2.9))
-        .alpha(0.6).alphaDecay(0.05);
+        .alpha(0.6).alphaDecay(0.02);
     // Stop the simulation until later
 
     simulation.stop()
@@ -176,7 +176,7 @@ function drawInitial() {
     }); 
     //console.log(mexico);
     let projection = d3.geoMercator()
-        .scale(1800)
+        .scale(1700)
         .center([-103.34034978813841, 30.012062015793]);
     let path = d3.geoPath(projection);
 
@@ -526,7 +526,7 @@ function mouseOut2(d, i) {
 
 function chartMaxMin(data, classObject, colorBase) {
     let categories = ['max', 'min'];
-    let categoriesXY = {'max': [200, 600], 'min': [600, 600]};
+    let categoriesXY = {'max': [100, 580], 'min': [500, 580]};
     let svg = d3.select("#vis").select('svg');
     svg.select(`.${classObject}`).remove();
     let dataset = data;
@@ -639,7 +639,7 @@ function chartMaxMin(data, classObject, colorBase) {
 
     let g2 = svg.select(`.${classObject}`)
         .append("g")
-        .attr("transform", "translate(500, 650)")
+        .attr("transform", "translate(360, 630)")
         .attr('class', 'leyendas');
     
     let defs = svg.select(`.${classObject}`).append("defs");
@@ -808,12 +808,6 @@ function chartDevMecanismos() {
     let colorBurbujas = colorsCategorias[4];
     chartMaxMin(dataMaxDevMinMecanismos, classShow, colorBurbujas);
 }
-
-/* function chartStackedBar() {
-    clean('chartStackedBar');
-    let svg = d3.select("#vis").select('svg');
-    svg.selectAll('.stackedBar').attr('visibility', 'visible');
-} */
 
 // Mapa MEX 
 function chartMexicoPuntuacion() {
