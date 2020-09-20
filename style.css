@@ -64,15 +64,14 @@ h1 {
     justify-content: space-around;
 } */
 
-#vis {
+/* #vis {
     display: inline-block;
     position: sticky;
     top: 0px;
     z-index: 1;
     margin-left: 0;
-    /* height: 1000px;
-    width: 1000px; */
-}
+
+} */
 
 /* .tick line {
     stroke: 'red'
@@ -352,4 +351,21 @@ p{
 
 #tablaScore th {
     text-align: center;
+}
+
+#vis {
+    /* display:inline-block; */
+    position: sticky;
+    /* width:100%; */
+    /* vertical-align:middle; */
+    /* overflow: hidden; */
+    top: 50px;
+  }
+.svg {
+    /* display:inline-block; */
+    /* position:absolute; */
+    /* top:0;
+    left: 0; */
+    /* width:100%;
+    height:auto; */
 }

@@ -8,8 +8,10 @@ const margin = {
     bottom: 50,
     right: 20
 }
-const width = 1000 - margin.left - margin.right
-const height = 950 - margin.top - margin.bottom
+
+
+/* const width = 1000 - margin.left - margin.right
+const height = 950 - margin.top - margin.bottom */
 
 const dataMaxMinInfraestructura = [];
 const dataMaxMinNormatividad = [];
@@ -49,10 +51,13 @@ function createScales() {
 function drawInitial() {
     let svg = d3.select("#vis")
         .append('svg')
-        .attr('width', 1000)
-        .attr('height', 950)
+        .attr("viewBox", `0 0 1000 950`)
+        .attr('preserveAspectRatio','xMinYMin')
         .attr('opacity', 1)
-        .attr('display', 'none')
+        .attr('display', 'none');
+    /* const params = svg.attr('viewBox').split(' ').map((n) => parseInt(n, 10))
+    const width = params[2]
+    const height = params[3] */
     /*
         INICIO --> chartBurbujas
     */
@@ -146,11 +151,6 @@ function drawInitial() {
     /*
         INICIO --> chartMexicoPuntuacion
     */
-    let projection = d3.geoMercator()
-        .scale(1800)
-        .center([-103.34034978813841, 30.012062015793]);
-    let path = d3.geoPath(projection);
-
     // Mergea los datos del Google Spreadsheets con el TopoJSON
     mexico.objects.collection.geometries.forEach(function(element){
         // dataset -> Data Google Spreadsheets
@@ -175,6 +175,10 @@ function drawInitial() {
         
     }); 
     //console.log(mexico);
+    let projection = d3.geoMercator()
+        .scale(1800)
+        .center([-103.34034978813841, 30.012062015793]);
+    let path = d3.geoPath(projection);
 
     svg.append("g")
         .attr('visibility', 'hidden')
@@ -233,12 +237,13 @@ function drawInitial() {
             "value": 100
         }
     ];
+    // Escala de colores
     let extent = d3.extent(dataLegend, d => d.value);
     let padding = 9;
     let width = 320;
     let innerWidth = width - (padding * 5);
     let barHeight = 12;
-    let height = 28;
+    /* let height = 28; */
 
     let xScale = d3.scaleLinear()
         .range([0, innerWidth])
@@ -396,7 +401,6 @@ function drawInitial() {
             }
         });
         maxCapitalHumano.forEach(function (d, index) {
-            //console.log(index);
             if (d.gsx$puntajecapitalhumano.$t === tempDataset.gsx$puntajecapitalhumano.$t) {
                 let tempData = '';
                 tempData = {
@@ -517,7 +521,6 @@ function mouseOut2(d, i) {
 
     d3.select(this)
         .transition('mouseout').duration(100)
-        /*.attr('opacity', 0.8)*/
         .attr('stroke-width', 0)
 }
 
