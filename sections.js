@@ -293,7 +293,6 @@ function drawInitial() {
         return d3.descending(+a.gsx$puntajenormatividad.$t, +b.gsx$puntajenormatividad.$t);
     }).slice(0, 3);
 
-    //console.log("Max: ", maxNormatividad)
     let minNormatividad = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajenormatividad.$t), x])).values()].sort(function (a, b) {
         return d3.ascending(+a.gsx$puntajenormatividad.$t, +b.gsx$puntajenormatividad.$t);
     }).slice(0, 3);
@@ -345,10 +344,7 @@ function drawInitial() {
                 tempData = {
                     entidad: tempDataset.gsx$estado.$t,
                     puntajeTop: Number.parseFloat(d.gsx$puntajenormatividad.$t),
-                    tipoCat: 'max',
-                    tipoMedalla: index === 0 ? 'oroNor' :
-                        index === 1 ? 'plataNor' :
-                            index === 2 ? 'bronceNor' : ''
+                    tipoCat: 'max'
                 };
                 dataMaxMinNormatividad.push(tempData);
             }
@@ -362,10 +358,7 @@ function drawInitial() {
                 tempData = {
                     entidad: tempDataset.gsx$estado.$t,
                     puntajeTop: Number.parseFloat(d.gsx$puntajenormatividad.$t),
-                    tipoCat: 'min',
-                    tipoMedalla: index === 0 ? 'oroNor' :
-                        index === 1 ? 'plataNor' :
-                            index === 2 ? 'bronceNor' : ''
+                    tipoCat: 'min'
                 };
                 dataMaxMinNormatividad.push(tempData);
             }
@@ -377,10 +370,7 @@ function drawInitial() {
                 tempData = {
                     entidad: tempDataset.gsx$estado.$t,
                     puntajeTop: Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
-                    tipoCat: 'max',
-                    tipoMedalla: index === 0 ? 'oroInf' :
-                        index === 1 ? 'plataInf' :
-                            index === 2 ? 'bronceInf' : ''
+                    tipoCat: 'max'
                 };
                 dataMaxMinInfraestructura.push(tempData);
             }
@@ -392,10 +382,7 @@ function drawInitial() {
                 tempData = {
                     entidad: tempDataset.gsx$estado.$t,
                     puntajeTop: Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
-                    tipoCat: 'min',
-                    tipoMedalla: index === 0 ? 'oroInf' :
-                        index === 1 ? 'plataInf' :
-                            index === 2 ? 'bronceInf' : ''
+                    tipoCat: 'min'
                 };
                 dataMaxMinInfraestructura.push(tempData);
             }
@@ -406,10 +393,7 @@ function drawInitial() {
                 tempData = {
                     entidad: tempDataset.gsx$estado.$t,
                     puntajeTop: Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
-                    tipoCat: 'max',
-                    tipoMedalla: index === 0 ? 'oroCH' :
-                        index === 1 ? 'plataCH' :
-                            index === 2 ? 'bronceCH' : ''
+                    tipoCat: 'max'
                 };
                 dataMaxMinCapitalHumano.push(tempData);
             }
@@ -421,10 +405,7 @@ function drawInitial() {
                 tempData = {
                     entidad: tempDataset.gsx$estado.$t,
                     puntajeTop: Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
-                    tipoCat: 'min',
-                    tipoMedalla: index === 0 ? 'oroCH' :
-                        index === 1 ? 'plataCH' :
-                            index === 2 ? 'bronceCH' : ''
+                    tipoCat: 'min'
                 };
                 dataMaxMinCapitalHumano.push(tempData);
             }
@@ -436,10 +417,7 @@ function drawInitial() {
                 tempData = {
                     entidad: tempDataset.gsx$estado.$t,
                     puntajeTop: Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
-                    tipoCat: 'max',
-                    tipoMedalla: index === 0 ? 'oroGD' :
-                        index === 1 ? 'plataGD' :
-                            index === 2 ? 'bronceGD' : ''
+                    tipoCat: 'max'
                 };
                 dataMaxMinMapeoGestion.push(tempData);
             }
@@ -451,10 +429,7 @@ function drawInitial() {
                 tempData = {
                     entidad: tempDataset.gsx$estado.$t,
                     puntajeTop: Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
-                    tipoCat: 'min',
-                    tipoMedalla: index === 0 ? 'oroGD' :
-                        index === 1 ? 'plataGD' :
-                            index === 2 ? 'bronceGD' : ''
+                    tipoCat: 'min'
                 };
                 dataMaxMinMapeoGestion.push(tempData);
             }
@@ -466,10 +441,7 @@ function drawInitial() {
                 tempData = {
                     entidad: tempDataset.gsx$estado.$t,
                     puntajeTop: Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
-                    tipoCat: 'max',
-                    tipoMedalla: index === 0 ? 'oroMC' :
-                        index === 1 ? 'plataMC' :
-                            index === 2 ? 'bronceMC' : ''
+                    tipoCat: 'max'
                 };
                 dataMaxDevMinMecanismos.push(tempData);
             }
@@ -482,10 +454,7 @@ function drawInitial() {
                 tempData = {
                     entidad: tempDataset.gsx$estado.$t,
                     puntajeTop: Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
-                    tipoCat: 'min',
-                    tipoMedalla: index === 0 ? 'oroMC' :
-                        index === 1 ? 'plataMC' :
-                            index === 2 ? 'bronceMC' : ''
+                    tipoCat: 'min'
                 };
                 dataMaxDevMinMecanismos.push(tempData);
             }
@@ -617,7 +586,7 @@ function chartMaxMin(data, classObject, colorBase) {
 
     svg.select(`.${classObject}`).selectAll('circle')
         .transition().duration(500).delay((d, i) => i * 50)
-        .attr('r', d => (d.puntajeTop + 5) * 2.1)
+        .attr('r', d => (Math.sqrt(d.puntajeTop) + 5) * 4)
         .attr('opacity', 0.8)
         .attr('fill', d => {
             //categoryColorScale(d.tipoCat)
@@ -646,7 +615,7 @@ function chartMaxMin(data, classObject, colorBase) {
         // posicionan las burbujas y titulos
         .force('x', d3.forceX(d => categoriesXY[d.tipoCat][0] + 200))
         .force('y', d3.forceY(d => categoriesXY[d.tipoCat][1] - 250))
-        .force('collide', d3.forceCollide(d => ((d.puntajeTop + 5) * 2.1)))
+        .force('collide', d3.forceCollide(d => ((Math.sqrt(d.puntajeTop) + 5) * 4)))
         .alphaDecay([0.02]);
     tempSimulation.restart();
 }
