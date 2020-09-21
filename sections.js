@@ -570,47 +570,7 @@ function chartMaxMin(data, classObject, colorBase) {
         .domain([0, 10])
         .range(['#D3D3D3', colorBurbujas]);
     let range = d3.range(domainData.length).map(indexToColor);
-    //console.log(range)
-
-    svg.select(`.${classObject}`).selectAll('circle')
-        .transition().duration(500).delay((d, i) => i * 50)
-        .attr('r', d => (d.puntajeTop + 5) * 2.1)
-        .attr('opacity', 0.8)
-        .attr('fill', d => {
-            //categoryColorScale(d.tipoCat)
-            return d.tipoMedalla === 'oro' ? '#1f6e89' :
-                d.tipoMedalla === 'plata' ? '#519ebe' :
-                d.tipoMedalla === 'bronce' ? '#adccd9' :
-                d.tipoMedalla === 'oroNor' ? '#34B3EB' :
-                d.tipoMedalla === 'plataNor' ? '#8BCBD3' :
-                d.tipoMedalla === 'bronceNor' ? '#C4E3E4' :
-                d.tipoMedalla === 'oroInf' ? '#34A853' :
-                d.tipoMedalla === 'plataInf' ? '#8BCE9D' :
-                d.tipoMedalla === 'bronceInf' ? '#E1F4E7' :
-                d.tipoMedalla === 'oroCH' ? '#674EA7' :
-                d.tipoMedalla === 'plataCH' ? '#737FA6' :
-                d.tipoMedalla === 'bronceCH' ? '#96A0BD' :
-                d.tipoMedalla === 'oroGD' ? '#FF6D01' :
-                d.tipoMedalla === 'plataGD' ? '#EC9054' :
-                d.tipoMedalla === 'bronceGD' ? '#F1AE82' :
-                d.tipoMedalla === 'oroMC' ? '#FBBC04' :
-                d.tipoMedalla === 'plataMC' ? '#FAD15A' :
-                d.tipoMedalla === 'bronceMC' ? '#FAE9B2' :
-                '#fff';
-        });
-
-    svg.select(`.${classObject}`).selectAll('.lab-text').transition().duration(300).delay((d, i) => i * 30)
-        .text(d => {
-            return d === 'max' ? 'Mayor puntaje' :
-                d === 'min' ? 'Menor puntaje' :
-                '?';
-        })
-        // posicionan las burbujas y titulos
-        .attr('x', d => categoriesXY[d][0] + 200)
-        .attr('y', d => categoriesXY[d][1])
-        .attr('opacity', 1);
-    
-    //console.log(range);
+    // Escala de colores
     let dataLegend = [];
     domainData.forEach(function (d, index) {
         //console.log(d);
@@ -618,14 +578,12 @@ function chartMaxMin(data, classObject, colorBase) {
         tempData = {"color": range[index], "value": domainData[index]}
         dataLegend.push(tempData);
     });
-    //console.log(dataLegend); 
 
     let extent = d3.extent(dataLegend, d => d.value);
     let padding = 9;
     let width = 320;
     let innerWidth = width - (padding * 5);
     let barHeight = 12;
-    let height = 28;
 
     let xScale = d3.scaleLinear()
         .range([0, innerWidth])
@@ -657,8 +615,37 @@ function chartMaxMin(data, classObject, colorBase) {
 
     g2.append("g")
         .call(xAxis)
-        .select(".domain").remove();    
+        .select(".domain").remove();
+    // Termina escala de colores    
+    //console.log(range)
+    let domainFill = d3.scaleQuantile()
+        .range(range)
+        .domain(domainData);
+    console.log(`Colores: ${range}`);
+    console.log(`Dominio de datos: ${domainData}`);
+
+    svg.select(`.${classObject}`).selectAll('circle')
+        .transition().duration(500).delay((d, i) => i * 50)
+        .attr('r', d => (d.puntajeTop + 5) * 2.1)
+        .attr('opacity', 0.8)
+        .attr('fill', d => {
+            //categoryColorScale(d.tipoCat)
+            let value = d.puntajeTop;
+            return value ? domainFill(value):"#ccc";
+        });
+
+    svg.select(`.${classObject}`).selectAll('.lab-text').transition().duration(300).delay((d, i) => i * 30)
+        .text(d => {
+            return d === 'max' ? 'Mayor puntaje' :
+                d === 'min' ? 'Menor puntaje' :
+                '?';
+        })
+        // posicionan las burbujas y titulos
+        .attr('x', d => categoriesXY[d][0] + 200)
+        .attr('y', d => categoriesXY[d][1])
+        .attr('opacity', 1);
     
+    //console.log(range);   
     svg.select(`.${classObject}`).selectAll('circle')
         .on('mouseover', mouseOver2)
         .on('mouseout', mouseOut2);
