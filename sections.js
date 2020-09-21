@@ -498,14 +498,7 @@ function mouseOver2(d, i) {
         .transition('mouseover').duration(100)
         .attr('opacity', 1)
         .attr('stroke-width', 3)
-        .attr('stroke', function (d) {
-            return ['oroNor', 'plataNor', 'bronceNor'].includes(d.tipoMedalla) ? '#237BA1' :
-                ['oroInf', 'plataInf', 'bronceInf'].includes(d.tipoMedalla) ? '#1A562A' :
-                    ['oroCH', 'plataCH', 'bronceCH'].includes(d.tipoMedalla) ? '#463672' :
-                        ['oroGD', 'plataGD', 'bronceGD'].includes(d.tipoMedalla) ? '#9F4401' :
-                            ['oroMC', 'plataMC', 'bronceMC'].includes(d.tipoMedalla) ? '#AB8004' :
-                                '#fff';
-        })
+        .attr('stroke', '#000')
 
     d3.select('#tooltip')
         .style('left', (d3.event.pageX + 10) + 'px')
@@ -621,8 +614,6 @@ function chartMaxMin(data, classObject, colorBase) {
     let domainFill = d3.scaleQuantile()
         .range(range)
         .domain(domainData);
-    console.log(`Colores: ${range}`);
-    console.log(`Dominio de datos: ${domainData}`);
 
     svg.select(`.${classObject}`).selectAll('circle')
         .transition().duration(500).delay((d, i) => i * 50)
