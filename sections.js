@@ -591,7 +591,7 @@ function chartMaxMin(data, classObject, colorBase) {
         .attr('fill', d => {
             //categoryColorScale(d.tipoCat)
             let value = d.puntajeTop;
-            return value ? domainFill(value):"#ccc";
+            return value ? domainFill(value):"#D3D3D3";
         });
 
     svg.select(`.${classObject}`).selectAll('.lab-text').transition().duration(300).delay((d, i) => i * 30)
@@ -855,6 +855,7 @@ scroll.on('active', function (index) {
 
 $(document).ready(function () {
     // Handler for .ready() called.
+    new Tablesort(document.getElementById('tablaScore'));
     $('html, body').animate({
         scrollTop: 0
     }, 'slow');
