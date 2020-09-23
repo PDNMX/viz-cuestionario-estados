@@ -460,7 +460,7 @@ function mouseOver2(d, i) {
         .style('left', (d3.event.pageX + 10) + 'px')
         .style('top', (d3.event.pageY - 25) + 'px')
         .style('display', 'inline-block')
-        .html(`<strong>Estado:</strong> ${d.entidad[0] + d.entidad.slice(1,).toLowerCase()} 
+        .html(`<strong>Estado:</strong> ${d.entidad[0] + d.entidad.slice(1,)} 
             <br> <strong>Puntuación:</strong> ${d.puntajeTop}`)
 }
 
