@@ -2,21 +2,13 @@ let dataset, mexico, svg
 let sizeScale
 let simulation, nodes
 
-const margin = {
-    left: 170,
-    top: 80,
-    bottom: 50,
-    right: 20
-}
-
-
 const dataMaxMinInfraestructura = [];
 const dataMaxMinNormatividad = [];
 const dataMaxMinCapitalHumano = [];
 const dataMaxMinMapeoGestion = [];
 const dataMaxDevMinMecanismos = [];
 
-// Colores para categorias 
+// Colores base para categorias 
 // Normatividad, Infraestructura, Capital Humano, Mapeo y gestión, Dev Mecanismos de comunicación
 const colorsCategorias = ['#34B3EB', '#34a853', '#674ea7', '#ff6d01', '#fbbc04'];
 
@@ -53,9 +45,6 @@ function drawInitial() {
         .attr('preserveAspectRatio','xMinYMin')
         .attr('opacity', 1)
         .attr('display', 'none');
-    /* const params = svg.attr('viewBox').split(' ').map((n) => parseInt(n, 10))
-    const width = params[2]
-    const height = params[3] */
     /*
         INICIO --> chartBurbujas
     */
@@ -105,7 +94,7 @@ function drawInitial() {
         .style('text-anchor', 'middle')
         .style('pointer-events', 'none')
         .style("font-size", function (d) {
-            let sizeLetter = Math.min(0.3 * d.gsx$puntajetotal.$t, (2 * d.gsx$puntajetotal.$t - 8) / this.getComputedTextLength() * 0.5);
+            let sizeLetter = Math.min(0.25 * d.gsx$puntajetotal.$t, (d.gsx$puntajetotal.$t) / this.getComputedTextLength() * 0.3);
             return  `${sizeLetter}px`;
         })
     ;
@@ -128,7 +117,7 @@ function drawInitial() {
             .style('left', (d3.event.pageX + 10) + 'px')
             .style('top', (d3.event.pageY - 25) + 'px')
             .style('display', 'inline-block')
-            .html(`<strong>Estado:</strong> ${d.gsx$estado.$t[0] + d.gsx$estado.$t.slice(1,).toLowerCase()} 
+            .html(`<strong>Estado:</strong> ${d.gsx$estado.$t[0] + d.gsx$estado.$t.slice(1,)} 
                 <br> <strong>Puntuación:</strong> ${Math.round(d.gsx$puntajetotal.$t)}/100`)
     }
 
