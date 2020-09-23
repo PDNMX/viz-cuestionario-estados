@@ -10,9 +10,6 @@ const margin = {
 }
 
 
-/* const width = 1000 - margin.left - margin.right
-const height = 950 - margin.top - margin.bottom */
-
 const dataMaxMinInfraestructura = [];
 const dataMaxMinNormatividad = [];
 const dataMaxMinCapitalHumano = [];
@@ -49,6 +46,7 @@ function createScales() {
 }
 
 function drawInitial() {
+    
     let svg = d3.select("#vis")
         .append('svg')
         .attr("viewBox", `0 0 1000 950`)
@@ -839,7 +837,7 @@ scroll.on('active', function (index) {
     d3.selectAll('.step')
         .transition().duration(500)
         .style('opacity', function (d, i) {
-            return i === index ? 1 : 0.1;
+            return i === index ? 1 : 0.2;
         });
     activeIndex = index;
     let sign = (activeIndex - lastIndex) < 0 ? -1 : 1;
@@ -853,11 +851,8 @@ scroll.on('active', function (index) {
 
 })
 
-$(document).ready(function () {
-    // Handler for .ready() called.
+document.addEventListener("DOMContentLoaded", function() {
+    window.scrollTo(0, 0);
     new Tablesort(document.getElementById('tablaScore'));
-    $('html, body').animate({
-        scrollTop: 0
-    }, 'slow');
 });
 

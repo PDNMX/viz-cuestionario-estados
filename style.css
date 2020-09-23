@@ -1,15 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap');
 
-/* body {
-    background-color: #f3f4f3;
-    overflow-x: hidden;
-} */
-
 #sections {
     position: relative;
     display: inline-block;
     /* width: 400px; */
-    top: 100px;
+    top: 90px;
     z-index: 5;
     /* margin-right: 50px; */
 }
@@ -21,10 +16,11 @@
 
 .tituloSeccion{
     text-align: left;
+    margin-bottom: 2rem;
 }
 .step {
     margin-bottom: 100px;
-    height: 800px;
+    height: 950px;
     font-family: 'Noto Sans SC', sans-serif;
     font-weight: 400;
     line-height: 1.4em;
@@ -33,49 +29,6 @@
     flex-direction: column;
     justify-content: space-around;
 }
-
-/* .noStep {
-    margin-bottom: 100px;
-    height: 700px;
-    font-family: 'Noto Sans SC', sans-serif;
-    font-weight: 400;
-    line-height: 1.4em;
-    text-align: justify;
-    
-} */
-
-/* h1, h2 {
-    font-weight: 700;
-    text-align: right;
-    line-height: 32px;
-    margin-bottom: 2rem !important;
-}
-
-h1 {
-    font-size: 35px;
-}
- */
-
-/* #graphic {
-    margin: auto;
-    width: 1500px;
-    flex-direction: row;
-    align-items: top;
-    justify-content: space-around;
-} */
-
-/* #vis {
-    display: inline-block;
-    position: sticky;
-    top: 0px;
-    z-index: 1;
-    margin-left: 0;
-
-} */
-
-/* .tick line {
-    stroke: 'red'
-} */
 
 #tooltip {
     position: absolute;
@@ -112,9 +65,6 @@ a {
     text-decoration: none;
 }
 
-/* img {
-    display: none;
-} */
 
 .small-text {
     padding-right: 50px;
@@ -122,7 +72,6 @@ a {
 
 #logoFooter {
     max-width: 85px;
-    /* padding-top: 15px; */
 }
 
 .footer {
@@ -249,9 +198,9 @@ background-color: white !important;
     font-size: 0.9375rem !important;
 }
 
-p{
+/* p{
     margin-bottom: 2rem !important;
-}
+} */
 
 .categoryName{
     font-size: 0.9375rem;
