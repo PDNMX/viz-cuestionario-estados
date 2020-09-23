@@ -1,253 +1,273 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Plataforma Digital Nacional: interconexión subnacional y avances 2020">
-    <meta name="author" content="Sergio Rodríguez">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.css"/>
-    
-    <title>Avances de Interconexión Subnacional</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Avances de Interconexión Subnacional</title>
+  <meta name="description" content="Plataforma Digital Nacional: interconexión subnacional y avances 2020">
+  <meta name="author" content="Sergio Rodríguez">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="stylePDN.css" />
+  <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.css"/>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
-     style="background-color: rgba(102, 102, 102, 1) !important; z-index: 10;">
+  <div id="tooltip"></div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+    style="background-color: rgba(102, 102, 102, 1) !important; z-index: 10;">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <a class="navbar-brand" href="https://plataformadigitalnacional.org"><img id="logoHeader" alt="PDN"
-                                                                                          src="img/pdn.png"></a>
-            </div>
+      <div class="row">
+        <div class="col-md-12">
+          <a class="navbar-brand" href="https://plataformadigitalnacional.org"><img id="logoHeader" alt="PDN"
+              src="/img/pdn.png"></a>
         </div>
+      </div>
 
     </div>
-</nav>
-
-<div class="container ">
-    <div id="tooltip"></div>
-    <!-- <div id="descargas" class="infoMap" style="display: block;">
-        <a class="btn btn-outline-secondary" target="_blank"
-           href="https://drive.google.com/file/d/1eL4fsshrOWf5WNHWtC4go_EUoclqo1uX/view?usp=sharing">Descarga
-            la metodología</a>
-    </div> -->
-
-    <div class="row">
-        <div class="col-12 col-md-4">
+  </nav>
+  <div class="container">
+    <main>
+        <section id="scrolly" class="row">
             <div id="descargas" class="infoMap" style="display: block;">
-                <a class="btn btn-outline-secondary" target="_blank"
-                   href="https://drive.google.com/file/d/1eL4fsshrOWf5WNHWtC4go_EUoclqo1uX/view?usp=sharing">Descarga
-                    la metodología</a>
+              <a class="btn btn-outline-secondary" target="_blank"
+                href="https://drive.google.com/file/d/1eL4fsshrOWf5WNHWtC4go_EUoclqo1uX/view?usp=sharing">Descarga
+                  la metodología</a>
             </div>
-            <div id="sections">
-                <section class="step" style="">
-                    <h2 class="tituloSeccion">Avances de interconexión subnacional. Sistemas 2 y 3. </h2>
-                    <p>Este tablero representa los avances de las Secretarías Ejecutivas de los Sistemas Locales Anticorrupción en el desarrollo de los sistemas (2) de servidores públicos que intervengan en procedimientos de contrataciones públicas y (3) de servidores públicos y particulares sancionados. Trimestralmente, las Secretarías Ejecutivas Locales responden un cuestionario elaborado por la SESNA para reportar sus avances en las siguientes categorías:
-                    <ol type="I">
-                        <li>Normatividad: ¿la entidad federativa ya cuenta con bases para el funcionamiento de su Plataforma o Sistema de Información, y ya analizó su normatividad aplicable?;</li>
-                        <li>Infraestructura: ¿la entidad cuenta con los recursos necesarios para llevar a cabo el desarrollo;</li>
-                        <li>Capital humano: ¿la entidad cuenta con el personal para llevar a cabo el desarrollo?</li>
-                        <li>Mapeo y gestión de datos: ¿cómo van los trabajos para que los datos sean proveídos por las autoridades locales?, y</li>
-                        <li>Desarrollo de mecanismos de comunicación: ¿cómo van los trabajos para comunicar a la entidad federativa con la PDN? </li>
-                    </ol>
-                    </p>
-                    <div class="form-group">
-                        <label for="sel1">Selecciona el periodo que desees consultar:</label>
-                        <select class="custom-select">
-                            <option selected value="1">1° entrega (del 1° de enero al 30 de junio del 2020)</option>
-                            <option disabled value="2">2° entrega (del 1° de julio al 30 de septiembre del 2020)</option>
-                            <option disabled value="3">3° entrega (del 1° de octubre al 16 de diciembre del 2020)</option>
-                        </select>
-                    </div>
-                    <p>La tabla de la derecha muestra el porcentaje de avance de las entidades federativas que respondieron el cuestionario, para cada una de las categorías evaluadas, de manera independiente. </p>
-                    <p>Cada columna corresponde a una categoría evaluada. Es importante considerar que cada categoría implica cumplir con una serie de actividades para estar completa. El cumplimiento del total de las actividades evaluadas, para cada categoría, representa el 100% de avance.</p>
-                    <p>Los resultados muestran las categorías donde las Secretarías han avanzado más o, en su caso, deberán concentrar esfuerzos hasta interconectar los datos de su entidad federativa con la PDN.</p>
-                    <p>En la primera entrega, 27 entidades federativas reportaron sus avances. Cabe señalar que  Nuevo León, Morelos y San Luis Potosí no reportaron avances; mientras que, Chiapas y la Ciudad de México no han completado la conformación de sus Sistemas Anticorrupción.</p>
+            <article class="col-md-4">
+              <div class="step" data-step="1">
+                <section class="seccion">
+                  <br>
+                  <h2 class="tituloSeccion">Avances de interconexión subnacional. Sistemas 2 y 3. </h2>
+                  <p>Este tablero representa los avances de las Secretarías Ejecutivas de los Sistemas Locales Anticorrupción en el desarrollo de los sistemas (2) de servidores públicos que intervengan en procedimientos de contrataciones públicas y (3) de servidores públicos y particulares sancionados. Trimestralmente, las Secretarías Ejecutivas Locales responden un cuestionario elaborado por la SESNA para reportar sus avances en las siguientes categorías:</p>
+                  <ol type="I">
+                      <li>Normatividad: ¿la entidad federativa ya cuenta con bases para el funcionamiento de su Plataforma o Sistema de Información, y ya analizó su normatividad aplicable?;</li>
+                      <li>Infraestructura: ¿la entidad cuenta con los recursos necesarios para llevar a cabo el desarrollo;</li>
+                      <li>Capital humano: ¿la entidad cuenta con el personal para llevar a cabo el desarrollo?</li>
+                      <li>Mapeo y gestión de datos: ¿cómo van los trabajos para que los datos sean proveídos por las autoridades locales?, y</li>
+                      <li>Desarrollo de mecanismos de comunicación: ¿cómo van los trabajos para comunicar a la entidad federativa con la PDN? </li>
+                  </ol>
+                  
+                  <div class="form-group">
+                      <label for="sel1">Selecciona el periodo que desees consultar:</label>
+                      <select class="custom-select">
+                          <option selected value="1">1° entrega (del 1° de enero al 30 de junio del 2020)</option>
+                          <option disabled value="2">2° entrega (del 1° de julio al 30 de septiembre del 2020)</option>
+                          <option disabled value="3">3° entrega (del 1° de octubre al 16 de diciembre del 2020)</option>
+                      </select>
+                  </div>
+                  <p>La tabla de la derecha muestra el porcentaje de avance de las entidades federativas que respondieron el cuestionario, para cada una de las categorías evaluadas, de manera independiente. </p>
+                  <p>Cada columna corresponde a una categoría evaluada. Es importante considerar que cada categoría implica cumplir con una serie de actividades para estar completa. El cumplimiento del total de las actividades evaluadas, para cada categoría, representa el 100% de avance.</p>
+                  <p>Los resultados muestran las categorías donde las Secretarías han avanzado más o, en su caso, deberán concentrar esfuerzos hasta interconectar los datos de su entidad federativa con la PDN.</p>
+                  <p>En la primera entrega, 27 entidades federativas reportaron sus avances. Cabe señalar que  Nuevo León, Morelos y San Luis Potosí no reportaron avances; mientras que, Chiapas y la Ciudad de México no han completado la conformación de sus Sistemas Anticorrupción.</p>
+              </section>
+              </div>
+              <div class="step" data-step="2">
+                <section class="seccion">
+                  <h2 class="tituloSeccion">Puntuación por entidad</h2>
+                  <p>Este mapa muestra la calificación total de cada una de las entidades. Da clic en cada una de ellas para conocer sus puntuaciones en las categorías.</p>
                 </section>
-                <section class="step" style="">
-                    <h2 class="tituloSeccion">Puntuación por entidad</h2>
-                    <p>Este mapa muestra la calificación total de cada una de las entidades. Da clic en cada una de ellas para conocer sus puntuaciones en las categorías.</p>
+              </div>
+              <div class="step" data-step="3">
+                <section class='seccion'>
+                  <h2 class="tituloSeccion">Entidades con mayor puntaje</h2>
+                  <p>Esta visualización presenta los 10 entidades con mayor puntuación total, al seleccionar cada uno podrás obtener su puntaje general. </p>
+                  <p>En la primera entrega, las 10 entidades con mayor puntuación son Estado de México 94 puntos, Michoacán 81 puntos, Tlaxcala y Tabasco 79 puntos, Puebla 77 puntos, Sonora 72 puntos, Jalisco 70 puntos, Aguascalientes 69 puntos, Zacatecas 66 puntos y Durango 55 puntos.</p>
                 </section>
-                <section class='step' style="">
-                    <h2 class="tituloSeccion">Entidades con mayor puntaje</h2>
-                    <p>Esta visualización presenta los 10 entidades con mayor puntuación total, al seleccionar cada uno podrás obtener su puntaje general. </p>
-                    <p>En la primera entrega, las 10 entidades con mayor puntuación son Estado de México 94 puntos, Michoacán 81 puntos, Tlaxcala y Tabasco 79 puntos, Puebla 77 puntos, Sonora 72 puntos, Jalisco 70 puntos, Aguascalientes 69 puntos, Zacatecas 66 puntos y Durango 55 puntos.</p>
+              </div>
+              <div class="step" data-step="4">
+                <section class="seccion">
+                  <h2 class="tituloSeccion">Normatividad</h2>
+                  <p>Esta categoría se refiere al grado de avance de cada Secretaría Ejecutiva Local, en términos de la normatividad necesaria para su Plataforma Digital o Sistema de Información Estatal. Básicamente, la entidad federativa obtiene puntos cuando su comité coordinador ya aprobó las bases para el funcionamiento de la Plataforma o Sistema de Información. Además, la puntuación máxima se obtiene cuando ya se identificó qué características debe cumplir la Plataforma o Sistema de Información según la normatividad aplicable.
+                      <br>El puntaje total de la categoría <b>son 10 puntos</b>.
+                  </p>
+                  <p>En la primera entrega, el Estado de México, Durango y Aguascalientes obtuvieron el mayor puntaje con 10 puntos; seguidos por Puebla, Chihuahua y Oaxaca con 8 puntos y  Michoacán, Tlaxcala, Tabasco, Sonora, Jalisco, Zacatecas, Campeche, Sinaloa, Guerrero, Yucatán, Colima, Baja California, Hidalgo, Nayarit, Guanajuato y
+                      Tamaulipas con 6 puntos.                        
+                      <br>
+                      Baja California Sur obtuvo 5 puntos, seguido por Quintana Roo con 1 punto. Para este trimestre, Veracruz, Querétaro y Coahuila no obtuvieron ningún punto.                        
+                  </p>
                 </section>
-                <section class="step" style="">
-                    <h2 class="tituloSeccion">Normatividad</h2>
-                    <p>Esta categoría se refiere al grado de avance de cada Secretaría Ejecutiva Local, en términos de la normatividad necesaria para su Plataforma Digital o Sistema de Información Estatal. Básicamente, la entidad federativa obtiene puntos cuando su comité coordinador ya aprobó las bases para el funcionamiento de la Plataforma o Sistema de Información. Además, la puntuación máxima se obtiene cuando ya se identificó qué características debe cumplir la Plataforma o Sistema de Información según la normatividad aplicable.
-                        <br>El puntaje total de la categoría <b>son 10 puntos</b>.
-                    </p>
-                    <p>En la primera entrega, el Estado de México, Durango y Aguascalientes obtuvieron el mayor puntaje con 10 puntos; seguidos por Puebla, Chihuahua y Oaxaca con 8 puntos y  Michoacán, Tlaxcala, Tabasco, Sonora, Jalisco, Zacatecas, Campeche, Sinaloa, Guerrero, Yucatán, Colima, Baja California, Hidalgo, Nayarit, Guanajuato y
-                        Tamaulipas con 6 puntos.                        
-                        <br>
-                        Baja California Sur obtuvo 5 puntos, seguido por Quintana Roo con 1 punto. Para este trimestre, Veracruz, Querétaro y Coahuila no obtuvieron ningún punto.                        
-                    </p>
-
+              </div>
+              <div class="step" data-step="5">
+                <section class="seccion">
+                  <h2 class="tituloSeccion">Infraestructura</h2>
+                  <p>Esta categoría permite conocer si la Secretaría Ejecutiva Estatal cuenta con la infraestructura necesaria, o con los recursos para rentarla o adquirirla, para almacenar y procesar la información que se desprende de los sistemas 2 y 3.
+                      <br>
+                      El puntaje total de la categoría <b>son 20 puntos</b>.
+                  </p>
+                  <p>En la primera entrega, las entidades federativas del Estado de México, Durango, Aguascalientes, Puebla, Zacatecas, Tlaxcala, Tabasco, Sonora, Michoacán y Jalisco obtuvieron el mayor puntaje de avance con 20 puntos; seguidos por Chihuahua con 14 puntos, y Campeche, Yucatán y Coahuila con 13 puntos. 
+                      <br>
+                      En cuanto a las entidades con menores puntuaciones: mientras que, Querétaro obtuvo 7; Guanajuato y Veracruz tienen 6 puntos. Los estados con menor avance y 0 puntos son Tamaulipas, Hidalgo, Baja California Sur y Quintana Roo.
+                  </p>
                 </section>
-                <section class="step" style="">
-                    <h2 class="tituloSeccion">Infraestructura</h2>
-                    <p>Esta categoría permite conocer si la Secretaría Ejecutiva Estatal cuenta con la infraestructura necesaria, o con los recursos para rentarla o adquirirla, para almacenar y procesar la información que se desprende de los sistemas 2 y 3.
-                        <br>
-                        El puntaje total de la categoría <b>son 20 puntos</b>.
-                    </p>
-                    <p>En la primera entrega, las entidades federativas del Estado de México, Durango, Aguascalientes, Puebla, Zacatecas, Tlaxcala, Tabasco, Sonora, Michoacán y Jalisco obtuvieron el mayor puntaje de avance con 20 puntos; seguidos por Chihuahua con 14 puntos, y Campeche, Yucatán y Coahuila con 13 puntos. 
-                        <br>
-                        En cuanto a las entidades con menores puntuaciones: mientras que, Querétaro obtuvo 7; Guanajuato y Veracruz tienen 6 puntos. Los estados con menor avance y 0 puntos son Tamaulipas, Hidalgo, Baja California Sur y Quintana Roo.
-                    </p>
+              </div>
+              <div class="step" data-step="6">
+                <section class="seccion">
+                  <h2 class="tituloSeccion">Capital humano</h2>
+                  <p>Esta categoría muestra si la Secretaría Ejecutiva Estatal cuenta con personal suficiente adscrito a su institución o contratado por algún otro mecanismo para el desarrollo de su Plataforma Digital o Sistema de información. Además, en esta categoría se refleja si el equipo técnico cuenta con el grado de conocimiento técnico actual para lograr la interconexión con la PDN.
+                      <br>La puntuación máxima para esta categoría es <b>10</b>. 
+                  </p>
+                  <p>En la primera entrega los estados de Aguascalientes, Puebla, Tlaxcala, Tabasco, Sonora, Jalisco, Chihuahua, Guerrero, Colima, Nayarit y Guanajuato muestran el mayor avance con 10 puntos. Estos son seguidos por Yucatán con 9, y el Estado de México, Zacatecas y Campeche con 8 puntos.  
+                      <br>
+                      Los estados de Tamaulipas, Baja California Sur y Querétaro muestran el menor grado de avance con 4, 2 y 0 puntos respectivamente.
+                  </p>
                 </section>
-                <section class="step" style="">
-                    <h2 class="tituloSeccion">Capital humano</h2>
-                    <p>Esta categoría muestra si la Secretaría Ejecutiva Estatal cuenta con personal suficiente adscrito a su institución o contratado por algún otro mecanismo para el desarrollo de su Plataforma Digital o Sistema de información. Además, en esta categoría se refleja si el equipo técnico cuenta con el grado de conocimiento técnico actual para lograr la interconexión con la PDN.
-                        <br>La puntuación máxima para esta categoría es <b>10</b>. 
-                    </p>
-                    <p>En la primera entrega los estados de Aguascalientes, Puebla, Tlaxcala, Tabasco, Sonora, Jalisco, Chihuahua, Guerrero, Colima, Nayarit y Guanajuato muestran el mayor avance con 10 puntos. Estos son seguidos por Yucatán con 9, y el Estado de México, Zacatecas y Campeche con 8 puntos.  
-                        <br>
-                        Los estados de Tamaulipas, Baja California Sur y Querétaro muestran el menor grado de avance con 4, 2 y 0 puntos respectivamente.
-                    </p>
+              </div>
+              <div class="step" data-step="7">
+                <section class="seccion">
+                  <h2 class="tituloSeccion">Mapeo y gestión de datos</h2>
+                  <p>La categoría de mapeo y gestión de datos representa al trabajo, de las Secretarías Ejecutivas de las entidades federativas, para comunicar a la Plataforma Digital o Sistema de Información Local con las instituciones en su entidad federativa. Una parte de los puntos en esta categoría se obtienen por identificar qué instituciones del ámbito local generan y tienen en su posesión datos de personas servidoras públicas que intervienen en procedimientos de contrataciones públicas, y personas sancionadas. Además, para obtener la puntuación máxima de <b>30 puntos</b>, se deben establecer los mecanismos necesarios para transferir y actualizar datos entre la Secretaría Ejecutiva local y las instituciones proveedoras de las entidades federativas.</p>
+                  <p>En la primera entrega, las entidades federativas con mayor puntuación fueron el Estado de México con 26 puntos, Puebla con 19 puntos y Michoacán 18 puntos.En el caso del Estado de México, su puntuación refleja que ya están conectadas sus APIs de personas servidoras públicas sancionadas y de personas particulares sancionadas; sigue pendiente el API de personas servidoras públicas que intervienen en procedimientos de contratación.
+                      <br>
+                      Entre los estados con las menores puntuaciones tenemos a Aguascalientes, Chihuahua, Yucatán y Tamaulipas con 2 puntos. Estos son seguidos por Nayarit con 1 punto. Guerrero, Guanajuato, Baja California, Quintana Roo, Baja California Sur y Querétaro no obtuvieron ningún punto en esta categoría.
+                  </p>
                 </section>
-                <section class="step" style="">
-                    <h2 class="tituloSeccion">Mapeo y gestión de datos</h2>
-                    <p>La categoría de mapeo y gestión de datos representa al trabajo, de las Secretarías Ejecutivas de las entidades federativas, para comunicar a la Plataforma Digital o Sistema de Información Local con las instituciones en su entidad federativa. Una parte de los puntos en esta categoría se obtienen por identificar qué instituciones del ámbito local generan y tienen en su posesión datos de personas servidoras públicas que intervienen en procedimientos de contrataciones públicas, y personas sancionadas. Además, para obtener la puntuación máxima de <b>30 puntos</b>, se deben establecer los mecanismos necesarios para transferir y actualizar datos entre la Secretaría Ejecutiva local y las instituciones proveedoras de las entidades federativas.</p>
-                    <p>En la primera entrega, las entidades federativas con mayor puntuación fueron el Estado de México con 26 puntos, Puebla con 19 puntos y Michoacán 18 puntos.En el caso del Estado de México, su puntuación refleja que ya están conectadas sus APIs de personas servidoras públicas sancionadas y de personas particulares sancionadas; sigue pendiente el API de personas servidoras públicas que intervienen en procedimientos de contratación.
-                        <br>
-                        Entre los estados con las menores puntuaciones tenemos a Aguascalientes, Chihuahua, Yucatán y Tamaulipas con 2 puntos. Estos son seguidos por Nayarit con 1 punto. Guerrero, Guanajuato, Baja California, Quintana Roo, Baja California Sur y Querétaro no obtuvieron ningún punto en esta categoría.
-                    </p>
+              </div>
+              <div class="step" data-step="8">
+                <section id="seccionUltima" class="seccion">
+                  <h2 class="tituloSeccion">Desarrollo de mecanismos de comunicación </h2>
+                  <p>Los mecanismos de comunicación o APIs son las piezas que permiten la comunicación o transferencia de datos entre las Secretarías Ejecutivas locales y la PDN. Esta categoría indica el avance en el desarrollo de las APIs  para los sistemas 2 y 3. 
+                      <br>El puntaje total para la categoría <b>son 30 puntos</b>.
+                      </p>
+                  <p>El Estado de México, Michoacán, Tlaxcala y Tabasco lograron el mayor puntaje con 30 puntos, seguidos por Sonora y Aguascalientes con 27 puntos, y Jalisco con 25 puntos.
+                      En el primer trimestre, Campeche obtuvo 10 puntos. Éste es seguido por Colima, Oaxaca, Yucatán y Baja California con 5 puntos. Por último, Hidalgo, Coahuila, Veracruz, Tamaulipas, Nayarit, Guanajuato, Quintana Roo, Baja California Sur y Querétaro no lograron conseguir ningún punto en esta categoría.
+                  </p>
                 </section>
-                <section class="step" style="">
-                    <h2 class="tituloSeccion">Desarrollo de mecanismos de comunicación </h2>
-                    <p>Los mecanismos de comunicación o APIs son las piezas que permiten la comunicación o transferencia de datos entre las Secretarías Ejecutivas locales y la PDN. Esta categoría indica el avance en el desarrollo de las APIs  para los sistemas 2 y 3. 
-                        <br>El puntaje total para la categoría <b>son 30 puntos</b>.
-                        </p>
-                    <p>El Estado de México, Michoacán, Tlaxcala y Tabasco lograron el mayor puntaje con 30 puntos, seguidos por Sonora y Aguascalientes con 27 puntos, y Jalisco con 25 puntos.
-                        En el primer trimestre, Campeche obtuvo 10 puntos. Éste es seguido por Colima, Oaxaca, Yucatán y Baja California con 5 puntos. Por último, Hidalgo, Coahuila, Veracruz, Tamaulipas, Nayarit, Guanajuato, Quintana Roo, Baja California Sur y Querétaro no lograron conseguir ningún punto en esta categoría.
-                    </p>
-                </section>
+              </div>
+            </article>
+          <div class="col-md-8">
+            <div id="contentViz">
+              <!-- <p>0</p> -->
+              <div id="vis"></div>
+              <div class="tableFixHead">
+                  <table id="tablaScore" class="table table-sm table-hover table-responsive">
+                      <thead>
+                          <tr>
+                              <th scope="col" style="width: 15%;"></th>
+                              <th scope="col" style="width: 17%;"><small>Normatividad</small></th>
+                              <th scope="col" style="width: 17%;"><small>Infraestructura</small></th>
+                              <th scope="col" style="width: 17%;"><small>Capital humano</small></th>
+                              <th scope="col" style="width: 17%;"><small>Mapeo y gestión de datos</small></th>
+                              <th scope="col" style="width: 17%;"><small>Desarrollo de mecanismos de comunicación</small></th>
+                          </tr>
+                      </thead>
+                      <tbody id="tablaData"></tbody>
+                  </table>
+              </div>
             </div>
-        </div>
-        <div class="col-12 col-md-8">
-            <div id="vis"></div>
-            <div class="tableFixHead " style="position: sticky; top: 80px;">
-                <table id="tablaScore" class="table table-sm table-hover table-responsive">
-                    <thead>
-                        <tr>
-                            <th scope="col" style="width: 15%;"></th>
-                            <th scope="col" style="width: 17%;"><small>Normatividad</small></th>
-                            <th scope="col" style="width: 17%;"><small>Infraestructura</small></th>
-                            <th scope="col" style="width: 17%;"><small>Capital humano</small></th>
-                            <th scope="col" style="width: 17%;"><small>Mapeo y gestión de datos</small></th>
-                            <th scope="col" style="width: 17%;"><small>Desarrollo de mecanismos de comunicación</small></th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaData"></tbody>
-                </table>
-            </div>
-
-            
-        </div>
-    </div>
-</div>
+          </div>
+        </section>
+      
+      
+      <!-- <section id="outro"></section> -->
+    </main>
+  </div>
 
 <footer class="footer">
-    <div class="container">
-        <!-- <span class="text-muted">Place sticky footer content here.</span> -->
-        <div id="footer1" class="row">
-            <div class="col-md-6">
-                <img id="logoFooter" alt="PDN" src="img/pdn.png">
-                <p style="font-weight: bold;">Plataforma Digital Nacional</p>
-                <br>
-                <br>
-                <p>Inteligencia de Datos Anticorrupción</p>
-                <img id="libreUso" alt="PDN" src="img/libre_uso.png">
+  <div class="container">
+      <!-- <span class="text-muted">Place sticky footer content here.</span> -->
+      <div id="footer1" class="row">
+          <div class="col-md-6">
+              <img id="logoFooter" alt="PDN" src="img/pdn.png">
+              <p style="font-weight: bold;">Plataforma Digital Nacional</p>
+              <br>
+              <br>
+              <p>Inteligencia de Datos Anticorrupción</p>
+              <img id="libreUso" alt="PDN" src="img/libre_uso.png">
 
-            </div>
-            <div class="col-md-3">
-                <b class="txtFooter" style="color: #34b3eb; font-weight: bold;">Sistemas</b>
-                <p class="txtFooter"></p>
-                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/declaraciones">Declaraciones</a>
-                </p>
-                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/servidores">Servidores
-                    en contrataciones</a></p>
-                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/sancionados">Sanciones</a>
-                </p>
-                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/contrataciones">Contrataciones</a>
-                </p>
-            </div>
-            <div class="col-md-3">
-                <b class="txtFooter" style="color: #34b3eb; font-weight: bold">PDN</b>
-                <p class="txtFooter"></p>
-                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/blog">Blog</a></p>
-                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/faq">Preguntas
-                    frecuentes</a></p>
-                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/about">¿Qué es la
-                    PDN?</a></p>
-                <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/terminos">Términos
-                    de uso</a></p>
-            </div>
-        </div>
+          </div>
+          <div class="col-md-3">
+              <b class="txtFooter" style="color: #34b3eb; font-weight: bold;">Sistemas</b>
+              <p class="txtFooter"></p>
+              <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/declaraciones">Declaraciones</a>
+              </p>
+              <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/servidores">Servidores
+                  en contrataciones</a></p>
+              <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/sancionados">Sanciones</a>
+              </p>
+              <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/contrataciones">Contrataciones</a>
+              </p>
+          </div>
+          <div class="col-md-3">
+              <b class="txtFooter" style="color: #34b3eb; font-weight: bold">PDN</b>
+              <p class="txtFooter"></p>
+              <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/blog">Blog</a></p>
+              <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/faq">Preguntas
+                  frecuentes</a></p>
+              <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/about">¿Qué es la
+                  PDN?</a></p>
+              <p class="txtFooter"><a class="txtFooter" href="https://plataformadigitalnacional.org/terminos">Términos
+                  de uso</a></p>
+          </div>
+      </div>
 
-    </div>
-    <div id="footerFin">
-        <div class="col-md-12" align="center">
-            <img id="logoSesna" alt="PDN" src="img/logoSesna.png">
-        </div>
-    </div>
+  </div>
+  <div id="footerFin">
+      <div class="col-md-12" align="center">
+          <img id="logoSesna" alt="PDN" src="img/logoSesna.png">
+      </div>
+  </div>
 </footer>
 
 <div class="modal" id="mapaModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" id="modalHeader">
-                <h2 id="modalTitle" class="modal-title"></h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="ptotal" class="rounded-circle">
-                    <h1 id="pntTotal" style="text-align: center;margin-bottom: 0px !important;"><b></b></h1>
-                    <h2  style="text-align: center;margin-bottom: 16px !important;"><b>puntos</b></h2>
-                </div>
-                <label for="basic-url">Puntuación normatividad</label>
-                <div class="input-group mb-3">
-                    <input disabled type="text" class="form-control" id="pntNormatividad" aria-describedby="basic-addon3">
-                </div>
-                <label for="basic-url">Puntuación infraestructura</label>
-                <div class="input-group mb-3">
-                    <input disabled type="text" class="form-control" id="pntInf" aria-describedby="basic-addon3">
-                </div>
-                <label for="basic-url">Puntuación capital humano</label>
-                <div class="input-group mb-3">
-                    <input disabled type="text" class="form-control" id="pntCH" aria-describedby="basic-addon3">
-                </div>
-                <label for="basic-url">Puntuación mapeo y gestión de datos</label>
-                <div class="input-group mb-3">
-                    <input disabled type="text" class="form-control" id="pntGD" aria-describedby="basic-addon3">
-                </div>
-                <label for="basic-url">Puntuación desarrollo de mecanismos de comunicación</label>
-                <div class="input-group mb-3">
-                    <input disabled type="text" class="form-control" id="pntMC" aria-describedby="basic-addon3">
-                </div>
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header" id="modalHeader">
+              <h2 id="modalTitle" class="modal-title"></h2>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div id="ptotal" class="rounded-circle">
+                  <h1 id="pntTotal" style="text-align: center;margin-bottom: 0px !important;"><b></b></h1>
+                  <h2  style="text-align: center;margin-bottom: 16px !important;"><b>puntos</b></h2>
+              </div>
+              <label for="basic-url">Puntuación normatividad</label>
+              <div class="input-group mb-3">
+                  <input disabled type="text" class="form-control" id="pntNormatividad" aria-describedby="basic-addon3">
+              </div>
+              <label for="basic-url">Puntuación infraestructura</label>
+              <div class="input-group mb-3">
+                  <input disabled type="text" class="form-control" id="pntInf" aria-describedby="basic-addon3">
+              </div>
+              <label for="basic-url">Puntuación capital humano</label>
+              <div class="input-group mb-3">
+                  <input disabled type="text" class="form-control" id="pntCH" aria-describedby="basic-addon3">
+              </div>
+              <label for="basic-url">Puntuación mapeo y gestión de datos</label>
+              <div class="input-group mb-3">
+                  <input disabled type="text" class="form-control" id="pntGD" aria-describedby="basic-addon3">
+              </div>
+              <label for="basic-url">Puntuación desarrollo de mecanismos de comunicación</label>
+              <div class="input-group mb-3">
+                  <input disabled type="text" class="form-control" id="pntMC" aria-describedby="basic-addon3">
+              </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+      </div>
+  </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js" integrity="sha512-F/gIMdDfda6OD2rnzt/Iyp2V9JLHlFQ+EUyixDg9+rkwjqgW1snpkpx7FD5FV1+gG2fmFj7I3r6ReQDUidHelA==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js" integrity="sha512-dRD755QRxlybm0h3LXXIGrFcjNakuxW3reZqnPtUkMv6YsSWoJf+slPjY5v4lZvx2ss+wBZQFegepmA7a2W9eA==" crossorigin="anonymous"></script>
+  <!-- <div class='debug'></div> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js" integrity="sha512-F/gIMdDfda6OD2rnzt/Iyp2V9JLHlFQ+EUyixDg9+rkwjqgW1snpkpx7FD5FV1+gG2fmFj7I3r6ReQDUidHelA==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js" integrity="sha512-dRD755QRxlybm0h3LXXIGrFcjNakuxW3reZqnPtUkMv6YsSWoJf+slPjY5v4lZvx2ss+wBZQFegepmA7a2W9eA==" crossorigin="anonymous"></script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script> 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script> 
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
-<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+  <script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+  <!-- <script src="https://d3js.org/d3-geo.v1.min.js"></script> -->
+  <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollama/2.2.1/scrollama.min.js"></script>
 
-<script src='scroller.js'></script>
-<script src='sections.js'></script>
-
+  <script src="sections.js"></script>
+  <script src="scroller.js"></script>
 </body>
+
 </html>

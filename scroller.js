@@ -1,66 +1,94 @@
-function scroller(){
-    let container = d3.select('body')
-    let dispatch = d3.dispatch('active', 'progress');
-    let sections = d3.selectAll('.step')
-    let sectionPositions
-   
-    let currentIndex = -1
-    let containerStart = 0;
+// using d3 for convenience
+var main = d3.select("main");
+var tablaScore = d3.select("#tablaScore");
+var seccionUltima = d3.select("#seccionUltima");
+var vis = d3.select("#vis");
+var scrolly = main.select("#scrolly");
+var figure = scrolly.select("#contentViz");
+var article = scrolly.select("article");
+var step = article.selectAll(".step");
 
-    function scroll(){
-        d3.select(window)
-            .on('scroll.scroller', position)
-            .on('resize.scroller', resize)
+// initialize the scrollama
+var scroller = scrollama();
 
-        resize();
+// generic window resize listener event
+function handleResize() {
+  // 1. update height of step elements
+  //var stepH = Math.floor(window.innerHeight * 0.75);
+  //step.style("height", stepH + "px");
+  let currentHeight = parseInt(d3.select('nav').style('height'), 10);
+  currentHeight = currentHeight * 1.2;
 
-        let timer = d3.timer(function() {
-            position();
-            timer.stop();
-        });
-    }
+  var figureHeight = window.innerHeight / 1.1;
+  var figureMarginTop = (window.innerHeight - figureHeight) / 2;
 
-    function resize(){
-        sectionPositions = [];
-        let startPos;
-    
-        sections.each(function(d, i) {
-            let top = this.getBoundingClientRect().top;
-        
-            if (i === 0 ){
-                startPos = top;
-            }
-            sectionPositions.push(top - startPos)
-        });
-    }
+  figure
+    .style("height", figureHeight + "px")
+    .style("top", currentHeight + "px");
+  
+  tablaScore
+    .style("height", figureHeight + "px")
+    .style("top", currentHeight + "px");
+  
+  vis
+    .style("height", figureHeight + "px")
+    .style("top", figureMarginTop + "px");
+  
+  seccionUltima
+    .style("min-height", figureHeight + "px");
+  
+  scrolly
+    .style("top", currentHeight + "px");
 
-    function position() {
-        let pos = window.pageYOffset - 450 - containerStart;
-        let sectionIndex = d3.bisect(sectionPositions, pos);
-        sectionIndex = Math.min(sections.size()-1, sectionIndex);
-    
-        if (currentIndex !== sectionIndex){
-            dispatch.call('active', this, sectionIndex);
-            currentIndex = sectionIndex;
-        }
-    
-        let prevIndex = Math.max(sectionIndex - 1, 0);
-        let prevTop = sectionPositions[prevIndex]
-        let progress = (pos - prevTop) / (sectionPositions[sectionIndex] - prevTop);
-        dispatch.call('progress', this, currentIndex, progress)
-    }
-
-    scroll.container = function(value) {
-        if (arguments.legth === 0){
-            return container
-        } 
-        container = value 
-        return scroll 
-    }
-
-    scroll.on = function(action, callback){
-        dispatch.on(action, callback)
-    };
-
-    return scroll;
+  // 3. tell scrollama to update new element dimensions
+  scroller.resize();
 }
+
+// scrollama event handlers
+function handleStepEnter(response) {
+  //console.log(response.index);
+  // response = { element, direction, index }
+
+  // add color to current step only
+  step.classed("is-active", function (d, i) {
+    return i === response.index;
+  });
+
+  // update graphic based on step
+  let activationFunctions = [chartTabla, chartMexicoPuntuacion, chartBurbujas, chartNormatividad, chartInfraestructura, chartCapitalHumano, chartMapeoGestion, chartDevMecanismos]
+  activationFunctions.forEach((data, index) => {
+    if (index === response.index) {
+      activationFunctions[index]();
+    }
+  })
+}
+
+/* function setupStickyfill() {
+  d3.selectAll(".sticky").each(function () {
+    //Stickyfill.add(this);
+  });
+} */
+
+function init() {
+  //setupStickyfill();
+
+  // 1. force a resize on load to ensure proper dimensions are sent to scrollama
+  handleResize();
+
+  // 2. setup the scroller passing options
+  // 		this will also initialize trigger observations
+  // 3. bind scrollama event handlers (this can be chained like below)
+  scroller
+    .setup({
+      step: "#scrolly article .step",
+      offset: 0.33,
+      debug: true
+    })
+    .onStepEnter(handleStepEnter);
+
+  // setup resize event
+  window.addEventListener("resize", handleResize);
+}
+
+// kick things off
+init();

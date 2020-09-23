@@ -38,12 +38,16 @@ function createScales() {
 }
 
 function drawInitial() {
-    
+    /* let currentWidth = parseInt(d3.select('#contentViz').style('width'), 10);
+    let currentHeight = parseInt(d3.select('#contentViz').style('height'), 10); */
     let svg = d3.select("#vis")
         .append('svg')
         .attr("viewBox", `0 0 1000 950`)
         .attr('preserveAspectRatio','xMinYMin')
+        /* .attr("width", currentWidth)
+        .attr("height", currentHeight) */
         .attr('opacity', 1)
+        .attr('id', 'hola')
         .attr('display', 'none');
     /*
         INICIO --> chartBurbujas
@@ -816,31 +820,9 @@ function chartBurbujas() {
     simulation.restart()
 }
 
-let activationFunctions = [chartTabla, chartMexicoPuntuacion, chartBurbujas, chartNormatividad, chartInfraestructura, chartCapitalHumano, chartMapeoGestion, chartDevMecanismos]
-let scroll = scroller().container(d3.select('#graphic'));
-scroll();
-
-let lastIndex, activeIndex = 0;
-
-scroll.on('active', function (index) {
-    d3.selectAll('.step')
-        .transition().duration(500)
-        .style('opacity', function (d, i) {
-            return i === index ? 1 : 0.2;
-        });
-    activeIndex = index;
-    let sign = (activeIndex - lastIndex) < 0 ? -1 : 1;
-    //console.log(sign)
-    let scrolledSections = d3.range(lastIndex + sign, activeIndex + sign, sign);
-    scrolledSections.forEach(i => {
-        //i = i+2;
-        activationFunctions[i]();
-    })
-    lastIndex = activeIndex;
-
-})
-
 document.addEventListener("DOMContentLoaded", function() {
+    /* let elements = document.querySelectorAll('.sticky'); */
+    /* Stickyfill.add(elements); */
     window.scrollTo(0, 0);
     new Tablesort(document.getElementById('tablaScore'));
 });
