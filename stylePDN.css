@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap');
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans SC", sans-serif !important;
+}
+
 #sections {
     position: relative;
     display: inline-block;
@@ -295,11 +302,11 @@ background-color: white !important;
 
 
 
-th[role=columnheader]:not(.no-sort) {
+#tablaScore th[role=columnheader]:not(.no-sort) {
 	cursor: pointer;
 }
 
-th[role=columnheader]:not(.no-sort):after {
+#tablaScore th[role=columnheader]:not(.no-sort):after {
 	content: '';
 	float: right;
 	margin-top: 7px;
@@ -314,17 +321,17 @@ th[role=columnheader]:not(.no-sort):after {
 	user-select: none;
 }
 
-th[aria-sort=ascending]:not(.no-sort):after {
+#tablaScore th[aria-sort=ascending]:not(.no-sort):after {
 	border-bottom: none;
 	border-width: 4px 4px 0;
 }
 
-th[aria-sort]:not(.no-sort):after {
+#tablaScore th[aria-sort]:not(.no-sort):after {
 	visibility: visible;
 	opacity: 0.4;
 }
 
-th[role=columnheader]:not(.no-sort):hover:after {
+#tablaScore th[role=columnheader]:not(.no-sort):hover:after {
 	visibility: visible;
 	opacity: 1;
 }

@@ -655,20 +655,20 @@ function createTabla(data) {
     //console.log(sortData);
     let targetNode = document.getElementById('tablaData');
     sortData.forEach(function (d) {
-        let barraNor = d.gsx$porcentajenormatividad.$t > 0 ? `<div class="barraNor progress-bar" role="progressbar" style="width: ${d.gsx$porcentajenormatividad.$t}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><small>${d.gsx$porcentajenormatividad.$t}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+        let barraNor = d.gsx$porcentajenormatividad.$t > 0 ? `<div class="barraNor progress-bar" data-values="${d.gsx$porcentajenormatividad.$t}"><small>0</small></div>`
+            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d.gsx$porcentajenormatividad.$t}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
 
-        let barraInf =  d.gsx$porcentajeinfraestructura.$t > 0 ? `<div class="barraInf progress-bar" role="progressbar" style="width: ${d.gsx$porcentajeinfraestructura.$t}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><small>${d.gsx$porcentajeinfraestructura.$t}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+        let barraInf =  d.gsx$porcentajeinfraestructura.$t > 0 ? `<div class="barraInf progress-bar" data-values="${d.gsx$porcentajeinfraestructura.$t}"><small>0</small></div>`
+            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d.gsx$porcentajeinfraestructura.$t}"><small>0%</small></div>`;
 
-        let barraMGD = d.gsx$porcentajemapeoygestióndedatos.$t > 0 ? `<div class="barraGD progress-bar" role="progressbar" style="width: ${d.gsx$porcentajemapeoygestióndedatos.$t}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><small>${d.gsx$porcentajemapeoygestióndedatos.$t}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+        let barraMGD = d.gsx$porcentajemapeoygestióndedatos.$t > 0 ? `<div class="barraGD progress-bar" role="progressbar" data-values="${d.gsx$porcentajemapeoygestióndedatos.$t}"><small>0</small></div>`
+            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d.gsx$porcentajemapeoygestióndedatos.$t}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
 
-        let barraCH = d.gsx$porcentajecapitalhumano.$t > 0 ? `<div class="barraCH progress-bar" role="progressbar" style="width: ${d.gsx$porcentajecapitalhumano.$t}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><small>${d.gsx$porcentajecapitalhumano.$t}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+        let barraCH = d.gsx$porcentajecapitalhumano.$t > 0 ? `<div class="barraCH progress-bar" role="progressbar" data-values="${d.gsx$porcentajecapitalhumano.$t}"><small>0</small></div>`
+            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d.gsx$porcentajecapitalhumano.$t}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
 
-        let barraDMC = d.gsx$porcentajedesarrollodemecanismosdecomunicación.$t > 0 ? `<div class="barraMC progress-bar" role="progressbar" style="width: ${d.gsx$porcentajedesarrollodemecanismosdecomunicación.$t}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><small>${d.gsx$porcentajedesarrollodemecanismosdecomunicación.$t}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+        let barraDMC = d.gsx$porcentajedesarrollodemecanismosdecomunicación.$t > 0 ? `<div class="barraMC progress-bar" role="progressbar" data-values="${d.gsx$porcentajedesarrollodemecanismosdecomunicación.$t}"><small>0</small></div>`
+            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d.gsx$porcentajedesarrollodemecanismosdecomunicación.$t}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
 
         targetNode.innerHTML += `
         <tr>
@@ -702,6 +702,27 @@ function createTabla(data) {
             </td>
         </tr>
       `
+    });
+    $("#tablaScore .progress div").each(function () {
+        var display = $(this),
+            currentValue = parseInt(display.text()),
+            nextValue = $(this).attr("data-values"),
+            diff = nextValue - currentValue,
+            step = (0 < diff ? 1 : -1);
+        if (nextValue == "0") {
+            $(display).css("padding", "0");
+        } else {
+            $(display).css("color", "#fff").animate({
+                "width": nextValue + "%"
+            }, "slow");
+        }
+    
+        for (var i = 0; i < Math.abs(diff); ++i) {
+            setTimeout(function () {
+                currentValue += step
+                display.html(`<small>${currentValue}%</small>`);
+            }, 20 * i);
+        }
     });
 }
 
@@ -825,5 +846,6 @@ document.addEventListener("DOMContentLoaded", function() {
     /* Stickyfill.add(elements); */
     window.scrollTo(0, 0);
     new Tablesort(document.getElementById('tablaScore'));
+    
 });
 

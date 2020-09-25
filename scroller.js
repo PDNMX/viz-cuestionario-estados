@@ -1,26 +1,27 @@
 // using d3 for convenience
-var main = d3.select("main");
-var tablaScore = d3.select("#tablaScore");
-var seccionUltima = d3.select("#seccionUltima");
-var vis = d3.select("#vis");
-var scrolly = main.select("#scrolly");
-var figure = scrolly.select("#contentViz");
-var article = scrolly.select("article");
-var step = article.selectAll(".step");
+let main = d3.select("main");
+let tablaScore = d3.select("#tablaScore");
+let seccionUltima = d3.select("#seccionUltima");
+let seccionPrimera = d3.select("#seccionPrimera");
+let vis = d3.select("#vis");
+let scrolly = main.select("#scrolly");
+let figure = scrolly.select("#contentViz");
+let article = scrolly.select("article");
+let step = article.selectAll(".step");
 
 // initialize the scrollama
-var scroller = scrollama();
+let scroller = scrollama();
 
 // generic window resize listener event
 function handleResize() {
   // 1. update height of step elements
-  //var stepH = Math.floor(window.innerHeight * 0.75);
+  //let stepH = Math.floor(window.innerHeight * 0.75);
   //step.style("height", stepH + "px");
   let currentHeight = parseInt(d3.select('nav').style('height'), 10);
-  currentHeight = currentHeight * 1.2;
+  currentHeight = currentHeight * 1.15;
 
-  var figureHeight = window.innerHeight / 1.1;
-  var figureMarginTop = (window.innerHeight - figureHeight) / 2;
+  let figureHeight = window.innerHeight / 1.13;
+  /* let figureMarginTop = (window.innerHeight - figureHeight) / 2; */
 
   figure
     .style("height", figureHeight + "px")
@@ -32,9 +33,12 @@ function handleResize() {
   
   vis
     .style("height", figureHeight + "px")
-    .style("top", figureMarginTop + "px");
+    .style("top", currentHeight + "px");
   
   seccionUltima
+    .style("min-height", figureHeight + "px");
+
+  seccionPrimera
     .style("min-height", figureHeight + "px");
   
   scrolly
@@ -81,7 +85,7 @@ function init() {
   scroller
     .setup({
       step: "#scrolly article .step",
-      offset: 0.33,
+      offset: 0.65,
       debug: false
     })
     .onStepEnter(handleStepEnter);
