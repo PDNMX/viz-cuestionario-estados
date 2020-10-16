@@ -1,6 +1,7 @@
 let dataset, mexico, svg
 let sizeScale
-let simulation, nodes
+let simulation, nodes;
+
 
 const dataMaxMinInfraestructura = [];
 const dataMaxMinNormatividad = [];
@@ -100,8 +101,7 @@ function drawInitial() {
         .style("font-size", function (d) {
             let sizeLetter = Math.min(0.25 * d.gsx$puntajetotal.$t, (d.gsx$puntajetotal.$t) / this.getComputedTextLength() * 0.3);
             return  `${sizeLetter}px`;
-        })
-    ;
+        });
 
     // Add mouseover and mouseout events for all circles
     // Changes opacity and adds border
@@ -273,6 +273,308 @@ function drawInitial() {
 
     /*
         FIN --> chartMexicoPuntuacion
+    */
+    ///////////////////////////////////////////////
+    /*
+        INICIO --> chartStackedBar
+    */
+   //let puntajeNormatividad = dataset.gsx$puntajenormatividad.$t;
+   let dataStacked = [];
+   dataset.forEach(function(d) {
+        let tempData = {
+            Entidad: d.gsx$estado.$t,
+            cat1: Number.parseFloat(d.gsx$puntajenormatividad.$t),
+            cat2: Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
+            cat3: Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
+            cat4: Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
+            cat5: Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
+            total: d.gsx$puntajetotal.$t
+        };
+        dataStacked.push(tempData);
+    });
+    // console.log(dataStacked);
+    let currentWidth = parseInt(d3.select('#contentViz').style('width'), 10);
+    let currentHeight = parseInt(d3.select('#contentViz').style('height'), 10);
+    const margin = {
+        left: 110,
+        top: 110,
+        bottom: 20,
+        right: 150
+    }
+
+    let group = ["cat1", "cat2", "cat3", "cat4", "cat5"];
+    //let mainDiv = "#vis";
+    let mainDivName = "vis";
+    /* width = +svg.attr("width"),
+    height = +svg.attr("height"); */
+    //console.log(salesData);
+    let layers = d3.stack()
+        .keys(group)
+        .offset(d3.stackOffsetDiverging)
+        (dataStacked);          
+    let x = d3.scaleLinear().rangeRound([margin.left, currentWidth - margin.right]);
+    x.domain(['0', '100']);
+
+    let y = d3.scaleBand().rangeRound([currentHeight - margin.bottom, margin.top]).padding(0.1);
+    y.domain(dataStacked.map(function(d) {
+        return d.Entidad;
+    }))
+
+    let z = d3.scaleOrdinal(d3.schemeCategory10);
+
+    let maing = svg.append("g")
+        .attr('class', 'stackedBar')
+        .selectAll("g")
+        .data(layers);
+
+    // bar background
+    let background = svg.select(".stackedBar")
+        .append("g")
+        .selectAll(".barBG")
+        .data(dataStacked, d => d.Entidad);
+
+    background.enter()
+        .append('rect')
+        .attr("class", "barBG")
+        .attr("style", "opacity: 0.08")
+        .attr('x', function(d) {return x(0);})
+        .attr('y', function(d) {return y(d.Entidad)})
+        .attr('height', y.bandwidth)
+        .attr('width', function(d) {return x(100);} )
+        .attr('fill', 'gray');
+
+    let g = maing.enter().append("g")
+        .attr("fill", function(d) {
+            return z(d.key);
+        });
+
+    let rect = g.selectAll("rect")
+        .data(function(d) {
+            d.forEach(function(d1) {
+                d1.key = d.key;
+                return d1;
+            });
+            return d;
+        })
+        .enter().append("rect")
+        .attr("data", function(d) {
+            let data = {};
+            data["key"] = d.key;
+            data["value"] = d.data[d.key];
+            let total = 0;
+            group.map(function(d1) {
+                total = total + d.data[d1]
+            });
+            data["total"] = total;
+            //console.log(data["total"])
+            //console.log(data);
+            return JSON.stringify(data);
+        })
+        .attr("width", function(d) {
+            //console.log(x(d[1]))
+            return x(d[1]) - x(d[0]);
+        })
+        .attr("x", function(d) {
+            return x(d[0]);
+        })
+        .attr("y", function(d) {
+            return y(d.data.Entidad);
+        })
+        .attr("height", y.bandwidth);
+
+    rect.on("mouseover", function() {
+        let currentEl = d3.select(this);
+        let fadeInSpeed = 120;
+        d3.select("#recttooltip_" + mainDivName)
+            .transition()
+            .duration(fadeInSpeed)
+            .style("opacity", function() {
+                return 1;
+            });
+        d3.select("#recttooltip_" + mainDivName).attr("transform", function(d) {
+            let mouseCoords = d3.mouse(this.parentNode);
+            let xCo = 0;
+            if (mouseCoords[0] + 10 >= width * 0.80) {
+                xCo = mouseCoords[0] - parseFloat(d3.selectAll("#recttooltipRect_" + mainDivName)
+                    .attr("width"));
+            } else {
+                xCo = mouseCoords[0] + 10;
+            }
+            let x = xCo;
+            let yCo = 0;
+            if (mouseCoords[0] + 10 >= width * 0.80) {
+                yCo = mouseCoords[1] + 10;
+            } else {
+                yCo = mouseCoords[1];
+            }
+            x = xCo;
+            y = yCo;
+            return "translate(" + x + "," + y + ")";
+        });
+        //CBT:calculate tooltips text
+        let tooltipData = JSON.parse(currentEl.attr("data"));
+        d3.selectAll("#recttooltipText_" + mainDivName).text("");
+        let yPos = 0;
+        d3.selectAll("#recttooltipText_" + mainDivName).append("tspan").attr("x", 0).attr("y", yPos * 10).attr("dy", "1.9em").text(tooltipData.key + ":  " + tooltipData.value);
+        yPos = yPos + 1;
+        d3.selectAll("#recttooltipText_" + mainDivName).append("tspan").attr("x", 0).attr("y", yPos * 10).attr("dy", "1.9em").text("Puntuación Total" + ":  " + tooltipData.total);
+        //CBT:calculate width of the text based on characters
+        let dims = helpers.getDimensions("recttooltipText_" + mainDivName);
+        d3.selectAll("#recttooltipText_" + mainDivName + " tspan")
+            .attr("x", dims.w + 4);
+
+        d3.selectAll("#recttooltipRect_" + mainDivName)
+            .attr("width", dims.w + 10)
+            .attr("height", dims.h + 20);
+    });
+    rect.on("mousemove", function() {
+        let currentEl = d3.select(this);
+        currentEl.attr("r", 7);
+        d3.selectAll("#recttooltip_" + mainDivName)
+            .attr("transform", function(d) {
+                let mouseCoords = d3.mouse(this.parentNode);
+                let xCo = 0;
+                if (mouseCoords[0] + 10 >= width * 0.80) {
+                    xCo = mouseCoords[0] - parseFloat(d3.selectAll("#recttooltipRect_" + mainDivName)
+                        .attr("width"));
+                } else {
+                    xCo = mouseCoords[0] + 10;
+                }
+                let x = xCo;
+                let yCo = 0;
+                if (mouseCoords[0] + 10 >= width * 0.80) {
+                    yCo = mouseCoords[1] + 10;
+                } else {
+                    yCo = mouseCoords[1];
+                }
+                x = xCo;
+                y = yCo;
+                return "translate(" + x + "," + y + ")";
+            });
+    });
+    rect.on("mouseout", function() {
+        // let currentEl = d3.select(this);
+        d3.select("#recttooltip_" + mainDivName)
+            .style("opacity", function() {
+                return 0;
+            })
+            .attr("transform", function(d, i) {
+                // klutzy, but it accounts for tooltip padding which could push it onscreen
+                let x = -500;
+                let y = -500;
+                return "translate(" + x + "," + y + ")";
+            });
+    });
+
+    // Stacked -> Etiqueta Eje X
+    svg.select(".stackedBar").append("g")
+        .attr("transform", "translate(0," + (currentHeight - margin.bottom) + ")")
+        .call(d3.axisBottom(x))
+        .append("text")
+        .attr("x", currentWidth / 2)
+        .attr("y", margin.bottom + 20)
+        .attr("dx", "0.32em")
+        .attr("fill", "#000")
+        .attr("font-weight", "bold")
+        .attr("text-anchor", "middle")
+        .text("Puntuación Total");
+
+    let ele = svg.select(".stackedBar").append("g")
+        .attr("transform", "translate(" + margin.left + ",0)")
+        .call(d3.axisLeft(y));
+    ele.selectAll("text")
+
+    // Stacked -> Etiqueta Eje Y
+    ele.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", 0 - (currentHeight / 2))
+        .attr("y", 5 - (margin.left))
+        .attr("dy", "0.1em")
+        .attr("fill", "#000")
+        .attr("font-weight", "bold")
+        .attr("text-anchor", "middle")
+        .text("Estados");
+
+    let rectTooltipg = svg.select(".stackedBar").append("g")
+        .attr("font-family", 'Noto Sans SC')
+        .attr("font-size", 10)
+        .attr("text-anchor", "end")
+        .attr("id", "recttooltip_" + mainDivName)
+        .attr("style", "opacity:0")
+        .attr("transform", "translate(-500,-500)");
+
+    rectTooltipg.append("rect")
+        .attr("id", "recttooltipRect_" + mainDivName)
+        .attr("x", 0)
+        .attr("width", 120)
+        .attr("height", 80)
+        .attr("opacity", 0.71)
+        .style("fill", "#000000");
+
+    rectTooltipg
+        .append("text")
+        .attr("id", "recttooltipText_" + mainDivName)
+        .attr("x", 30)
+        .attr("y", 15)
+        .attr("fill", function() {
+            return "#fff"
+        })
+        .style("font-size", function(d) {
+            return 10;
+        })
+        .style("font-family", function(d) {
+            return 'Noto Sans SC';
+        })
+        .text(function(d, i) {
+            return "";
+        });
+
+    /* let colorLegend = d3.legendColor()
+        .scale(z)
+        .shapePadding(6.24)
+        .shapeWidth(25)
+        .shapeHeight(25)
+        .labelOffset(5);
+    let colorLegendG = svg.select(".stackedBar").append("g")
+        .attr("class", "color-legend")
+        .attr("transform", "translate(100, 100)")
+    colorLegendG.call(colorLegend); */
+    // Move the text down a bit.
+    //colorLegendG.selectAll("text").attr("y", 4);
+
+    let textTotal = svg.select(".stackedBar").selectAll(".text")
+        .data(dataStacked, d => d.Entidad);
+
+    //textTotal.exit().remove();
+    textTotal.enter().append("text")
+        .attr("class", "text")
+        .attr("text-anchor", "start")
+        .merge(textTotal)
+        .attr("font-size", 12)
+        .attr("y", d => y(d.Entidad) + y.bandwidth() / 1.5)
+        .attr("x", d => x(d.total) + 5)
+        .text(d => d.total);
+
+    let helpers = {
+        getDimensions: function(id) {
+            let el = document.getElementById(id);
+            let w = 0,
+                h = 0;
+            if (el) {
+                let dimensions = el.getBBox();
+                w = dimensions.width;
+                h = dimensions.height;
+            } else {
+                console.log("error: getDimensions() " + id + " not found.");
+            }
+            return {
+                w: w,
+                h: h
+            };
+        }
+    };
+    /*
+        FIN --> chartStackedBar
     */
     ///////////////////////////////////////////////
     /*
@@ -712,6 +1014,11 @@ function createTabla(data) {
             }, 900);
         }
     });
+}
+function chartStackedBar() {
+    clean('chartStackedBar');
+    let svg = d3.select("#vis").select('svg');   
+    svg.select('.stackedBar').attr('visibility', 'visible');
 }
 
 function chartTabla() {

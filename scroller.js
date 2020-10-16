@@ -59,7 +59,7 @@ function handleStepEnter(response) {
   });
 
   // update graphic based on step
-  let activationFunctions = [chartTabla, chartMexicoPuntuacion, chartBurbujas, chartNormatividad, chartInfraestructura, chartCapitalHumano, chartMapeoGestion, chartDevMecanismos]
+  let activationFunctions = [chartTabla, chartMexicoPuntuacion, chartStackedBar, chartNormatividad, chartInfraestructura, chartCapitalHumano, chartMapeoGestion, chartDevMecanismos]
   activationFunctions.forEach((data, index) => {
     if (index === response.index) {
       activationFunctions[index]();
