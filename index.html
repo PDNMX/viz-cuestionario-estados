@@ -29,7 +29,6 @@
   <div class="container">
     <main>
         <section id="scrolly" class="row">
-            
             <article class="col-md-4">
               <div id="descargas" class="infoMap" style="display: block;">
                 <a class="btn btn-outline-secondary" target="_blank"
@@ -51,11 +50,7 @@
                   
                   <div class="form-group">
                       <label for="sel1">Selecciona el periodo que desees consultar:</label>
-                      <select class="custom-select">
-                          <option selected value="1">1° entrega (del 1° de enero al 30 de junio del 2020)</option>
-                          <option disabled value="2">2° entrega (del 1° de julio al 30 de septiembre del 2020)</option>
-                          <option disabled value="3">3° entrega (del 1° de octubre al 16 de diciembre del 2020)</option>
-                      </select>
+                      <select class="custom-select" id="selectTrimestre"></select>
                   </div>
                   <p>La tabla de la derecha muestra el porcentaje de avance de las entidades federativas que respondieron el cuestionario, para cada una de las categorías evaluadas, de manera independiente. </p>
                   <p>Cada columna corresponde a una categoría evaluada. Es importante considerar que cada categoría implica cumplir con una serie de actividades para estar completa. El cumplimiento del total de las actividades evaluadas, para cada categoría, representa el 100% de avance.</p>
@@ -158,15 +153,11 @@
             </div>
           </div>
         </section>
-      
-      
-      <!-- <section id="outro"></section> -->
     </main>
   </div>
 
 <footer class="footer">
   <div class="container">
-      <!-- <span class="text-muted">Place sticky footer content here.</span> -->
       <div id="footer1" class="row">
           <div class="col-md-6">
               <img id="logoFooter" alt="PDN" src="img/pdn.png">

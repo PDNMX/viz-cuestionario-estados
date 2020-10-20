@@ -1,20 +1,21 @@
-let dataset, mexico, svg
+let mexico, svg
 let sizeScale
 let simulation, nodes;
 
 
-const dataMaxMinInfraestructura = [];
-const dataMaxMinNormatividad = [];
-const dataMaxMinCapitalHumano = [];
-const dataMaxMinMapeoGestion = [];
-const dataMaxDevMinMecanismos = [];
+var dataMaxMinInfraestructura = [];
+var dataMaxMinNormatividad = [];
+var dataMaxMinCapitalHumano = [];
+var dataMaxMinMapeoGestion = [];
+var dataMaxDevMinMecanismos = [];
 
 // Colores base para categorias 
 // Normatividad, Infraestructura, Capital Humano, Mapeo y gestión, Dev Mecanismos de comunicación
 const colorsCategorias = ['#34B3EB', '#34a853', '#674ea7', '#ff6d01', '#fbbc04'];
 
 Promise.all([
-    fetch('https://spreadsheets.google.com/feeds/list/1fGCwueHVG-26Fwn0aLBN_wrpsD_aNfMWqrKN4y-MGIE/1/public/values?alt=json'),
+    // dataset de trimestres
+    fetch('https://spreadsheets.google.com/feeds/list/1x17q4Ny8ENBniRT0WrlIVLU7LEs2fU1u7q2rxEypMNg/1/public/values?alt=json'),
     fetch('data/mexico.json')
 ]).then(async ([aa, bb]) => {
     const a = await aa.json();
@@ -24,21 +25,41 @@ Promise.all([
     .then((responseText) => {
         //console.log(responseText[0]);
         //console.log(responseText[1]);
-        dataset = responseText[0].feed.entry;
+        let datasetEdos = responseText[0].feed.entry;
+        datasetEdos = datasetEdos.sort((a, b) => new Date(b.gsx$fecha.$t) - new Date(a.gsx$fecha.$t))
+        fetch(datasetEdos[0].gsx$urldata.$t)
+            .then(response => response.json())
+            .then(data => {
+                //console.log(data);
+                createScales(data.feed.entry);
+                createTabla(data.feed.entry);
+                setTimeout(drawInitial(data.feed.entry), 100);
+            }).catch((err) => {
+                console.log(err);
+            });
+        
+        let select = document.getElementById("selectTrimestre");
+        datasetEdos.map(function(item){
+            let option = document.createElement("option");
+            option.value = item.gsx$urldata.$t;
+            option.text  = item.gsx$nombre.$t;
+            select.appendChild(option);
+        });
+
         mexico = responseText[1];
-        createScales();
-        createTabla(dataset);
-        setTimeout(drawInitial(), 100);
+        //createScales(responseText[0].feed.entry);
+        //createTabla(responseText[0].feed.entry);
+        //setTimeout(drawInitial(responseText[0].feed.entry), 100);
     }).catch((err) => {
     console.log(err);
 });
 
-function createScales() {
+function createScales(dataset) {
     //console.log(dataset)
-    sizeScale = d3.scaleLinear(d3.extent(dataset, d => d.gsx$puntajetotal.$t), [5, 35])
+    sizeScale = d3.scaleLinear(d3.extent(dataset, d => d.gsx$puntajetotal.$t), [5, 35]);
 }
 
-function drawInitial() {
+function drawInitial(dataset) {
     /* let currentWidth = parseInt(d3.select('#contentViz').style('width'), 10);
     let currentHeight = parseInt(d3.select('#contentViz').style('height'), 10); */
     let svg = d3.select("#vis")
@@ -580,6 +601,12 @@ function drawInitial() {
     /*
         INICIO --> chart MAX y MIN
     */
+    
+    dataMaxMinNormatividad = [];
+    dataMaxMinInfraestructura = [];
+    dataMaxMinCapitalHumano = [];
+    dataMaxMinMapeoGestion = [];
+    dataMaxDevMinMecanismos = [];
     // Categorias Max
 
     let maxNormatividad = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajenormatividad.$t), x])).values()].sort(function (a, b) {
@@ -956,6 +983,8 @@ function createTabla(data) {
     });
     //console.log(sortData);
     let targetNode = document.getElementById('tablaData');
+    // limpia los elementos de la tablas
+    targetNode.innerHTML = '';
     sortData.forEach(function (d) {
         let barraNor = d.gsx$porcentajenormatividad.$t > 0 ? `<div class="barraNor progress-bar" aria-valuenow="${d.gsx$porcentajenormatividad.$t}" aria-valuemin="0" aria-valuemax="100"><small>${d.gsx$porcentajenormatividad.$t}%</small></div>`
             :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d.gsx$porcentajenormatividad.$t}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
@@ -1033,6 +1062,7 @@ function chartNormatividad() {
     clean(classShow);
     let colorBurbujas = colorsCategorias[0];
     chartMaxMin(dataMaxMinNormatividad, classShow, colorBurbujas);
+    //dataMaxMinNormatividad = [];
 }
 
 function chartInfraestructura() {
@@ -1040,6 +1070,7 @@ function chartInfraestructura() {
     clean(classShow);
     let colorBurbujas = colorsCategorias[1];
     chartMaxMin(dataMaxMinInfraestructura, classShow, colorBurbujas);
+    //dataMaxMinInfraestructura = [];
 }
 
 function chartCapitalHumano() {
@@ -1141,6 +1172,17 @@ document.addEventListener("DOMContentLoaded", function() {
     /* Stickyfill.add(elements); */
     window.scrollTo(0, 0);
     new Tablesort(document.getElementById('tablaScore'));
+    let selectElement = document.getElementById('selectTrimestre');
+    selectElement.addEventListener('change', (event) => {
+        fetch(event.target.value)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            createScales(data.feed.entry);
+            createTabla(data.feed.entry);
+            setTimeout(drawInitial(data.feed.entry), 100);
+        });
+    });
     
 });
 
