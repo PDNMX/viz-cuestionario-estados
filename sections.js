@@ -71,94 +71,6 @@ function drawInitial(dataset) {
         .attr('opacity', 1)
         .attr('id', 'hola')
         .attr('display', 'none');
-    /*
-        INICIO --> chartBurbujas
-    */
-    // Filtra el top 10 con mayor puntuación
-    let topData = dataset.sort(function (a, b) {
-        return d3.descending(+a.gsx$puntajetotal.$t, +b.gsx$puntajetotal.$t);
-    }).slice(0, 10);
-    // console.log("topData:", topData)
-    simulation = d3.forceSimulation(topData)
-    // Define each tick of simulation
-    simulation.on('tick', () => {
-        nodes
-            .attr('cx', d => d.x)
-            .attr('cy', d => d.y)
-        labels
-            .attr('x', d => d.x)
-            .attr('y', d => d.y)
-    }).force('x', d3.forceX(450))
-        .force('y', d3.forceY(450))
-        .force('collide', d3.forceCollide(d => sizeScale(d.gsx$puntajetotal.$t) * 2.9))
-        .alpha(0.6).alphaDecay(0.02);
-    // Stop the simulation until later
-
-    simulation.stop()
-    // Selection of all the circles
-    let colorScaleBlue = ["#1f6e89", "#317a93", "#43869d", "#5592a7", "#669db1", "#78a9bb", "#8ab5c5", "#9cc1cf", "#a5c7d4", "#ADCCD8"];
-
-    nodes = svg
-        .append("g")
-        .attr('class', 'burbujas')
-        .attr('visibility', 'hidden')
-        .selectAll('circle')
-        .data(topData)
-        .enter()
-        .append('circle')
-        .attr('r', d => sizeScale(d.gsx$puntajetotal.$t) * 2.8)
-        .attr('fill', (d, i) => {
-            return colorScaleBlue[i]
-        });
-    labels = svg.select('.burbujas').selectAll('text')
-        .data(topData)
-        .enter()
-        .append('text')
-        .text(function (d) {
-            return d.gsx$estado.$t;
-        })
-        .style('text-anchor', 'middle')
-        .style('pointer-events', 'none')
-        .style("font-size", function (d) {
-            let sizeLetter = Math.min(0.25 * d.gsx$puntajetotal.$t, (d.gsx$puntajetotal.$t) / this.getComputedTextLength() * 0.3);
-            return  `${sizeLetter}px`;
-        });
-
-    // Add mouseover and mouseout events for all circles
-    // Changes opacity and adds border
-    svg.select('.burbujas').selectAll('circle')
-        .on('mouseover', mouseOver)
-        .on('mouseout', mouseOut);
-
-    function mouseOver(d, i) {
-        //console.log('hi')
-        d3.select(this)
-            .transition('mouseover').duration(100)
-            .attr('opacity', 1)
-            .attr('stroke-width', 3)
-            .attr('stroke', '#154B5F')
-
-        d3.select('#tooltip')
-            .style('left', (d3.event.pageX + 10) + 'px')
-            .style('top', (d3.event.pageY - 25) + 'px')
-            .style('display', 'inline-block')
-            .html(`<strong>Estado:</strong> ${d.gsx$estado.$t[0] + d.gsx$estado.$t.slice(1,)} 
-                <br> <strong>Puntuación:</strong> ${Math.round(d.gsx$puntajetotal.$t)}/100`)
-    }
-
-    function mouseOut(d, i) {
-        d3.select('#tooltip')
-            .style('display', 'none')
-
-        d3.select(this)
-            .transition('mouseout').duration(100)
-            /*.attr('opacity', 0.8)*/
-            .attr('stroke-width', 0)
-    }
-
-    /*
-        FIN --> chartBurbujas
-    */
     ///////////////////////////////////////////////
     /*
         INICIO --> chartMexicoPuntuacion
@@ -1106,47 +1018,33 @@ function chartMexicoPuntuacion() {
                 case d.properties.calificacion > 90:
                     d.color = '#3887a8';
                     return '#3887a8';
-                    break;
                 case  d.properties.calificacion > 80:
                     d.color = '#519ebe';
                     return '#519ebe';
-                    break;
                 case  d.properties.calificacion > 70:
                     d.color = '#58accf';
                     return '#58accf';
-                    break;
                 case  d.properties.calificacion > 60:
                     d.color = '#adccd9';
                     return '#adccd9';
-                    break;
                 case  d.properties.calificacion > 50:
                     d.color = '#efbcbd';
                     return '#efbcbd';
-                    break;
                 case  d.properties.calificacion > 40:
                     d.color = '#f49899';
                     return '#f49899';
-                    break;
                 case  d.properties.calificacion > 30:
                     d.color = '#f06c6e';
                     return '#f06c6e';
-                    break;
                 case  d.properties.calificacion > 20:
                     d.color = '#cb5859';
                     return '#cb5859';
-                    break;
                 case  d.properties.calificacion > 10:
                     d.color = '#b64547';
                     return '#b64547';
-                    break;
-                case  d.properties.calificacion > 0:
+                case  d.properties.calificacion >= 0:
                     d.color = '#b64547';
                     return '#b64547';
-                    break;
-                case  d.properties.calificacion === 0:
-                    d.color = '#b64547';
-                    return '#b64547';
-                    break;
             }
             return d.color;
         })
