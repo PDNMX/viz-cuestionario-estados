@@ -114,12 +114,12 @@ function drawInitial(dataset) {
         .on('click', function (d) {
             $('#mapaModal').modal('toggle')
             $('#modalTitle').text(d.properties.entidad);
-            $('#pntTotal').text(`${Math.round(d.properties.calificacion)}/100`); // Total 100
-            $('#pntNormatividad').val(`${Math.round(d.properties.pntNor)}/10`); // Total 10
-            $('#pntInf').val(`${Math.round(d.properties.pntInf)}/20`); // Total 20
-            $('#pntCH').val(`${Math.round(d.properties.pntCH)}/10`); // Total 10
-            $('#pntGD').val(`${Math.round(d.properties.pntGD)}/30`); // Total 30
-            $('#pntMC').val(`${Math.round(d.properties.pntMC)}/30`); // Total 30
+            $('#pntTotal').text(`${Math.round(d.properties.calificacion)} de 100`); // Total 100
+            $('#pntNormatividad').val(`${Math.round(d.properties.pntNor)} de 10`); // Total 10
+            $('#pntInf').val(`${Math.round(d.properties.pntInf)} de 20`); // Total 20
+            $('#pntCH').val(`${Math.round(d.properties.pntCH)} de 10`); // Total 10
+            $('#pntGD').val(`${Math.round(d.properties.pntGD)} de 30`); // Total 30
+            $('#pntMC').val(`${Math.round(d.properties.pntMC)} de 30`); // Total 30
             $('#modalHeader').css('background-color', d.color);
         })
         .attr("d", path);
@@ -216,11 +216,11 @@ function drawInitial(dataset) {
    dataset.forEach(function(d) {
         let tempData = {
             Entidad: d.gsx$estado.$t,
-            cat1: Number.parseFloat(d.gsx$puntajenormatividad.$t),
-            cat2: Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
-            cat3: Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
-            cat4: Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
-            cat5: Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
+            'Normatividad': Number.parseFloat(d.gsx$puntajenormatividad.$t),
+            'Infraestructura': Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
+            'Capital humano': Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
+            'Mapeo y gestión de datos': Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
+            'Desarrollo de mecanismos de comunicación': Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
             total: d.gsx$puntajetotal.$t
         };
         dataStacked.push(tempData);
@@ -235,7 +235,7 @@ function drawInitial(dataset) {
         right: 150
     }
 
-    let group = ["cat1", "cat2", "cat3", "cat4", "cat5"];
+    let group = ["Normatividad", "Infraestructura", "Capital humano", "Mapeo y gestión de datos", "Desarrollo de mecanismos de comunicación"];
     //let mainDiv = "#vis";
     let mainDivName = "vis";
     /* width = +svg.attr("width"),
@@ -253,7 +253,7 @@ function drawInitial(dataset) {
         return d.Entidad;
     }))
 
-    let z = d3.scaleOrdinal(d3.schemeCategory10);
+    let z = d3.scaleOrdinal(['#34B3EB', '#34a853', '#674ea7', '#ff6d01', '#fbbc04']);
 
     let maing = svg.append("g")
         .attr('class', 'stackedBar')
