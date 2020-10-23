@@ -2,8 +2,8 @@ let RadarChart = {
     draw: function(id, d, options){
       let cfg = {
        radius: 5,
-       w: 600,
-       h: 600,
+       w: 300,
+       h: 300,
        factor: 1,
        factorLegend: .95,
        levels: 3,
@@ -14,7 +14,7 @@ let RadarChart = {
        TranslateX: 80,
        TranslateY: 30,
        ExtraWidthX: 100,
-       ExtraWidthY: 100,
+       ExtraWidthY: 50,
        color: d3.scaleOrdinal().range(["#6F257F", "#CA0D59"])
       };
       
@@ -36,7 +36,7 @@ let RadarChart = {
   
       let g = d3.select(id)
           .append("svg")
-          .attr("width", cfg.w+cfg.ExtraWidthX)
+          .attr("width", '100%')
           .attr("height", cfg.h+cfg.ExtraWidthY)
           .append("g")
           .attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
@@ -149,7 +149,7 @@ let RadarChart = {
       series=0;
   
   
-  let tooltip = d3.select("body").append("div").attr("class", "toolTip");
+  let tooltip = d3.select("body").append("div").attr("class", "tooltipRadar");
       d.forEach(function(y, x){
         g.selectAll(".nodes")
         .data(y).enter()

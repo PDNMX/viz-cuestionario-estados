@@ -69,7 +69,6 @@ function drawInitial(dataset) {
         /* .attr("width", currentWidth)
         .attr("height", currentHeight) */
         .attr('opacity', 1)
-        .attr('id', 'hola')
         .attr('display', 'none');
     ///////////////////////////////////////////////
     /*
@@ -84,6 +83,11 @@ function drawInitial(dataset) {
         element.properties.pntCH=0;
         element.properties.pntGD=0;
         element.properties.pntMC=0;
+        element.properties.porcentajeNor=0;
+        element.properties.porcentajeInf=0;
+        element.properties.porcentajeCH=0;
+        element.properties.porcentajeGD=0;
+        element.properties.porcentajeMC=0;
         dataset.forEach(function(newElement) {
             if(parseInt(element.properties.clave)===parseInt(newElement.gsx$clavedeagee.$t)){
                 // Set data of Google Spreadsheets
@@ -272,10 +276,10 @@ function drawInitial(dataset) {
         .keys(group)
         .offset(d3.stackOffsetDiverging)
         (dataStacked);          
-    let x = d3.scaleLinear().rangeRound([margin.left, currentWidth - margin.right]);
+    let x = d3.scaleLinear().rangeRound([margin.left, currentWidth * 0.85]);
     x.domain(['0', '100']);
 
-    let y = d3.scaleBand().rangeRound([currentHeight - margin.bottom, margin.top]).padding(0.1);
+    let y = d3.scaleBand().rangeRound([currentHeight - margin.bottom, margin.top]).padding(0.2);
     y.domain(dataStacked.map(function(d) {
         return d.Entidad;
     }))
@@ -1082,14 +1086,6 @@ function chartMexicoPuntuacion() {
     svg.select('.mapa').transition().duration(300).delay((d, i) => i * 30)
         .attr('visibility', 'visible');
     svg.select('.leyendas').transition().duration(300).attr('visibility', 'visible');
-}
-
-// BURBUJAS
-function chartBurbujas() {
-    clean('chartBurbujas');
-    let svg = d3.select('#vis').select('svg');
-    svg.selectAll('.burbujas').attr('visibility', 'visible');
-    simulation.restart()
 }
 
 document.addEventListener("DOMContentLoaded", function() {
