@@ -94,10 +94,19 @@ function drawInitial(dataset) {
                 element.properties.pntCH=parseInt(newElement.gsx$puntajecapitalhumano.$t);
                 element.properties.pntGD=parseInt(newElement.gsx$puntajemapeoygestióndedatos.$t);
                 element.properties.pntMC=parseInt(newElement.gsx$puntajedesarrollodemecanismosdecomunicación.$t);
+                // porcentajes
+                element.properties.porcentajeNor=parseInt(newElement.gsx$porcentajenormatividad.$t);
+                element.properties.porcentajeInf=parseInt(newElement.gsx$porcentajeinfraestructura.$t);
+                element.properties.porcentajeCH=parseInt(newElement.gsx$porcentajecapitalhumano.$t);
+                element.properties.porcentajeGD=parseInt(newElement.gsx$porcentajemapeoygestióndedatos.$t);
+                element.properties.porcentajeMC=parseInt(newElement.gsx$porcentajedesarrollodemecanismosdecomunicación.$t);
             }
         });
         
     }); 
+    // Config for the Radar chart
+    
+    //
     //console.log(mexico);
     let projection = d3.geoMercator()
         .scale(1700)
@@ -112,6 +121,25 @@ function drawInitial(dataset) {
         .join("path")
         .attr('class', 'entidad')
         .on('click', function (d) {
+            let dataTest = [
+                [
+                  {"area": "Normatividad ", "value": d.properties.porcentajeNor},
+                  {"area": "Infraestructura", "value": d.properties.porcentajeInf},
+                  {"area": "Capital humano ", "value": d.properties.porcentajeCH},
+                  {"area": "Mapeo y gestión de datos", "value": d.properties.porcentajeGD},
+                  {"area": "Desarrollo de mecanismos de comunicación ", "value": d.properties.porcentajeMC},
+                  
+                  ]
+              ];
+            let config = {
+                w: 300,
+                h: 300,
+                maxValue: 100,
+                levels: 5,
+                ExtraWidthX: 300,
+                color: d3.scaleOrdinal().range([d.color])
+            } 
+            RadarChart.draw("#radarChart", dataTest, config);
             $('#mapaModal').modal('toggle')
             $('#modalTitle').text(d.properties.entidad);
             $('#pntTotal').text(`${Math.round(d.properties.calificacion)} de 100`); // Total 100
