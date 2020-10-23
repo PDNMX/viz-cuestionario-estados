@@ -123,13 +123,12 @@ function drawInitial(dataset) {
         .on('click', function (d) {
             let dataTest = [
                 [
-                  {"area": "Normatividad ", "value": d.properties.porcentajeNor},
-                  {"area": "Infraestructura", "value": d.properties.porcentajeInf},
-                  {"area": "Capital humano ", "value": d.properties.porcentajeCH},
-                  {"area": "Mapeo y gestión de datos", "value": d.properties.porcentajeGD},
-                  {"area": "Desarrollo de mecanismos de comunicación ", "value": d.properties.porcentajeMC},
-                  
-                  ]
+                    {"area": "Desarrollo de mecanismos de comunicación ", "value": d.properties.porcentajeMC},
+                    {"area": "Normatividad ", "value": d.properties.porcentajeNor},
+                    {"area": "Mapeo y gestión de datos", "value": d.properties.porcentajeGD},
+                    {"area": "Capital humano ", "value": d.properties.porcentajeCH},
+                    {"area": "Infraestructura", "value": d.properties.porcentajeInf}
+                ]
               ];
             let config = {
                 w: 300,
