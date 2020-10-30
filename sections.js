@@ -23,26 +23,42 @@ Promise.all([
     return [a, b]
 })
     .then((responseText) => {
-        //console.log(responseText[0]);
-        //console.log(responseText[1]);
+        // console.log(responseText);
+        // console.log(responseText[1]);
         let datasetEdos = responseText[0].feed.entry;
-        datasetEdos = datasetEdos.sort((a, b) => new Date(b.gsx$fecha.$t) - new Date(a.gsx$fecha.$t))
+        datasetEdos = datasetEdos.sort((a, b) => new Date(b.gsx$fecha.$t) - new Date(a.gsx$fecha.$t));
+        // carga los copys
+        document.getElementById("copy1").append(datasetEdos[0].gsx$copy1.$t);
+        document.getElementById("copy4").append(datasetEdos[0].gsx$copy4.$t);
+        document.getElementById("copy5").append(datasetEdos[0].gsx$copy5.$t);
+        document.getElementById("copy6").append(datasetEdos[0].gsx$copy6.$t);
+        document.getElementById("copy7").append(datasetEdos[0].gsx$copy7.$t);
+        document.getElementById("copy8").append(datasetEdos[0].gsx$copy8.$t);
+        //console.log(datasetEdos[0].gsx$copy1.$t);
+
         fetch(datasetEdos[0].gsx$urldata.$t)
-            .then(response => response.json())
-            .then(data => {
-                //console.log(data);
-                createScales(data.feed.entry);
-                createTabla(data.feed.entry);
-                setTimeout(drawInitial(data.feed.entry), 100);
-            }).catch((err) => {
-                console.log(err);
-            });
+        .then(response => response.json())
+        .then(data => {
+            //console.log(data);
+            createScales(data.feed.entry);
+            createTabla(data.feed.entry);
+            //setTimeout(drawInitial(data.feed.entry), 100);
+            drawInitial(data.feed.entry), 100;
+        }).catch((err) => {
+            console.log(err);
+        });
         
         let select = document.getElementById("selectTrimestre");
         datasetEdos.map(function(item){
             let option = document.createElement("option");
             option.value = item.gsx$urldata.$t;
             option.text  = item.gsx$nombre.$t;
+            option.dataset.copy1 = item.gsx$copy1.$t
+            option.dataset.copy4 = item.gsx$copy4.$t
+            option.dataset.copy5 = item.gsx$copy5.$t
+            option.dataset.copy6 = item.gsx$copy6.$t
+            option.dataset.copy7 = item.gsx$copy7.$t
+            option.dataset.copy8 = item.gsx$copy8.$t
             select.appendChild(option);
         });
 
@@ -252,11 +268,11 @@ function drawInitial(dataset) {
             'Capital humano': Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
             'Mapeo y gestión de datos': Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
             'Desarrollo de mecanismos de comunicación': Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
-            total: d.gsx$puntajetotal.$t
+            total: Number.parseFloat(d.gsx$puntajetotal.$t)
         };
         dataStacked.push(tempData);
     });
-    // console.log(dataStacked);
+    //console.log(dataStacked);
     let currentWidth = parseInt(d3.select('#contentViz').style('width'), 10);
     let currentHeight = parseInt(d3.select('#contentViz').style('height'), 10);
     const margin = {
@@ -279,8 +295,10 @@ function drawInitial(dataset) {
     let x = d3.scaleLinear().rangeRound([margin.left, currentWidth * 0.85]);
     x.domain(['0', '100']);
 
+    let sortFn = (a, b) => d3.ascending(a.total, b.total);
+
     let y = d3.scaleBand().rangeRound([currentHeight - margin.bottom, margin.top]).padding(0.2);
-    y.domain(dataStacked.map(function(d) {
+    y.domain(dataStacked.sort(sortFn).map(function(d) {
         return d.Entidad;
     }))
 
@@ -380,8 +398,7 @@ function drawInitial(dataset) {
         d3.selectAll("#recttooltipText_" + mainDivName).text("");
         let yPos = 0;
         d3.selectAll("#recttooltipText_" + mainDivName).append("tspan").attr("x", 0).attr("y", yPos * 10).attr("dy", "1.9em").text(tooltipData.key + ":  " + tooltipData.value);
-        yPos = yPos + 1;
-        d3.selectAll("#recttooltipText_" + mainDivName).append("tspan").attr("x", 0).attr("y", yPos * 10).attr("dy", "1.9em").text("Puntuación Total" + ":  " + tooltipData.total);
+        //yPos = yPos + 1;
         //CBT:calculate width of the text based on characters
         let dims = helpers.getDimensions("recttooltipText_" + mainDivName);
         d3.selectAll("#recttooltipText_" + mainDivName + " tspan")
@@ -544,7 +561,6 @@ function drawInitial(dataset) {
     /*
         INICIO --> chart MAX y MIN
     */
-    
     dataMaxMinNormatividad = [];
     dataMaxMinInfraestructura = [];
     dataMaxMinCapitalHumano = [];
@@ -723,6 +739,29 @@ function drawInitial(dataset) {
             }
         });
     });
+    /*
+        FIN --> chartMaxMin
+    */
+    ///////////////////////////////////////////////
+    /*
+        INICIO --> chartPictogram
+    */
+   let dataPictogram = [];
+   dataset.forEach(function(d) {
+        let tempData = {
+            entidad: d.gsx$estado.$t,
+            'emp': Number.parseFloat(d.gsx$puntajenormatividad.$t),
+            'emp_pc': Number.parseFloat(d.gsx$puntajenormatividad.$t),
+            /* 'Capital humano': Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
+            'Mapeo y gestión de datos': Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
+            'Desarrollo de mecanismos de comunicación': Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
+            total: Number.parseFloat(d.gsx$puntajetotal.$t) */
+        };
+        dataPictogram.push(tempData);
+    });
+    console.log(dataPictogram)
+    ready(dataPictogram);
+
 }
 
 function mouseOver2(d, i) {
@@ -881,6 +920,7 @@ function chartMaxMin(data, classObject, colorBase) {
         .force('collide', d3.forceCollide(d => ((Math.sqrt(d.puntajeTop) + 5) * 4)))
         .alphaDecay([0.02]);
     tempSimulation.restart();
+    document.getElementById('vis').style.display = "block";
 }
 
 //Cleaning Function
@@ -914,6 +954,9 @@ function clean(chartType) {
     }
     if (chartType !== "tablaScore") {
         document.getElementById("tablaScore").style.display = "none";
+    }
+    if (chartType !== "table-container") {
+        document.getElementById("pictograma").style.display = "none";
     }
 }
 
@@ -988,6 +1031,7 @@ function createTabla(data) {
     });
 }
 function chartStackedBar() {
+    document.getElementById('vis').style.display = "block";
     clean('chartStackedBar');
     let svg = d3.select("#vis").select('svg');   
     svg.select('.stackedBar').attr('visibility', 'visible');
@@ -997,6 +1041,13 @@ function chartTabla() {
     let classShow = 'tablaScore';
     clean(classShow);
     document.getElementById(classShow).style.display = "block";
+    document.getElementById('vis').style.display = "none";
+}
+
+function chartPictogram() {
+    let classShow = 'table-container';
+    clean(classShow);
+    document.getElementById('pictograma').style.display = "block";
     document.getElementById('vis').style.display = "none";
 }
 
@@ -1095,13 +1146,32 @@ document.addEventListener("DOMContentLoaded", function() {
     new Tablesort(document.getElementById('tablaScore'));
     let selectElement = document.getElementById('selectTrimestre');
     selectElement.addEventListener('change', (event) => {
+        // agrega copys a las secciones
+        document.getElementById("copy1").innerHTML = '';
+        document.getElementById("copy1").append(event.target.options[event.target.selectedIndex].dataset.copy1);
+
+        document.getElementById("copy4").innerHTML = '';
+        document.getElementById("copy4").append(event.target.options[event.target.selectedIndex].dataset.copy4);
+        document.getElementById("copy5").innerHTML = '';
+
+        document.getElementById("copy5").append(event.target.options[event.target.selectedIndex].dataset.copy5);
+        document.getElementById("copy6").innerHTML = '';
+
+        document.getElementById("copy6").append(event.target.options[event.target.selectedIndex].dataset.copy6);
+        document.getElementById("copy7").innerHTML = '';
+
+        document.getElementById("copy7").append(event.target.options[event.target.selectedIndex].dataset.copy7);
+        document.getElementById("copy8").innerHTML = '';
+        document.getElementById("copy8").append(event.target.options[event.target.selectedIndex].dataset.copy8);
+
         fetch(event.target.value)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            //console.log(data);
             createScales(data.feed.entry);
             createTabla(data.feed.entry);
-            setTimeout(drawInitial(data.feed.entry), 100);
+            //setTimeout(drawInitial(data.feed.entry), 100);
+            drawInitial(data.feed.entry);
         });
     });
     

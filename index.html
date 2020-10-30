@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="stylePDN.css" />
   <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.css"/>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
 </head>
 
 <body>
@@ -55,7 +56,7 @@
                   <p><strong>La tabla de la derecha muestra el porcentaje de avance de las entidades federativas que respondieron el cuestionario, para cada una de las categorías evaluadas, de manera independiente.</strong></p>
                   <p>Cada columna corresponde a una categoría evaluada. Es importante considerar que cada categoría implica cumplir con una serie de actividades para estar completa. El cumplimiento del total de las actividades evaluadas, para cada categoría, representa el 100% de avance.</p>
                   <p>Los resultados muestran las categorías donde las Secretarías han avanzado más o, en su caso, deberán concentrar esfuerzos hasta interconectar los datos de su entidad federativa con la PDN.</p>
-                  <p>En la primera entrega, 27 entidades federativas reportaron sus avances. Cabe señalar que  Nuevo León, Morelos y San Luis Potosí no reportaron avances; mientras que, Chiapas y la Ciudad de México no han completado la conformación de sus Sistemas Anticorrupción.</p>
+                  <p id="copy1"></p>
               </section>
               </div>
               <div class="step" data-step="2">
@@ -77,18 +78,57 @@
                     </ul>
                     <p>En la segunda entrega, las 10 entidades con mayor puntuación en el cuestionario son:</p>
                     <!-- Esto debe ser dinamico -->
-                    <ol>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ol>
+                    <table class="table table-striped table-sm">
+                      <thead>
+                        <tr>
+                          <th scope="col">Entidad federativa</th>
+                          <th scope="col">Puntos</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                    
+                        <tr class="table-light">
+                          <td>Estado de México</td>
+                          <td>97</td>
+                        </tr>
+                        <tr class="table-light">
+                          <td>Puebla</td>
+                          <td>94</td>
+                        </tr>
+                        <tr class="table-light">
+                          <td>Tabasco</td>
+                          <td>93</td>
+                        </tr>
+                        <tr class="table-light">
+                          <td>Jalisco</td>
+                          <td>91</td>
+                        </tr>
+                        <tr class="table-light">
+                          <td>Michoacán</td>
+                          <td>91</td>
+                        </tr>
+                            <tr class="table-light">
+                          <td>Zacatecas</td>
+                          <td>87</td>
+                        </tr>
+                        <tr class="table-light">
+                          <td>Tlaxcala</td>
+                          <td>84</td>
+                        </tr>
+                        <tr class="table-light">
+                          <td>Chihuahua</td>
+                          <td>75</td>
+                        </tr>
+                        <tr class="table-light">
+                          <td>Sonora</td>
+                          <td>70</td>
+                        </tr>
+                        <tr class="table-light">
+                          <td>Aguascalientes</td>
+                          <td>69</td>
+                        </tr>
+                      </tbody>
+                    </table>
                 </section>
               </div>
               <div class="step" data-step="4">
@@ -97,11 +137,7 @@
                   <p>Esta categoría se refiere al grado de avance de cada Secretaría Ejecutiva Local, en términos de la normatividad necesaria para su Plataforma Digital o Sistema de Información Estatal. Básicamente, la entidad federativa obtiene puntos cuando su comité coordinador ya aprobó las bases para el funcionamiento de la Plataforma o Sistema de Información. Además, la puntuación máxima se obtiene cuando ya se identificó qué características debe cumplir la Plataforma o Sistema de Información según la normatividad aplicable.
                       <br>El puntaje total de la categoría <b>son 10 puntos</b>.
                   </p>
-                  <p>En la primera entrega, el Estado de México, Durango y Aguascalientes obtuvieron el mayor puntaje con 10 puntos; seguidos por Puebla, Chihuahua y Oaxaca con 8 puntos y  Michoacán, Tlaxcala, Tabasco, Sonora, Jalisco, Zacatecas, Campeche, Sinaloa, Guerrero, Yucatán, Colima, Baja California, Hidalgo, Nayarit, Guanajuato y
-                      Tamaulipas con 6 puntos.                        
-                      <br>
-                      Baja California Sur obtuvo 5 puntos, seguido por Quintana Roo con 1 punto. Para este trimestre, Veracruz, Querétaro y Coahuila no obtuvieron ningún punto.                        
-                  </p>
+                  <p id="copy4"></p>
                 </section>
               </div>
               <div class="step" data-step="5">
@@ -111,10 +147,7 @@
                       <br>
                       El puntaje total de la categoría <b>son 20 puntos</b>.
                   </p>
-                  <p>En la primera entrega, las entidades federativas del Estado de México, Durango, Aguascalientes, Puebla, Zacatecas, Tlaxcala, Tabasco, Sonora, Michoacán y Jalisco obtuvieron el mayor puntaje de avance con 20 puntos; seguidos por Chihuahua con 14 puntos, y Campeche, Yucatán y Coahuila con 13 puntos. 
-                      <br>
-                      En cuanto a las entidades con menores puntuaciones: mientras que, Querétaro obtuvo 7; Guanajuato y Veracruz tienen 6 puntos. Los estados con menor avance y 0 puntos son Tamaulipas, Hidalgo, Baja California Sur y Quintana Roo.
-                  </p>
+                  <p id="copy5"></p>
                 </section>
               </div>
               <div class="step" data-step="6">
@@ -123,20 +156,14 @@
                   <p>Esta categoría muestra si la Secretaría Ejecutiva Estatal cuenta con personal suficiente adscrito a su institución o contratado por algún otro mecanismo para el desarrollo de su Plataforma Digital o Sistema de información. Además, en esta categoría se refleja si el equipo técnico cuenta con el grado de conocimiento técnico actual para lograr la interconexión con la PDN.
                       <br>La puntuación máxima para esta categoría es <b>10</b>. 
                   </p>
-                  <p>En la primera entrega los estados de Aguascalientes, Puebla, Tlaxcala, Tabasco, Sonora, Jalisco, Chihuahua, Guerrero, Colima, Nayarit y Guanajuato muestran el mayor avance con 10 puntos. Estos son seguidos por Yucatán con 9, y el Estado de México, Zacatecas y Campeche con 8 puntos.  
-                      <br>
-                      Los estados de Tamaulipas, Baja California Sur y Querétaro muestran el menor grado de avance con 4, 2 y 0 puntos respectivamente.
-                  </p>
+                  <p id="copy6"></p>
                 </section>
               </div>
               <div class="step" data-step="7">
                 <section class="seccion">
                   <h2 class="tituloSeccion">Mapeo y gestión de datos</h2>
                   <p>La categoría de mapeo y gestión de datos representa al trabajo, de las Secretarías Ejecutivas de las entidades federativas, para comunicar a la Plataforma Digital o Sistema de Información Local con las instituciones en su entidad federativa. Una parte de los puntos en esta categoría se obtienen por identificar qué instituciones del ámbito local generan y tienen en su posesión datos de personas servidoras públicas que intervienen en procedimientos de contrataciones públicas, y personas sancionadas. Además, para obtener la puntuación máxima de <b>30 puntos</b>, se deben establecer los mecanismos necesarios para transferir y actualizar datos entre la Secretaría Ejecutiva local y las instituciones proveedoras de las entidades federativas.</p>
-                  <p>En la primera entrega, las entidades federativas con mayor puntuación fueron el Estado de México con 26 puntos, Puebla con 19 puntos y Michoacán 18 puntos.En el caso del Estado de México, su puntuación refleja que ya están conectadas sus APIs de personas servidoras públicas sancionadas y de personas particulares sancionadas; sigue pendiente el API de personas servidoras públicas que intervienen en procedimientos de contratación.
-                      <br>
-                      Entre los estados con las menores puntuaciones tenemos a Aguascalientes, Chihuahua, Yucatán y Tamaulipas con 2 puntos. Estos son seguidos por Nayarit con 1 punto. Guerrero, Guanajuato, Baja California, Quintana Roo, Baja California Sur y Querétaro no obtuvieron ningún punto en esta categoría.
-                  </p>
+                  <p id="copy7"></p>
                 </section>
               </div>
               <div class="step" data-step="8">
@@ -145,9 +172,7 @@
                   <p>Los mecanismos de comunicación o APIs son las piezas que permiten la comunicación o transferencia de datos entre las Secretarías Ejecutivas locales y la PDN. Esta categoría indica el avance en el desarrollo de las APIs  para los sistemas 2 y 3. 
                       <br>El puntaje total para la categoría <b>son 30 puntos</b>.
                       </p>
-                  <p>El Estado de México, Michoacán, Tlaxcala y Tabasco lograron el mayor puntaje con 30 puntos, seguidos por Sonora y Aguascalientes con 27 puntos, y Jalisco con 25 puntos.
-                      En el primer trimestre, Campeche obtuvo 10 puntos. Éste es seguido por Colima, Oaxaca, Yucatán y Baja California con 5 puntos. Por último, Hidalgo, Coahuila, Veracruz, Tamaulipas, Nayarit, Guanajuato, Quintana Roo, Baja California Sur y Querétaro no lograron conseguir ningún punto en esta categoría.
-                  </p>
+                  <p id="copy8"></p>
                 </section>
               </div>
             </article>
@@ -170,6 +195,7 @@
                       <tbody id="tablaData"></tbody>
                   </table>
               </div>
+              <div id="pictograma" class='table-container'></div>
             </div>
           </div>
         </section>
@@ -232,7 +258,7 @@
           </div>
           <div class="modal-body">
               <div id="radarChart"></div>
-              <div id="ptotal" class="rounded-circle">
+              <!-- <div id="ptotal" class="rounded-circle">
                   <h1 id="pntTotal" style="text-align: center;margin-bottom: 0px !important;"><b></b></h1>
                   <h2  style="text-align: center;margin-bottom: 16px !important;"><b>puntos</b></h2>
               </div>
@@ -255,7 +281,7 @@
               <label for="basic-url">Puntuación desarrollo de mecanismos de comunicación</label>
               <div class="input-group mb-3">
                   <input disabled type="text" class="form-control" id="pntMC" aria-describedby="basic-addon3">
-              </div>
+              </div> -->
 
           </div>
           <div class="modal-footer">
@@ -273,13 +299,15 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
   <script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script>
+  
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js" integrity="sha512-wNH6xsp2n8CfB91nrBtfc4sfLwYPBMjSWVUwQOp60AYYXH6i8yCwuKFZ4rgK2i6pQek/b+bSyR7b01/922IBzQ==" crossorigin="anonymous"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
   <!-- <script src="https://d3js.org/d3-geo.v1.min.js"></script> -->
   <!-- <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script> -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollama/2.2.1/scrollama.min.js"></script>
-  
+
+  <script src='pictogram.js'></script>
   <script src="sections.js"></script>
   <script src="scroller.js"></script>
   <script src="radarChart.js"></script>

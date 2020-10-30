@@ -83,3 +83,86 @@
   transition: none !important;
 }
 
+/* pictogram */
+
+@font-face {
+  font-family: 'StateFaceRegular';
+  src: url('stateface-regular-webfont.eot');
+  src: url('stateface-regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('stateface-regular-webfont.woff') format('woff'),
+       url('stateface-regular-webfont.ttf') format('truetype'),
+       url('stateface-regular-webfont.svg#StateFaceRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.stateface {
+ font-family: "StateFaceRegular";
+}
+
+.table-container {
+ width: 100%;
+ overflow: auto;
+}
+
+.table-container table {
+ border-collapse: collapse;
+ position: relative;
+ width: 100%;
+ /* left: 160px; */
+}
+
+.table-container th {
+ border-bottom: 1px solid black;
+ cursor: pointer;
+}
+
+.table-container td, th {
+ padding-left: 10px;
+ padding-right: 10px;
+}
+
+span.stateface,
+span.fa {
+ display: inline-block;
+}
+
+span.stateface {
+ width: 25px;
+ line-height: 14px;
+ text-align: center;
+}
+
+td > span {
+ float: left;
+}
+
+span.text {
+ width: 40px;
+ text-align: right;
+ padding-right: 10px;
+}
+
+th.emp, td.emp {
+ width: 40%;
+}
+
+th.emp_pc, td.emp_pc {
+ width: 30%;
+}
+
+.emp span.fa {
+ width: 8px;
+}
+
+.fa-arrow-up {
+ color: darkgreen;
+}
+
+.fa-arrow-right {
+ color: slategrey;
+}
+
+.fa-arrow-down {
+ color: red;
+}

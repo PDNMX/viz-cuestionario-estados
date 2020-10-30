@@ -172,12 +172,12 @@ let RadarChart = {
         .style("stroke-width", "2px")
         .style("stroke", cfg.color(series)).style("fill-opacity", .9)
         .on('mouseover', function (d){
-          console.log(d.area)
+          //console.log(d.area)
               tooltip
                 .style("left", d3.event.pageX - 40 + "px")
                 .style("top", d3.event.pageY - 80 + "px")
                 .style("display", "inline-block")
-                        .html((d.area) + "<br><span>" + (d.value) + "</span>");
+                        .html((d.area) + "<br><span>" + (d.value) + "%</span>");
               })
               .on("mouseout", function(d){ tooltip.style("display", "none");});
   
