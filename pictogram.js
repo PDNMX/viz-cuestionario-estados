@@ -2,7 +2,8 @@ function chartPictograma(data, tipo) {
   let tabla = document.getElementById('pictograma');
   // limpia los elementos de la tabla
   tabla.innerHTML = '';
-  const table = d3.select('.table-container').append('table');
+  const table = d3.select('#pictograma').append('table');
+  /* table.attr("class", "table"); */
   table.append('thead');
   table.append('tbody');
   const columns = [
@@ -28,14 +29,21 @@ function chartPictograma(data, tipo) {
       },
     },
     {
-      head: 'Diferencia respecto al trimestre anterior',
+      head: 'Diferencia con el trimestre anterior',
       cl: 'diferencia',
       html(row) {
+        let value;
+        if (Number.isNaN(row[tipo + '_dif'])) {
+          value = `n/a`
+        } else {
+          value = `${row[tipo + '_dif']}%`
+        }
         const scale = d3.scaleThreshold()
           .domain([0, 5, 10])
-          .range(['down', 'right', 'up']);
-        const icon = `<span class='fa fa-arrow-${scale(row.cat1_dif)}'></span>`;
-        const value = `${row.cat1_dif}%`
+          .range(['fa-arrow-down', 'fa-equals', 'fa-arrow-up']);
+
+        const icon = `<span class='fa ${scale(row[tipo + '_dif'])}'></span>`;
+        //const value = `${row[tipo + '_dif']}%`
         const text = `<span class='text'>${value}</span>`;
         return text + icon;
       },

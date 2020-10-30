@@ -222,7 +222,7 @@ background-color: white !important;
     border-radius: 0px !important;
 }
 
-.entidad:hover {
+path.entidad:hover {
     /* fill : #99D9F5; */
     opacity: 0.8;
     cursor: pointer;

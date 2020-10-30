@@ -522,15 +522,15 @@ function drawInitial(dataset) {
         let tempData = {
             'entidad': d.gsx$estado.$t,
             'cat1': Number.parseFloat(d.gsx$puntajenormatividad.$t),
-            'cat1_dif': Number.parseFloat(d.gsx$puntajenormatividad.$t),
+            'cat1_dif': Number.parseFloat(d.gsx$difnormatividad.$t),
             'cat2': Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
-            'cat2_dif': Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
+            'cat2_dif': Number.parseFloat(d.gsx$difinfra.$t),
             'cat3': Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
-            'cat3_dif': Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
+            'cat3_dif': Number.parseFloat(d.gsx$difcapitalh.$t),
             'cat4': Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
-            'cat4_dif': Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
+            'cat4_dif': Number.parseFloat(d.gsx$difmapeo.$t),
             'cat5': Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
-            'cat5_dif': Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t)
+            'cat5_dif': Number.parseFloat(d.gsx$difdev.$t)
         };
         dataPictogram.push(tempData);
     });
