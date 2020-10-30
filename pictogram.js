@@ -7,7 +7,7 @@ function chartPictograma(data, tipo) {
   table.append('tbody');
   const columns = [
     {
-      head: 'Entidad Federativa',
+      head: '',
       cl: 'entidad',
       html(row) {
         const text = `<span class='title'>${row.entidad}</span>`;
@@ -15,7 +15,7 @@ function chartPictograma(data, tipo) {
       },
     },
     {
-      head: 'Puntaje Normatividad',
+      head: 'Puntaje',
       cl: 'puntaje',
       html(row) {
         const icon = `<span class="icon icon-${tipo}"></span>`;
@@ -28,7 +28,7 @@ function chartPictograma(data, tipo) {
       },
     },
     {
-      head: 'Cambio respecto al trimestre anterior',
+      head: 'Diferencia respecto al trimestre anterior',
       cl: 'diferencia',
       html(row) {
         const scale = d3.scaleThreshold()

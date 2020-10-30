@@ -45,7 +45,7 @@ Promise.all([
             createScales(data.feed.entry);
             createTabla(data.feed.entry);
             //setTimeout(drawInitial(data.feed.entry), 100);
-            drawInitial(data.feed.entry), 100;
+            drawInitial(data.feed.entry);
         }).catch((err) => {
             console.log(err);
         });
@@ -80,6 +80,8 @@ function createScales(dataset) {
 function drawInitial(dataset) {
     /* let currentWidth = parseInt(d3.select('#contentViz').style('width'), 10);
     let currentHeight = parseInt(d3.select('#contentViz').style('height'), 10); */
+    let divVis = document.getElementById('vis');
+    divVis.innerHTML = '';
     let svg = d3.select("#vis")
         .append('svg')
         .attr("viewBox", `0 0 1000 950`)
@@ -274,7 +276,7 @@ function drawInitial(dataset) {
         };
         dataStacked.push(tempData);
     });
-    //console.log(dataStacked);
+    
     let currentWidth = parseInt(d3.select('#contentViz').style('width'), 10);
     let currentHeight = parseInt(d3.select('#contentViz').style('height'), 10);
     const margin = {
@@ -289,7 +291,6 @@ function drawInitial(dataset) {
     let mainDivName = "vis";
     /* width = +svg.attr("width"),
     height = +svg.attr("height"); */
-    //console.log(salesData);
     let layers = d3.stack()
         .keys(group)
         .offset(d3.stackOffsetDiverging)
@@ -410,31 +411,7 @@ function drawInitial(dataset) {
             .attr("width", dims.w + 10)
             .attr("height", dims.h + 20);
     });
-    rect.on("mousemove", function() {
-        let currentEl = d3.select(this);
-        currentEl.attr("r", 7);
-        d3.selectAll("#recttooltip_" + mainDivName)
-            .attr("transform", function(d) {
-                let mouseCoords = d3.mouse(this.parentNode);
-                let xCo = 0;
-                if (mouseCoords[0] + 10 >= width * 0.80) {
-                    xCo = mouseCoords[0] - parseFloat(d3.selectAll("#recttooltipRect_" + mainDivName)
-                        .attr("width"));
-                } else {
-                    xCo = mouseCoords[0] + 10;
-                }
-                let x = xCo;
-                let yCo = 0;
-                if (mouseCoords[0] + 10 >= width * 0.80) {
-                    yCo = mouseCoords[1] + 10;
-                } else {
-                    yCo = mouseCoords[1];
-                }
-                x = xCo;
-                y = yCo;
-                return "translate(" + x + "," + y + ")";
-            });
-    });
+    
     rect.on("mouseout", function() {
         // let currentEl = d3.select(this);
         d3.select("#recttooltip_" + mainDivName)
@@ -467,17 +444,6 @@ function drawInitial(dataset) {
         .call(d3.axisLeft(y));
     ele.selectAll("text")
 
-    // Stacked -> Etiqueta Eje Y
-    ele.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("x", 0 - (currentHeight / 2))
-        .attr("y", 5 - (margin.left))
-        .attr("dy", "0.1em")
-        .attr("fill", "#000")
-        .attr("font-weight", "bold")
-        .attr("text-anchor", "middle")
-        .text("Estados");
-
     let rectTooltipg = svg.select(".stackedBar").append("g")
         .attr("font-family", 'Noto Sans SC')
         .attr("font-size", 10)
@@ -496,6 +462,7 @@ function drawInitial(dataset) {
 
     rectTooltipg
         .append("text")
+        .attr("font-family", 'Noto Sans SC')
         .attr("id", "recttooltipText_" + mainDivName)
         .attr("x", 30)
         .attr("y", 15)
@@ -512,32 +479,19 @@ function drawInitial(dataset) {
             return "";
         });
 
-    /* let colorLegend = d3.legendColor()
-        .scale(z)
-        .shapePadding(6.24)
-        .shapeWidth(25)
-        .shapeHeight(25)
-        .labelOffset(5);
-    let colorLegendG = svg.select(".stackedBar").append("g")
-        .attr("class", "color-legend")
-        .attr("transform", "translate(100, 100)")
-    colorLegendG.call(colorLegend); */
-    // Move the text down a bit.
-    //colorLegendG.selectAll("text").attr("y", 4);
-
     let textTotal = svg.select(".stackedBar").selectAll(".text")
         .data(dataStacked, d => d.Entidad);
 
     //textTotal.exit().remove();
     textTotal.enter().append("text")
-        .attr("class", "text")
         .attr("text-anchor", "start")
         .merge(textTotal)
-        .attr("font-size", 12)
+        .attr("font-family", 'Noto Sans SC')
+        .attr("font-size", 10)
         .attr("y", d => y(d.Entidad) + y.bandwidth() / 1.5)
         .attr("x", d => x(d.total) + 5)
         .text(d => d.total);
-
+    
     let helpers = {
         getDimensions: function(id) {
             let el = document.getElementById(id);
@@ -558,191 +512,6 @@ function drawInitial(dataset) {
     };
     /*
         FIN --> chartStackedBar
-    */
-    ///////////////////////////////////////////////
-    /*
-        INICIO --> chart MAX y MIN
-    */
-    dataMaxMinNormatividad = [];
-    dataMaxMinInfraestructura = [];
-    dataMaxMinCapitalHumano = [];
-    dataMaxMinMapeoGestion = [];
-    dataMaxDevMinMecanismos = [];
-    // Categorias Max
-
-    let maxNormatividad = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajenormatividad.$t), x])).values()].sort(function (a, b) {
-        return d3.descending(+a.gsx$puntajenormatividad.$t, +b.gsx$puntajenormatividad.$t);
-    }).slice(0, 3);
-
-    let minNormatividad = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajenormatividad.$t), x])).values()].sort(function (a, b) {
-        return d3.ascending(+a.gsx$puntajenormatividad.$t, +b.gsx$puntajenormatividad.$t);
-    }).slice(0, 3);
-
-    let maxInfraestructura = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajeinfraestructura.$t), x])).values()].sort(function (a, b) {
-        return d3.descending(+a.gsx$puntajeinfraestructura.$t, +b.gsx$puntajeinfraestructura.$t);
-    }).slice(0, 3);
-    let minInfraestructura = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajeinfraestructura.$t), x])).values()].sort(function (a, b) {
-        return d3.ascending(+a.gsx$puntajeinfraestructura.$t, +b.gsx$puntajeinfraestructura.$t);
-    }).slice(0, 3);
-
-    let maxCapitalHumano = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajecapitalhumano.$t), x])).values()].sort(function (a, b) {
-        return d3.descending(+a.gsx$puntajecapitalhumano.$t, +b.gsx$puntajecapitalhumano.$t);
-    }).slice(0, 3);
-    let minCapitalHumano = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajecapitalhumano.$t), x])).values()].sort(function (a, b) {
-        return d3.ascending(+a.gsx$puntajecapitalhumano.$t, +b.gsx$puntajecapitalhumano.$t);
-    }).slice(0, 3);
-
-    let maxMapeoGestion = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajemapeoygestióndedatos.$t), x])).values()].sort(function (a, b) {
-        return d3.descending(+a.gsx$puntajemapeoygestióndedatos.$t, +b.gsx$puntajemapeoygestióndedatos.$t);
-    }).slice(0, 3);
-    let minMapeoGestion = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajemapeoygestióndedatos.$t), x])).values()].sort(function (a, b) {
-        return d3.ascending(+a.gsx$puntajemapeoygestióndedatos.$t, +b.gsx$puntajemapeoygestióndedatos.$t);
-    }).slice(0, 3);
-
-    let maxDevMecanismos = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajedesarrollodemecanismosdecomunicación.$t), x])).values()].sort(function (a, b) {
-        return d3.descending(+a.gsx$puntajedesarrollodemecanismosdecomunicación.$t, +b.gsx$puntajedesarrollodemecanismosdecomunicación.$t);
-    }).slice(0, 3);
-    let minDevMecanismos = [...new Map(dataset.map(x => [parseFloat(x.gsx$puntajedesarrollodemecanismosdecomunicación.$t), x])).values()].sort(function (a, b) {
-        return d3.ascending(+a.gsx$puntajedesarrollodemecanismosdecomunicación.$t, +b.gsx$puntajedesarrollodemecanismosdecomunicación.$t);
-    }).slice(0, 3);
-
-    /* console.log(minNormatividad);
-    console.log(minInfraestructura);
-    console.log(minCapitalHumano);
-    console.log(minMapeoGestion);
-    console.log(minDevMecanismos);  */
-
-    //console.log(catMax1);
-    dataset.forEach((d) => {
-        let tempDataset = d;
-        //console.log(tempDataset.gsx$estado.$t);
-        maxNormatividad.forEach(function (d, index) {
-            //console.log(index);
-            if (d.gsx$puntajenormatividad.$t === tempDataset.gsx$puntajenormatividad.$t) {
-                //console.log(tempDataset.gsx$puntajenormatividad.$t);
-                //console.log(d);
-                let tempData = '';
-                tempData = {
-                    entidad: tempDataset.gsx$estado.$t,
-                    puntajeTop: Number.parseFloat(d.gsx$puntajenormatividad.$t),
-                    tipoCat: 'max'
-                };
-                dataMaxMinNormatividad.push(tempData);
-            }
-        });
-        minNormatividad.forEach(function (d, index) {
-            //console.log(index);
-            if (d.gsx$puntajenormatividad.$t === tempDataset.gsx$puntajenormatividad.$t) {
-                //console.log(tempDataset.gsx$puntajenormatividad.$t);
-                //console.log(d);
-                let tempData = '';
-                tempData = {
-                    entidad: tempDataset.gsx$estado.$t,
-                    puntajeTop: Number.parseFloat(d.gsx$puntajenormatividad.$t),
-                    tipoCat: 'min'
-                };
-                dataMaxMinNormatividad.push(tempData);
-            }
-        });
-        maxInfraestructura.forEach(function (d, index) {
-            //console.log(index);
-            if (d.gsx$puntajeinfraestructura.$t === tempDataset.gsx$puntajeinfraestructura.$t) {
-                let tempData = '';
-                tempData = {
-                    entidad: tempDataset.gsx$estado.$t,
-                    puntajeTop: Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
-                    tipoCat: 'max'
-                };
-                dataMaxMinInfraestructura.push(tempData);
-            }
-        });
-        minInfraestructura.forEach(function (d, index) {
-            //console.log(index);
-            if (d.gsx$puntajeinfraestructura.$t === tempDataset.gsx$puntajeinfraestructura.$t) {
-                let tempData = '';
-                tempData = {
-                    entidad: tempDataset.gsx$estado.$t,
-                    puntajeTop: Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
-                    tipoCat: 'min'
-                };
-                dataMaxMinInfraestructura.push(tempData);
-            }
-        });
-        maxCapitalHumano.forEach(function (d, index) {
-            if (d.gsx$puntajecapitalhumano.$t === tempDataset.gsx$puntajecapitalhumano.$t) {
-                let tempData = '';
-                tempData = {
-                    entidad: tempDataset.gsx$estado.$t,
-                    puntajeTop: Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
-                    tipoCat: 'max'
-                };
-                dataMaxMinCapitalHumano.push(tempData);
-            }
-        });
-        minCapitalHumano.forEach(function (d, index) {
-            //console.log(index);
-            if (d.gsx$puntajecapitalhumano.$t === tempDataset.gsx$puntajecapitalhumano.$t) {
-                let tempData = '';
-                tempData = {
-                    entidad: tempDataset.gsx$estado.$t,
-                    puntajeTop: Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
-                    tipoCat: 'min'
-                };
-                dataMaxMinCapitalHumano.push(tempData);
-            }
-        });
-        maxMapeoGestion.forEach(function (d, index) {
-            //console.log(d);
-            if (d.gsx$puntajemapeoygestióndedatos.$t === tempDataset.gsx$puntajemapeoygestióndedatos.$t) {
-                let tempData = '';
-                tempData = {
-                    entidad: tempDataset.gsx$estado.$t,
-                    puntajeTop: Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
-                    tipoCat: 'max'
-                };
-                dataMaxMinMapeoGestion.push(tempData);
-            }
-        });
-        minMapeoGestion.forEach(function (d, index) {
-            //console.log(d);
-            if (d.gsx$puntajemapeoygestióndedatos.$t === tempDataset.gsx$puntajemapeoygestióndedatos.$t) {
-                let tempData = '';
-                tempData = {
-                    entidad: tempDataset.gsx$estado.$t,
-                    puntajeTop: Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
-                    tipoCat: 'min'
-                };
-                dataMaxMinMapeoGestion.push(tempData);
-            }
-        });
-        maxDevMecanismos.forEach(function (d, index) {
-            //console.log(index);
-            if (d.gsx$puntajedesarrollodemecanismosdecomunicación.$t === tempDataset.gsx$puntajedesarrollodemecanismosdecomunicación.$t) {
-                let tempData = '';
-                tempData = {
-                    entidad: tempDataset.gsx$estado.$t,
-                    puntajeTop: Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
-                    tipoCat: 'max'
-                };
-                dataMaxDevMinMecanismos.push(tempData);
-            }
-        });
-        minDevMecanismos.forEach(function (d, index) {
-            //console.log(index);
-            if (d.gsx$puntajedesarrollodemecanismosdecomunicación.$t === tempDataset.gsx$puntajedesarrollodemecanismosdecomunicación.$t) {
-                let tempData = {};
-                //console.log(tempDataset.gsx$estado.$t)
-                tempData = {
-                    entidad: tempDataset.gsx$estado.$t,
-                    puntajeTop: Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
-                    tipoCat: 'min'
-                };
-                dataMaxDevMinMecanismos.push(tempData);
-            }
-        });
-    });
-    /*
-        FIN --> chartMaxMin
     */
     ///////////////////////////////////////////////
     /*
@@ -791,141 +560,6 @@ function mouseOut2(d, i) {
     d3.select(this)
         .transition('mouseout').duration(100)
         .attr('stroke-width', 0)
-}
-
-function chartMaxMin(data, classObject, colorBase) {
-    let categories = ['max', 'min'];
-    let categoriesXY = {'max': [100, 580], 'min': [500, 580]};
-    let svg = d3.select("#vis").select('svg');
-    svg.select(`.${classObject}`).remove();
-    let dataset = data;
-    let colorBurbujas = colorBase;
-    //tempEscala = d3.scaleLinear(dataset)
-    tempSimulation = d3.forceSimulation(dataset)
-    tempSimulation.on('tick', () => {
-        tempNodes
-            .attr('cx', d => d.x)
-            .attr('cy', d => d.y)
-    })
-    tempNodes = svg
-        .append("g")
-        .attr('class', classObject)
-        .attr('visibility', 'visible')
-        .selectAll('circle')
-        .data(dataset)
-        .enter()
-        .append('circle')
-        .attr('r', 5)
-        /*.attr('cx', (d, i) => (d.puntajeTop)) */
-    svg.select(`.${classObject}`).selectAll('.lab-text')
-        .data(categories).enter()
-        .append('text')
-        .attr('class', 'lab-text')
-        .style('pointer-events', 'none')
-        .attr('opacity', 1)
-        .raise()
-    svg.select(`.${classObject}`).selectAll('.lab-text')
-        .attr('font-family', 'Noto Sans SC')
-        .attr('font-size', '0.9375rem')
-        .attr('fill', 'black')
-        .attr('text-anchor', 'middle');
-    
-    let max = d3.max(dataset, d => d.puntajeTop)
-    let domainData = d3.scaleLinear()
-        .domain([0, max])
-        .ticks(6);
-    //console.log(domainData);
-    let indexToColor = d3.scaleLinear()
-        .domain([0, 10])
-        .range(['#D3D3D3', colorBurbujas]);
-    let range = d3.range(domainData.length).map(indexToColor);
-    // Escala de colores
-    let dataLegend = [];
-    domainData.forEach(function (d, index) {
-        //console.log(d);
-        let tempData = '';
-        tempData = {"color": range[index], "value": domainData[index]}
-        dataLegend.push(tempData);
-    });
-
-    let extent = d3.extent(dataLegend, d => d.value);
-    let padding = 9;
-    let width = 320;
-    let innerWidth = width - (padding * 5);
-    let barHeight = 12;
-
-    let xScale = d3.scaleLinear()
-        .range([0, innerWidth])
-        .domain(extent);
-
-    let xTicks = dataLegend.map(d => d.value);
-
-    let xAxis = d3.axisBottom(xScale)
-        .tickSize(barHeight * 2)
-        .tickValues(xTicks);
-
-    let g2 = svg.select(`.${classObject}`)
-        .append("g")
-        .attr("transform", "translate(360, 630)")
-        .attr('class', 'leyendas');
-    
-    let defs = svg.select(`.${classObject}`).append("defs");
-    let linearGradient = defs.append("linearGradient").attr("id", `${classObject}`);
-    linearGradient.selectAll("stop")
-        .data(dataLegend)
-        .enter().append("stop")
-        .attr("offset", d => ((d.value - extent[0]) / (extent[1] - extent[0]) * 100) + "%")
-        .attr("stop-color", d => d.color);
-
-    g2.append("rect")
-        .attr("width", innerWidth)
-        .attr("height", barHeight)
-        .style("fill", `url(#${classObject})`);
-
-    g2.append("g")
-        .call(xAxis)
-        .select(".domain").remove();
-    // Termina escala de colores    
-    //console.log(range)
-    let domainFill = d3.scaleQuantile()
-        .range(range)
-        .domain(domainData);
-
-    svg.select(`.${classObject}`).selectAll('circle')
-        .transition().duration(500).delay((d, i) => i * 50)
-        .attr('r', d => (Math.sqrt(d.puntajeTop) + 5) * 4)
-        .attr('opacity', 0.8)
-        .attr('fill', d => {
-            //categoryColorScale(d.tipoCat)
-            let value = d.puntajeTop;
-            return value ? domainFill(value):"#D3D3D3";
-        });
-
-    svg.select(`.${classObject}`).selectAll('.lab-text').transition().duration(300).delay((d, i) => i * 30)
-        .text(d => {
-            return d === 'max' ? 'Mayor puntaje' :
-                d === 'min' ? 'Menor puntaje' :
-                '?';
-        })
-        // posicionan las burbujas y titulos
-        .attr('x', d => categoriesXY[d][0] + 200)
-        .attr('y', d => categoriesXY[d][1])
-        .attr('opacity', 1);
-    
-    //console.log(range);   
-    svg.select(`.${classObject}`).selectAll('circle')
-        .on('mouseover', mouseOver2)
-        .on('mouseout', mouseOut2);
-    
-    tempSimulation
-        /* .force('charge', d3.forceManyBody().strength([2])) */
-        // posicionan las burbujas y titulos
-        .force('x', d3.forceX(d => categoriesXY[d.tipoCat][0] + 200))
-        .force('y', d3.forceY(d => categoriesXY[d.tipoCat][1] - 250))
-        .force('collide', d3.forceCollide(d => ((Math.sqrt(d.puntajeTop) + 5) * 4)))
-        .alphaDecay([0.02]);
-    tempSimulation.restart();
-    document.getElementById('vis').style.display = "block";
 }
 
 //Cleaning Function
