@@ -1,5 +1,7 @@
-function ready(qcew) {
-  //if (error) throw error;
+function chartPictograma(data, tipo) {
+  let tabla = document.getElementById('pictograma');
+  // limpia los elementos de la tabla
+  tabla.innerHTML = '';
   const table = d3.select('.table-container').append('table');
   table.append('thead');
   table.append('tbody');
@@ -14,26 +16,26 @@ function ready(qcew) {
     },
     {
       head: 'Puntaje Normatividad',
-      cl: 'emp',
+      cl: 'puntaje',
       html(row) {
-        const icon = '<span class="fa fa-male"></span>';
-        const value = d3.format(',.1f')(row.emp);
-        const nIcons = row.emp;
+        const icon = `<span class="icon icon-${tipo}"></span>`;
+        const value = row[tipo];
+        const nIcons = row[tipo];
         const text = `<span class='text'>${value}</span>`;
-        console.log(nIcons)
+        //console.log(nIcons)
         return text + d3.range(nIcons)
           .map(() => icon).join('');
       },
     },
     {
       head: 'Cambio respecto al trimestre anterior',
-      cl: 'emp_pc',
+      cl: 'diferencia',
       html(row) {
         const scale = d3.scaleThreshold()
           .domain([0, 5, 10])
           .range(['down', 'right', 'up']);
-        const icon = `<span class='fa fa-arrow-${scale(row.emp_pc)}'></span>`;
-        const value = `${row.emp_pc}%`
+        const icon = `<span class='fa fa-arrow-${scale(row.cat1_dif)}'></span>`;
+        const value = `${row.cat1_dif}%`
         const text = `<span class='text'>${value}</span>`;
         return text + icon;
       },
@@ -59,7 +61,7 @@ function ready(qcew) {
             ascending = true;
           }
           d.ascending = ascending;
-          qcew.sort((a, b) => {
+          data.sort((a, b) => {
             if (ascending) {
               return d3.ascending(a[d.cl], b[d.cl]);
             }
@@ -69,7 +71,7 @@ function ready(qcew) {
         });
 
     const trUpdate = table.select('tbody').selectAll('tr')
-      .data(qcew);
+      .data(data);
 
     const trEnter = trUpdate.enter().append('tr');
 

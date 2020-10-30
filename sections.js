@@ -2,12 +2,14 @@ let mexico, svg
 let sizeScale
 let simulation, nodes;
 
-
 var dataMaxMinInfraestructura = [];
 var dataMaxMinNormatividad = [];
 var dataMaxMinCapitalHumano = [];
 var dataMaxMinMapeoGestion = [];
 var dataMaxDevMinMecanismos = [];
+
+var dataPictogram = [];
+
 
 // Colores base para categorias 
 // Normatividad, Infraestructura, Capital Humano, Mapeo y gestión, Dev Mecanismos de comunicación
@@ -746,21 +748,24 @@ function drawInitial(dataset) {
     /*
         INICIO --> chartPictogram
     */
-   let dataPictogram = [];
+   dataPictogram = [];
    dataset.forEach(function(d) {
         let tempData = {
-            entidad: d.gsx$estado.$t,
-            'emp': Number.parseFloat(d.gsx$puntajenormatividad.$t),
-            'emp_pc': Number.parseFloat(d.gsx$puntajenormatividad.$t),
-            /* 'Capital humano': Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
-            'Mapeo y gestión de datos': Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
-            'Desarrollo de mecanismos de comunicación': Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
-            total: Number.parseFloat(d.gsx$puntajetotal.$t) */
+            'entidad': d.gsx$estado.$t,
+            'cat1': Number.parseFloat(d.gsx$puntajenormatividad.$t),
+            'cat1_dif': Number.parseFloat(d.gsx$puntajenormatividad.$t),
+            'cat2': Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
+            'cat2_dif': Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
+            'cat3': Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
+            'cat3_dif': Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
+            'cat4': Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
+            'cat4_dif': Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
+            'cat5': Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
+            'cat5_dif': Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t)
         };
         dataPictogram.push(tempData);
     });
-    console.log(dataPictogram)
-    ready(dataPictogram);
+    
 
 }
 
@@ -1044,48 +1049,45 @@ function chartTabla() {
     document.getElementById('vis').style.display = "none";
 }
 
-function chartPictogram() {
-    let classShow = 'table-container';
-    clean(classShow);
-    document.getElementById('pictograma').style.display = "block";
-    document.getElementById('vis').style.display = "none";
-}
-
 function chartNormatividad() {
     let classShow = 'chartNormatividad';
     clean(classShow);
-    let colorBurbujas = colorsCategorias[0];
-    chartMaxMin(dataMaxMinNormatividad, classShow, colorBurbujas);
-    //dataMaxMinNormatividad = [];
+    chartPictograma(dataPictogram, 'cat1');
+    document.getElementById('pictograma').style.display = "block";
+    document.getElementById('vis').style.display = "none";
 }
 
 function chartInfraestructura() {
     let classShow = 'chartInfraestructura';
     clean(classShow);
-    let colorBurbujas = colorsCategorias[1];
-    chartMaxMin(dataMaxMinInfraestructura, classShow, colorBurbujas);
+    chartPictograma(dataPictogram, 'cat2');
+    document.getElementById('pictograma').style.display = "block";
+    document.getElementById('vis').style.display = "none";
     //dataMaxMinInfraestructura = [];
 }
 
 function chartCapitalHumano() {
     let classShow = 'chartCapitalHumano';
     clean(classShow);
-    let colorBurbujas = colorsCategorias[2];
-    chartMaxMin(dataMaxMinCapitalHumano, classShow, colorBurbujas);
+    chartPictograma(dataPictogram, 'cat3');
+    document.getElementById('pictograma').style.display = "block";
+    document.getElementById('vis').style.display = "none";
 }
 
 function chartMapeoGestion() {
     let classShow = 'chartMapeoGestion';
     clean(classShow);
-    let colorBurbujas = colorsCategorias[3];
-    chartMaxMin(dataMaxMinMapeoGestion, classShow, colorBurbujas);
+    chartPictograma(dataPictogram, 'cat4');
+    document.getElementById('pictograma').style.display = "block";
+    document.getElementById('vis').style.display = "none";
 }
 
 function chartDevMecanismos() {
     let classShow = 'chartDevMecanismos';
     clean(classShow);
-    let colorBurbujas = colorsCategorias[4];
-    chartMaxMin(dataMaxDevMinMecanismos, classShow, colorBurbujas);
+    chartPictograma(dataPictogram, 'cat5');
+    document.getElementById('pictograma').style.display = "block";
+    document.getElementById('vis').style.display = "none";
 }
 
 // Mapa MEX 

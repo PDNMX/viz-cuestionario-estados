@@ -143,15 +143,19 @@ span.text {
  padding-right: 10px;
 }
 
-th.emp, td.emp {
- width: 40%;
+th.puntaje, td.puntaje {
+ width: 50%;
 }
 
-th.emp_pc, td.emp_pc {
- width: 30%;
+th.diferencia, td.diferencia {
+ width: 20%;
 }
 
-.emp span.fa {
+th.entidad, td.entidad {
+  width: 30%;
+ }
+
+.puntaje span.fa {
  width: 8px;
 }
 
@@ -165,4 +169,31 @@ th.emp_pc, td.emp_pc {
 
 .fa-arrow-down {
  color: red;
+}
+
+.icon-cat1 {
+  background-image: url(img/normatividad.png);
+  background-size: auto 100%;
+}
+.icon-cat2 {
+  background-image: url(img/infraestructura.png);
+  background-size: auto 100%;
+}
+.icon-cat3 {
+  background-image: url(img/capitalhumano.png);
+  background-size: auto 100%;
+}
+.icon-cat4 {
+  background-image: url(img/mapeoygestion.png);
+  background-size: auto 100%;
+}
+.icon-cat5 {
+  background-image: url(img/desarrollo.png);
+  background-size: auto 100%;
+}
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
 }
