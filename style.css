@@ -222,7 +222,7 @@ ul.no_bullet {
 }
 
 li.normatividad {
-  background: url('/img/normatividad.png') no-repeat left top;
+  background: url(img/normatividad.png) no-repeat left top;
   height: 100%;
   padding-left: 50px;
   /* padding-top: 3px; */
@@ -232,7 +232,7 @@ li.normatividad {
 }
 
 li.infraestructura {
-  background: url('/img/infraestructura.png') no-repeat left top;
+  background: url(img/infraestructura.png) no-repeat left top;
   height: 100%;
   padding-left: 50px;
   /* padding-top: 3px; */
@@ -242,7 +242,7 @@ li.infraestructura {
 }
 
 li.capitalHumano {
-  background: url('/img/capitalhumano.png') no-repeat left top;
+  background: url(img/capitalhumano.png) no-repeat left top;
   height: 100%;
   padding-left: 50px;
   /* padding-top: 3px; */
@@ -252,7 +252,7 @@ li.capitalHumano {
 }
 
 li.mapeoGestion {
-  background: url('/img/mapeoygestion.png') no-repeat left top;
+  background: url(img/mapeoygestion.png) no-repeat left top;
   height: 100%;
   padding-left: 50px;
   /* padding-top: 3px; */
@@ -262,7 +262,7 @@ li.mapeoGestion {
 }
 
 li.devMecanismos {
-  background: url('/img/desarrollo.png') no-repeat left top;
+  background: url(img/desarrollo.png) no-repeat left top;
   height: 100%;
   padding-left: 50px;
   /* padding-top: 3px; */
