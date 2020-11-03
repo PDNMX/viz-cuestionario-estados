@@ -178,27 +178,27 @@ td.colEntidad {
 }
 
 .icon-cat1 {
-  background-image: url(img/normatividad-relleno.png);
+  background-image: url(img/normatividad.png);
   background-size: auto 100%;
 }
 
 .icon-cat2 {
-  background-image: url(img/infraestructura-relleno.png);
+  background-image: url(img/infraestructura.png);
   background-size: auto 100%;
 }
 
 .icon-cat3 {
-  background-image: url(img/capital-humano-relleno.png);
+  background-image: url(img/capitalhumano.png);
   background-size: auto 100%;
 }
 
 .icon-cat4 {
-  background-image: url(img/datos-relleno.png);
+  background-image: url(img/mapeoygestion.png);
   background-size: auto 100%;
 }
 
 .icon-cat5 {
-  background-image: url(img/comunicacion-relleno.png);
+  background-image: url(img/desarrollo.png);
   background-size: auto 100%;
 }
 
