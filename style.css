@@ -213,3 +213,60 @@ td.colEntidad {
 .svg-inline--fa {
   vertical-align: initial !important;
 }
+
+ul.no_bullet {
+  list-style-type: none;
+  /* padding: 0;
+  margin: 0; */
+  padding-left: 10px;
+}
+
+li.normatividad {
+  background: url('/img/normatividad.png') no-repeat left top;
+  height: 100%;
+  padding-left: 50px;
+  /* padding-top: 3px; */
+  padding-bottom: 10px;
+  background-size: auto 32px;
+  display: block;
+}
+
+li.infraestructura {
+  background: url('/img/infraestructura.png') no-repeat left top;
+  height: 100%;
+  padding-left: 50px;
+  /* padding-top: 3px; */
+  padding-bottom: 10px;
+  background-size: auto 32px;
+  display: block;
+}
+
+li.capitalHumano {
+  background: url('/img/capitalhumano.png') no-repeat left top;
+  height: 100%;
+  padding-left: 50px;
+  /* padding-top: 3px; */
+  padding-bottom: 10px;
+  background-size: auto 32px;
+  display: block;
+}
+
+li.mapeoGestion {
+  background: url('/img/mapeoygestion.png') no-repeat left top;
+  height: 100%;
+  padding-left: 50px;
+  /* padding-top: 3px; */
+  padding-bottom: 10px;
+  background-size: auto 32px;
+  display: block;
+}
+
+li.devMecanismos {
+  background: url('/img/desarrollo.png') no-repeat left top;
+  height: 100%;
+  padding-left: 50px;
+  /* padding-top: 3px; */
+  padding-bottom: 10px;
+  background-size: auto 32px;
+  display: block;
+}
