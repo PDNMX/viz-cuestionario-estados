@@ -128,10 +128,6 @@ function drawInitial(dataset) {
         });
         
     }); 
-    // Config for the Radar chart
-    
-    //
-    //console.log(mexico);
     let projection = d3.geoMercator()
         .scale(1700)
         .center([-103.34034978813841, 30.012062015793]);
@@ -163,15 +159,9 @@ function drawInitial(dataset) {
                 color: d3.scaleOrdinal().range([d.color])
             } 
             RadarChart.draw("#radarChart", dataTest, config);
-            $('#mapaModal').modal('toggle')
             $('#modalTitle').text(d.properties.entidad);
-            $('#pntTotal').text(`${Math.round(d.properties.calificacion)} de 100`); // Total 100
-            $('#pntNormatividad').val(`${Math.round(d.properties.pntNor)} de 10`); // Total 10
-            $('#pntInf').val(`${Math.round(d.properties.pntInf)} de 20`); // Total 20
-            $('#pntCH').val(`${Math.round(d.properties.pntCH)} de 10`); // Total 10
-            $('#pntGD').val(`${Math.round(d.properties.pntGD)} de 30`); // Total 30
-            $('#pntMC').val(`${Math.round(d.properties.pntMC)} de 30`); // Total 30
             $('#modalHeader').css('background-color', d.color);
+            $('#mapaModal').modal('toggle');
         })
         .attr("d", path);
 
@@ -262,9 +252,24 @@ function drawInitial(dataset) {
     /*
         INICIO --> chartStackedBar
     */
-   //let puntajeNormatividad = dataset.gsx$puntajenormatividad.$t;
-   let dataStacked = [];
-   dataset.forEach(function(d) {
+   let topData = dataset.sort(function (a, b) {
+        return d3.descending(+a.gsx$puntajetotal.$t, +b.gsx$puntajetotal.$t);
+    }).slice(0, 10);
+    //console.log("topData:", topData);
+
+    let tableTop10 = document.getElementById('tableTop10');
+    tableTop10.innerHTML = '';
+    topData.forEach(function (d) {
+        let estado = d.gsx$estado.$t
+        let puntaje = d.gsx$puntajetotal.$t;
+        tableTop10.innerHTML += `<tr class="table-light">
+         <td>${estado}</td>
+         <td>${puntaje}</td>
+       </tr>`
+    });
+
+    let dataStacked = [];
+    dataset.forEach(function(d) {
         let tempData = {
             Entidad: d.gsx$estado.$t,
             'Normatividad': Number.parseFloat(d.gsx$puntajenormatividad.$t),
@@ -400,8 +405,22 @@ function drawInitial(dataset) {
         let tooltipData = JSON.parse(currentEl.attr("data"));
         d3.selectAll("#recttooltipText_" + mainDivName).text("");
         let yPos = 0;
-        d3.selectAll("#recttooltipText_" + mainDivName).append("tspan").attr("x", 0).attr("y", yPos * 10).attr("dy", "1.9em").text(tooltipData.key + ":  " + tooltipData.value);
-        //yPos = yPos + 1;
+        let txtTotal;
+        switch (tooltipData.key) {
+            case 'Normatividad':
+            case 'Capital humano':
+              txtTotal = 10;
+              break;
+            case 'Infraestructura':
+                txtTotal = 20;
+              break;
+            case 'Mapeo y gestión de datos':
+            case 'Desarrollo de mecanismos de comunicación':
+                txtTotal = 30;
+              break;
+        }
+        d3.selectAll("#recttooltipText_" + mainDivName).append("tspan").attr("x", 0).attr("y", 2).attr("dy", "1.9em").text(tooltipData.key + ":  " + tooltipData.value + " de " + txtTotal);
+        yPos = yPos + 1;
         //CBT:calculate width of the text based on characters
         let dims = helpers.getDimensions("recttooltipText_" + mainDivName);
         d3.selectAll("#recttooltipText_" + mainDivName + " tspan")
@@ -809,6 +828,12 @@ document.addEventListener("DOMContentLoaded", function() {
             //setTimeout(drawInitial(data.feed.entry), 100);
             drawInitial(data.feed.entry);
         });
+    });
+    $('#modalTitle').text('Aviso');
+    $('#mapaModal').modal('toggle');
+    $('#txtAviso').append('Aviso');
+    $(document).on('hidden.bs.modal', '#mapaModal', function () {
+        document.getElementById('txtAviso').innerHTML = '';
     });
     
 });

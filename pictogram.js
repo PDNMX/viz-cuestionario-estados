@@ -1,7 +1,8 @@
 function chartPictograma(data, tipo) {
-  let tabla = document.getElementById('pictograma');
-  // limpia los elementos de la tabla
-  tabla.innerHTML = '';
+  document.getElementById('pictograma').innerHTML = '';
+  data = data.sort(function (a, b) {
+    return d3.descending(+a[tipo], +b[tipo]);
+  });
   const table = d3.select('#pictograma').append('table');
   /* table.attr("class", "table"); */
   table.append('thead');
@@ -39,7 +40,7 @@ function chartPictograma(data, tipo) {
           value = `${row[tipo + '_dif']}%`
         }
         const scale = d3.scaleThreshold()
-          .domain([0, 5, 10])
+          .domain([0, 1])
           .range(['fa-arrow-down', 'fa-equals', 'fa-arrow-up']);
 
         const icon = `<span class='fa ${scale(row[tipo + '_dif'])}'></span>`;
