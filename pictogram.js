@@ -56,7 +56,7 @@ function chartPictograma(data, tipo) {
   function renderTable(table) {
     const tableUpdate = table.select('thead')
       .selectAll('th')
-        .data(columns);
+      .data(columns);
 
     const tableEnter = tableUpdate
       .enter().append('th')

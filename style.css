@@ -46,7 +46,7 @@
   margin-bottom: 0;
 }
 
-.step.is-active section{
+.step.is-active section {
   /* background-color: goldenrod;
   color: #3b3b3b; */
   opacity: 1;
@@ -59,7 +59,7 @@
 } */
 
 
-/* Nuevos estilos */ 
+/* Nuevos estilos */
 #logoHeader {
   max-width: 85px;
 }
@@ -68,10 +68,10 @@
   position: -webkit-sticky;
   position: sticky;
   /* top: 0; */
-  background-color:#fff;
+  background-color: #fff;
 }
 
-#tablaScore thead tr:nth-child(1) th{
+#tablaScore thead tr:nth-child(1) th {
   background: white;
   position: sticky;
   top: 0;
@@ -90,88 +90,116 @@
 /* pictogram */
 
 .table-container {
- width: 100%;
- overflow: auto;
+  width: 100%;
+  overflow: auto;
+  height: 90%;
 }
 
 .table-container table {
- border-collapse: collapse;
- position: relative;
- width: 100%;
+  border-collapse: collapse;
+  position: relative;
+  width: 100%;
+  height: 90%;
+  font-weight: 400;
+  margin-top: 20px;
 }
 
 .table-container th {
- border-bottom: 1px solid #dee2e6;
- cursor: pointer;
+  border-bottom: 1px solid #dee2e6;
+  cursor: pointer;
 }
 
-.table-container td, th {
- padding-left: 10px;
- padding-right: 10px;
+.table-container td,
+th {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 span.fa {
- display: inline-block;
+  display: inline-block;
 }
 
-td > span {
- float: left;
+td>span {
+  float: left;
 }
 
 span.text {
- width: 40px;
- text-align: right;
- padding-right: 10px;
+  width: 40px;
+  text-align: right;
+  padding-right: 10px;
+  font-size: 80%;
 }
 
-th.puntaje, td.puntaje {
- width: 50%;
+span.title {
+  font-size: 80%;
 }
 
-th.diferencia, td.diferencia {
- width: 20%;
+th.puntaje,
+td.puntaje {
+  width: 50%;
+
 }
 
-th.colEntidad, td.colEntidad {
+th.puntaje {
+  font-size: 80%;
+}
+
+th.diferencia {
+  font-size: 80%;
+}
+
+th.diferencia,
+td.diferencia {
+  width: 20%;
+}
+
+th.colEntidad,
+td.colEntidad {
   width: 30%;
- }
+
+}
 
 .fa-arrow-up {
- color: darkgreen;
+  color: darkgreen;
 }
 
 .fa-arrow-right {
- color: slategrey;
+  color: slategrey;
 }
 
 .fa-equals {
   color: slategrey;
- }
+}
 
 .fa-arrow-down {
- color: red;
+  color: red;
 }
 
 .icon-cat1 {
   background-image: url(img/normatividad-relleno.png);
   background-size: auto 100%;
 }
+
 .icon-cat2 {
   background-image: url(img/infraestructura-relleno.png);
   background-size: auto 100%;
 }
+
 .icon-cat3 {
   background-image: url(img/capital-humano-relleno.png);
   background-size: auto 100%;
 }
+
 .icon-cat4 {
   background-image: url(img/datos-relleno.png);
   background-size: auto 100%;
 }
+
 .icon-cat5 {
   background-image: url(img/comunicacion-relleno.png);
   background-size: auto 100%;
 }
+
 .icon {
   display: inline-block;
   width: 1em;
