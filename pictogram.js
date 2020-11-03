@@ -11,6 +11,7 @@ function chartPictograma(data, tipo) {
     {
       head: '',
       cl: 'entidad',
+      width: '20%',
       html(row) {
         const text = `<span class='title'>${row.entidad}</span>`;
         return text;
@@ -18,7 +19,8 @@ function chartPictograma(data, tipo) {
     },
     {
       head: 'Puntaje',
-      cl: 'puntaje',
+      cl: tipo,
+      width: '50%',
       html(row) {
         const icon = `<span class="icon icon-${tipo}"></span>`;
         const value = row[tipo];
@@ -31,7 +33,8 @@ function chartPictograma(data, tipo) {
     },
     {
       head: 'Diferencia con el trimestre anterior',
-      cl: 'diferencia',
+      cl: tipo + '_dif',
+      width: '30%',
       html(row) {
         let value;
         if (Number.isNaN(row[tipo + '_dif'])) {
@@ -60,7 +63,8 @@ function chartPictograma(data, tipo) {
 
     const tableEnter = tableUpdate
       .enter().append('th')
-        .attr('class', d => d.cl)
+        /* .attr('class', d => d.cl) */
+        .style("width", d => d.width)
         .text(d => d.head)
         .on('click', (d) => {
           let ascending;

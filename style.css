@@ -106,7 +106,9 @@
 
 .table-container th {
   border-bottom: 1px solid #dee2e6;
+  padding-bottom: 10px;
   cursor: pointer;
+  font-size: 80%;
 }
 
 .table-container td,
@@ -205,5 +207,9 @@ td.colEntidad {
   width: 1em;
   height: 1em;
   vertical-align: middle;
-  margin-top: 5px;
+  margin-top: 3px;
+}
+
+.svg-inline--fa {
+  vertical-align: initial !important;
 }

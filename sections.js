@@ -456,7 +456,7 @@ function drawInitial(dataset) {
         .attr("fill", "#000")
         .attr("font-weight", "bold")
         .attr("text-anchor", "middle")
-        .text("Puntuación Total");
+        .text("Puntaje Total");
 
     let ele = svg.select(".stackedBar").append("g")
         .attr("transform", "translate(" + margin.left + ",0)")
@@ -506,7 +506,7 @@ function drawInitial(dataset) {
         .attr("text-anchor", "start")
         .merge(textTotal)
         .attr("font-family", 'Noto Sans SC')
-        .attr("font-size", 10)
+        .attr("font-size", 8)
         .attr("y", d => y(d.Entidad) + y.bandwidth() / 1.5)
         .attr("x", d => x(d.total) + 5)
         .text(d => d.total);
@@ -801,6 +801,8 @@ document.addEventListener("DOMContentLoaded", function() {
     new Tablesort(document.getElementById('tablaScore'));
     let selectElement = document.getElementById('selectTrimestre');
     selectElement.addEventListener('change', (event) => {
+        //lastValue = theSelect.options[theSelect.options.length - 1].value;
+        console.log(selectElement.options[selectElement.options.length - 1].value)
         // agrega copys a las secciones
         document.getElementById("copy1").innerHTML = '';
         document.getElementById("copy1").append(event.target.options[event.target.selectedIndex].dataset.copy1);
@@ -831,7 +833,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     $('#modalTitle').text('Aviso');
     $('#mapaModal').modal('toggle');
-    $('#txtAviso').append('Aviso');
     $(document).on('hidden.bs.modal', '#mapaModal', function () {
         document.getElementById('txtAviso').innerHTML = '';
     });
