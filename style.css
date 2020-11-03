@@ -101,7 +101,7 @@
   width: 100%;
   height: 90%;
   font-weight: 400;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .table-container th {
@@ -178,34 +178,35 @@ td.colEntidad {
 }
 
 .icon-cat1 {
-  background-image: url(img/normatividad.png);
+  background-image: url(img/icon-normatividad.svg);
   background-size: auto 100%;
 }
 
 .icon-cat2 {
-  background-image: url(img/infraestructura.png);
+  background-image: url(img/icon-infraestructura.svg);
   background-size: auto 100%;
 }
 
 .icon-cat3 {
-  background-image: url(img/capitalhumano.png);
+  background-image: url(img/icon-capital-humano.svg);
   background-size: auto 100%;
 }
 
 .icon-cat4 {
-  background-image: url(img/mapeoygestion.png);
+  background-image: url(img/icon-datos.svg);
   background-size: auto 100%;
 }
 
 .icon-cat5 {
-  background-image: url(img/desarrollo.png);
+  background-image: url(img/icon-comunicacion.svg);
   background-size: auto 100%;
+  fill: black;
 }
 
 .icon {
   display: inline-block;
-  width: 1em;
-  height: 1em;
+  width: 14px;
+  height: 14px;
   vertical-align: middle;
   margin-top: 3px;
 }
@@ -222,7 +223,7 @@ ul.no_bullet {
 }
 
 li.normatividad {
-  background: url(img/normatividad.png) no-repeat left top;
+  background: url(img/icon-normatividad.svg) no-repeat left top;
   height: 100%;
   padding-left: 50px;
   /* padding-top: 3px; */
@@ -232,7 +233,7 @@ li.normatividad {
 }
 
 li.infraestructura {
-  background: url(img/infraestructura.png) no-repeat left top;
+  background: url(img/icon-infraestructura.svg) no-repeat left top;
   height: 100%;
   padding-left: 50px;
   /* padding-top: 3px; */
@@ -242,7 +243,7 @@ li.infraestructura {
 }
 
 li.capitalHumano {
-  background: url(img/capitalhumano.png) no-repeat left top;
+  background: url(img/icon-capital-humano.svg) no-repeat left top;
   height: 100%;
   padding-left: 50px;
   /* padding-top: 3px; */
@@ -252,7 +253,7 @@ li.capitalHumano {
 }
 
 li.mapeoGestion {
-  background: url(img/mapeoygestion.png) no-repeat left top;
+  background: url(img/icon-datos.svg) no-repeat left top;
   height: 100%;
   padding-left: 50px;
   /* padding-top: 3px; */
@@ -262,7 +263,7 @@ li.mapeoGestion {
 }
 
 li.devMecanismos {
-  background: url(img/desarrollo.png) no-repeat left top;
+  background: url(img/icon-comunicacion.svg) no-repeat left top;
   height: 100%;
   padding-left: 50px;
   /* padding-top: 3px; */

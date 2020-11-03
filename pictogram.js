@@ -4,7 +4,7 @@ function chartPictograma(data, tipo) {
     return d3.descending(+a[tipo], +b[tipo]);
   });
   const table = d3.select('#pictograma').append('table');
-  /* table.attr("class", "table"); */
+  
   table.append('thead');
   table.append('tbody');
   const columns = [
@@ -20,7 +20,7 @@ function chartPictograma(data, tipo) {
     {
       head: 'Puntaje',
       cl: tipo,
-      width: '50%',
+      width: '60%',
       html(row) {
         const icon = `<span class="icon icon-${tipo}"></span>`;
         const value = row[tipo];
@@ -34,7 +34,7 @@ function chartPictograma(data, tipo) {
     {
       head: 'Diferencia con el trimestre anterior',
       cl: tipo + '_dif',
-      width: '30%',
+      width: '20%',
       html(row) {
         let value;
         if (Number.isNaN(row[tipo + '_dif'])) {
