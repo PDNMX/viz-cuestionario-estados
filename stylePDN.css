@@ -271,6 +271,9 @@ path.entidad:hover {
     #tablaScore {
         line-height: 1 !important;
     }
+    .table-container {
+        line-height: 1;
+    }
 }
 
 @media (max-height: 600px) {
