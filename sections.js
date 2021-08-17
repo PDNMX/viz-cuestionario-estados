@@ -17,7 +17,8 @@ const colorsCategorias = ['#34B3EB', '#34a853', '#674ea7', '#ff6d01', '#fbbc04']
 
 Promise.all([
     // dataset de trimestres
-    fetch('https://spreadsheets.google.com/feeds/list/1x17q4Ny8ENBniRT0WrlIVLU7LEs2fU1u7q2rxEypMNg/1/public/values?alt=json'),
+    fetch('https://raw.githubusercontent.com/ch3k0/temp-data/master/reportes-edos.json'),
+    //fetch('https://spreadsheets.google.com/feeds/list/1x17q4Ny8ENBniRT0WrlIVLU7LEs2fU1u7q2rxEypMNg/1/public/values?alt=json'),
     fetch('data/mexico.json')
 ]).then(async ([aa, bb]) => {
     const a = await aa.json();
