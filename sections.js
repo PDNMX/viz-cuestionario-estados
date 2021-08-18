@@ -17,8 +17,7 @@ const colorsCategorias = ['#34B3EB', '#34a853', '#674ea7', '#ff6d01', '#fbbc04']
 
 Promise.all([
     // dataset de trimestres
-    fetch('https://raw.githubusercontent.com/ch3k0/temp-data/master/reportes-edos.json'),
-    //fetch('https://spreadsheets.google.com/feeds/list/1x17q4Ny8ENBniRT0WrlIVLU7LEs2fU1u7q2rxEypMNg/1/public/values?alt=json'),
+    fetch('https://sheets.googleapis.com/v4/spreadsheets/1x17q4Ny8ENBniRT0WrlIVLU7LEs2fU1u7q2rxEypMNg/values/edos?key=AIzaSyDrvQehuVTPGJVCFVx3FUeAq2zqYbTCFDo'),
     fetch('data/mexico.json')
 ]).then(async ([aa, bb]) => {
     const a = await aa.json();
@@ -26,27 +25,25 @@ Promise.all([
     return [a, b]
 })
     .then((responseText) => {
-        // console.log(responseText);
-        // console.log(responseText[1]);
-        let datasetEdos = responseText[0].feed.entry;
-        datasetEdos = datasetEdos.sort((a, b) => new Date(b.gsx$fecha.$t) - new Date(a.gsx$fecha.$t));
-        // carga los copys
-        document.getElementById("copy1").append(datasetEdos[0].gsx$copy1.$t);
-        document.getElementById("copy4").append(datasetEdos[0].gsx$copy4.$t);
-        document.getElementById("copy5").append(datasetEdos[0].gsx$copy5.$t);
-        document.getElementById("copy6").append(datasetEdos[0].gsx$copy6.$t);
-        document.getElementById("copy7").append(datasetEdos[0].gsx$copy7.$t);
-        document.getElementById("copy8").append(datasetEdos[0].gsx$copy8.$t);
-        //console.log(datasetEdos[0].gsx$copy1.$t);
+        let datasetEdos = responseText[0].values;
+        datasetEdos.shift(); // elimina el primer row que tiene los encabezados de columna
+        datasetEdos = datasetEdos.sort((a, b) => new Date(b[1]) - new Date(a[1]));
+        // carga los copys del ultimo registro
+        document.getElementById("copy1").append(datasetEdos[0][3]);
+        document.getElementById("copy4").append(datasetEdos[0][4]);
+        document.getElementById("copy5").append(datasetEdos[0][5]);
+        document.getElementById("copy6").append(datasetEdos[0][6]);
+        document.getElementById("copy7").append(datasetEdos[0][7]);
+        document.getElementById("copy8").append(datasetEdos[0][8]);
 
-        fetch(datasetEdos[0].gsx$urldata.$t)
+        fetch(datasetEdos[0][2])
         .then(response => response.json())
         .then(data => {
-            //console.log(data);
-            createScales(data.feed.entry);
-            createTabla(data.feed.entry);
-            //setTimeout(drawInitial(data.feed.entry), 100);
-            drawInitial(data.feed.entry);
+            data.values.shift();
+            createScales(data.values);
+            createTabla(data.values);
+            //setTimeout(drawInitial(data.values), 100);
+            drawInitial(data.values);
         }).catch((err) => {
             console.log(err);
         });
@@ -54,28 +51,28 @@ Promise.all([
         let select = document.getElementById("selectTrimestre");
         datasetEdos.map(function(item){
             let option = document.createElement("option");
-            option.value = item.gsx$urldata.$t;
-            option.text  = item.gsx$nombre.$t;
-            option.dataset.copy1 = item.gsx$copy1.$t
-            option.dataset.copy4 = item.gsx$copy4.$t
-            option.dataset.copy5 = item.gsx$copy5.$t
-            option.dataset.copy6 = item.gsx$copy6.$t
-            option.dataset.copy7 = item.gsx$copy7.$t
-            option.dataset.copy8 = item.gsx$copy8.$t
+            option.value = item[2]; // url_data
+            option.text  = item[0]; // nombre
+            option.dataset.copy1 = item[3]
+            option.dataset.copy4 = item[4]
+            option.dataset.copy5 = item[5]
+            option.dataset.copy6 = item[6]
+            option.dataset.copy7 = item[7]
+            option.dataset.copy8 = item[8]
             select.appendChild(option);
         });
 
         mexico = responseText[1];
-        //createScales(responseText[0].feed.entry);
-        //createTabla(responseText[0].feed.entry);
-        //setTimeout(drawInitial(responseText[0].feed.entry), 100);
+        //createScales(responseText[0].values);
+        //createTabla(responseText[0].values);
+        //setTimeout(drawInitial(responseText[0].values), 100);
     }).catch((err) => {
     console.log(err);
 });
 
 function createScales(dataset) {
-    //console.log(dataset)
-    sizeScale = d3.scaleLinear(d3.extent(dataset, d => d.gsx$puntajetotal.$t), [5, 35]);
+    //console.log(dataset);
+    sizeScale = d3.scaleLinear(d3.extent(dataset, d => d[17]), [5, 35]);
 }
 
 function drawInitial(dataset) {
@@ -110,21 +107,21 @@ function drawInitial(dataset) {
         element.properties.porcentajeGD=0;
         element.properties.porcentajeMC=0;
         dataset.forEach(function(newElement) {
-            if(parseInt(element.properties.clave)===parseInt(newElement.gsx$clavedeagee.$t)){
+            if(parseInt(element.properties.clave)===parseInt(newElement[1])){
                 // Set data of Google Spreadsheets
-                element.properties.entidad=newElement.gsx$estado.$t;
-                element.properties.calificacion=newElement.gsx$puntajetotal.$t;
-                element.properties.pntNor=parseInt(newElement.gsx$puntajenormatividad.$t);
-                element.properties.pntInf=parseInt(newElement.gsx$puntajeinfraestructura.$t);
-                element.properties.pntCH=parseInt(newElement.gsx$puntajecapitalhumano.$t);
-                element.properties.pntGD=parseInt(newElement.gsx$puntajemapeoygestióndedatos.$t);
-                element.properties.pntMC=parseInt(newElement.gsx$puntajedesarrollodemecanismosdecomunicación.$t);
+                element.properties.entidad=newElement[0];
+                element.properties.calificacion=newElement[17];
+                element.properties.pntNor=parseInt(newElement[2]);
+                element.properties.pntInf=parseInt(newElement[5]);
+                element.properties.pntCH=parseInt(newElement[8]);
+                element.properties.pntGD=parseInt(newElement[11]);
+                element.properties.pntMC=parseInt(newElement[14]);
                 // porcentajes
-                element.properties.porcentajeNor=parseInt(newElement.gsx$porcentajenormatividad.$t);
-                element.properties.porcentajeInf=parseInt(newElement.gsx$porcentajeinfraestructura.$t);
-                element.properties.porcentajeCH=parseInt(newElement.gsx$porcentajecapitalhumano.$t);
-                element.properties.porcentajeGD=parseInt(newElement.gsx$porcentajemapeoygestióndedatos.$t);
-                element.properties.porcentajeMC=parseInt(newElement.gsx$porcentajedesarrollodemecanismosdecomunicación.$t);
+                element.properties.porcentajeNor=parseInt(newElement[3]);
+                element.properties.porcentajeInf=parseInt(newElement[6]);
+                element.properties.porcentajeCH=parseInt(newElement[9]);
+                element.properties.porcentajeGD=parseInt(newElement[12]);
+                element.properties.porcentajeMC=parseInt(newElement[15]);
             }
         });
         
@@ -254,15 +251,15 @@ function drawInitial(dataset) {
         INICIO --> chartStackedBar
     */
    let topData = dataset.sort(function (a, b) {
-        return d3.descending(+a.gsx$puntajetotal.$t, +b.gsx$puntajetotal.$t);
+        return d3.descending(+a[17], +b[17]);
     }).slice(0, 10);
     //console.log("topData:", topData);
 
     let tableTop10 = document.getElementById('tableTop10');
     tableTop10.innerHTML = '';
     topData.forEach(function (d) {
-        let estado = d.gsx$estado.$t
-        let puntaje = d.gsx$puntajetotal.$t;
+        let estado = d[0];
+        let puntaje = d[17];
         tableTop10.innerHTML += `<tr class="table-light">
          <td>${estado}</td>
          <td>${puntaje}</td>
@@ -272,13 +269,13 @@ function drawInitial(dataset) {
     let dataStacked = [];
     dataset.forEach(function(d) {
         let tempData = {
-            Entidad: d.gsx$estado.$t,
-            'Normatividad': Number.parseFloat(d.gsx$puntajenormatividad.$t),
-            'Infraestructura': Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
-            'Capital humano': Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
-            'Mapeo y gestión de datos': Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
-            'Desarrollo de mecanismos de comunicación': Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
-            total: Number.parseFloat(d.gsx$puntajetotal.$t)
+            Entidad: d[0],
+            'Normatividad': Number.parseFloat(d[2]),
+            'Infraestructura': Number.parseFloat(d[5]),
+            'Capital humano': Number.parseFloat(d[8]),
+            'Mapeo y gestión de datos': Number.parseFloat(d[11]),
+            'Desarrollo de mecanismos de comunicación': Number.parseFloat(d[14]),
+            total: Number.parseFloat(d[17])
         };
         dataStacked.push(tempData);
     });
@@ -540,17 +537,17 @@ function drawInitial(dataset) {
    dataPictogram = [];
    dataset.forEach(function(d) {
         let tempData = {
-            'entidad': d.gsx$estado.$t,
-            'cat1': Number.parseFloat(d.gsx$puntajenormatividad.$t),
-            'cat1_dif': Number.parseFloat(d.gsx$difnormatividad.$t),
-            'cat2': Number.parseFloat(d.gsx$puntajeinfraestructura.$t),
-            'cat2_dif': Number.parseFloat(d.gsx$difinfra.$t),
-            'cat3': Number.parseFloat(d.gsx$puntajecapitalhumano.$t),
-            'cat3_dif': Number.parseFloat(d.gsx$difcapitalh.$t),
-            'cat4': Number.parseFloat(d.gsx$puntajemapeoygestióndedatos.$t),
-            'cat4_dif': Number.parseFloat(d.gsx$difmapeo.$t),
-            'cat5': Number.parseFloat(d.gsx$puntajedesarrollodemecanismosdecomunicación.$t),
-            'cat5_dif': Number.parseFloat(d.gsx$difdev.$t)
+            'entidad': d[0],
+            'cat1': Number.parseFloat(d[2]),
+            'cat1_dif': Number.parseFloat(d[4]),
+            'cat2': Number.parseFloat(d[5]),
+            'cat2_dif': Number.parseFloat(d[7]),
+            'cat3': Number.parseFloat(d[8]),
+            'cat3_dif': Number.parseFloat(d[10]),
+            'cat4': Number.parseFloat(d[11]),
+            'cat4_dif': Number.parseFloat(d[13]),
+            'cat5': Number.parseFloat(d[14]),
+            'cat5_dif': Number.parseFloat(d[16])
         };
         dataPictogram.push(tempData);
     });
@@ -624,32 +621,33 @@ function createTabla(data) {
     clean(idShow);
 
     let sortData = data.sort(function (a, b) {
-        return d3.descending(+a.gsx$puntajetotal.$t, +b.gsx$puntajetotal.$t);
+        // ordena la columna de puntaje total de forma descendiente
+        return d3.descending(+a[17], +b[18]);
     });
     //console.log(sortData);
     let targetNode = document.getElementById('tablaData');
     // limpia los elementos de la tablas
     targetNode.innerHTML = '';
     sortData.forEach(function (d) {
-        let barraNor = d.gsx$porcentajenormatividad.$t > 0 ? `<div class="barraNor progress-bar" aria-valuenow="${d.gsx$porcentajenormatividad.$t}" aria-valuemin="0" aria-valuemax="100"><small>${d.gsx$porcentajenormatividad.$t}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d.gsx$porcentajenormatividad.$t}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+        let barraNor = d[3] > 0 ? `<div class="barraNor progress-bar" aria-valuenow="${d[3]}" aria-valuemin="0" aria-valuemax="100"><small>${d[3]}%</small></div>`
+            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[3]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
 
-        let barraInf =  d.gsx$porcentajeinfraestructura.$t > 0 ? `<div class="barraInf progress-bar" aria-valuenow="${d.gsx$porcentajeinfraestructura.$t}" aria-valuemin="0" aria-valuemax="100"><small>${d.gsx$porcentajeinfraestructura.$t}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d.gsx$porcentajeinfraestructura.$t}"><small>0%</small></div>`;
+        let barraInf =  d[6] > 0 ? `<div class="barraInf progress-bar" aria-valuenow="${d[6]}" aria-valuemin="0" aria-valuemax="100"><small>${d[6]}%</small></div>`
+            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[6]}"><small>0%</small></div>`;
 
-        let barraMGD = d.gsx$porcentajemapeoygestióndedatos.$t > 0 ? `<div class="barraGD progress-bar" role="progressbar" aria-valuenow="${d.gsx$porcentajemapeoygestióndedatos.$t}" aria-valuemin="0" aria-valuemax="100"><small>${d.gsx$porcentajemapeoygestióndedatos.$t}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d.gsx$porcentajemapeoygestióndedatos.$t}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+        let barraMGD = d[12] > 0 ? `<div class="barraGD progress-bar" role="progressbar" aria-valuenow="${d[12]}" aria-valuemin="0" aria-valuemax="100"><small>${d[12]}%</small></div>`
+            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[12]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
 
-        let barraCH = d.gsx$porcentajecapitalhumano.$t > 0 ? `<div class="barraCH progress-bar" role="progressbar" aria-valuenow="${d.gsx$porcentajecapitalhumano.$t}" aria-valuemin="0" aria-valuemax="100"><small>${d.gsx$porcentajecapitalhumano.$t}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d.gsx$porcentajecapitalhumano.$t}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+        let barraCH = d[9] > 0 ? `<div class="barraCH progress-bar" role="progressbar" aria-valuenow="${d[9]}" aria-valuemin="0" aria-valuemax="100"><small>${d[9]}%</small></div>`
+            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[9]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
 
-        let barraDMC = d.gsx$porcentajedesarrollodemecanismosdecomunicación.$t > 0 ? `<div class="barraMC progress-bar" role="progressbar" aria-valuenow="${d.gsx$porcentajedesarrollodemecanismosdecomunicación.$t}" aria-valuemin="0" aria-valuemax="100"><small>${d.gsx$porcentajedesarrollodemecanismosdecomunicación.$t}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d.gsx$porcentajedesarrollodemecanismosdecomunicación.$t}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+        let barraDMC = d[15] > 0 ? `<div class="barraMC progress-bar" role="progressbar" aria-valuenow="${d[15]}" aria-valuemin="0" aria-valuemax="100"><small>${d[15]}%</small></div>`
+            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[15]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
 
         targetNode.innerHTML += `
         <tr>
             <td>
-                <small>${d.gsx$estado.$t}</small>
+                <small>${d[0]}</small>
             </td>
             <td>
                 <div class="progress" style="height: 15px;">
@@ -803,7 +801,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let selectElement = document.getElementById('selectTrimestre');
     selectElement.addEventListener('change', (event) => {
         //lastValue = theSelect.options[theSelect.options.length - 1].value;
-        console.log(selectElement.options[selectElement.options.length - 1].value)
+        //console.log(selectElement.options[selectElement.options.length - 1].value)
         // agrega copys a las secciones
         document.getElementById("copy1").innerHTML = '';
         document.getElementById("copy1").append(event.target.options[event.target.selectedIndex].dataset.copy1);
@@ -826,10 +824,11 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
             //console.log(data);
-            createScales(data.feed.entry);
-            createTabla(data.feed.entry);
-            //setTimeout(drawInitial(data.feed.entry), 100);
-            drawInitial(data.feed.entry);
+            data.values.shift();
+            createScales(data.values);
+            createTabla(data.values);
+            //setTimeout(drawInitial(data.values), 100);
+            drawInitial(data.values);
         });
     });
     $('#modalTitle').text('Aviso');
