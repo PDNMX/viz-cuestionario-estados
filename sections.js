@@ -260,7 +260,7 @@ function drawInitial(dataset) {
     topData.forEach(function (d) {
         let estado = d[0];
         let puntaje = d[17];
-        tableTop10.innerHTML += `<tr class="table-light">
+        tableTop10.innerHTML += `<tr>
          <td>${estado}</td>
          <td>${puntaje}</td>
        </tr>`
@@ -328,8 +328,9 @@ function drawInitial(dataset) {
         .attr('x', function(d) {return x(0);})
         .attr('y', function(d) {return y(d.Entidad)})
         .attr('height', y.bandwidth)
-        .attr('width', function(d) {return x(100);} )
-        .attr('fill', 'gray');
+        .attr('width', function(d) {return x(100);} );
+        /* .attr('fill', 'gray')
+        .attr("stroke", "#ced8db"); */
 
     let g = maing.enter().append("g")
         .attr("fill", function(d) {
@@ -365,6 +366,8 @@ function drawInitial(dataset) {
         .attr("x", function(d) {
             return x(d[0]);
         })
+        /* .attr("stroke", "#ced8db") */
+        /* .attr("fill", "#ced8db") */
         .attr("y", function(d) {
             return y(d.data.Entidad);
         })
@@ -451,18 +454,19 @@ function drawInitial(dataset) {
         .attr("x", currentWidth / 2)
         .attr("y", margin.bottom + 20)
         .attr("dx", "0.32em")
-        .attr("fill", "#000")
+        .attr("fill", "#ced8db")
         .attr("font-weight", "bold")
         .attr("text-anchor", "middle")
         .text("Puntaje Total");
 
     let ele = svg.select(".stackedBar").append("g")
         .attr("transform", "translate(" + margin.left + ",0)")
+        /* .attr("stroke", "#ced8db") */
         .call(d3.axisLeft(y));
     ele.selectAll("text")
 
     let rectTooltipg = svg.select(".stackedBar").append("g")
-        .attr("font-family", 'Noto Sans SC')
+        .attr("font-family", 'Roboto')
         .attr("font-size", 10)
         .attr("text-anchor", "end")
         .attr("id", "recttooltip_" + mainDivName)
@@ -479,7 +483,7 @@ function drawInitial(dataset) {
 
     rectTooltipg
         .append("text")
-        .attr("font-family", 'Noto Sans SC')
+        .attr("font-family", 'Roboto')
         .attr("id", "recttooltipText_" + mainDivName)
         .attr("x", 30)
         .attr("y", 15)
@@ -490,7 +494,7 @@ function drawInitial(dataset) {
             return 10;
         })
         .style("font-family", function(d) {
-            return 'Noto Sans SC';
+            return 'Roboto';
         })
         .text(function(d, i) {
             return "";
@@ -503,7 +507,7 @@ function drawInitial(dataset) {
     textTotal.enter().append("text")
         .attr("text-anchor", "start")
         .merge(textTotal)
-        .attr("font-family", 'Noto Sans SC')
+        .attr("font-family", 'Roboto')
         .attr("font-size", 8)
         .attr("y", d => y(d.Entidad) + y.bandwidth() / 1.5)
         .attr("x", d => x(d.total) + 5)
@@ -784,10 +788,10 @@ function chartMexicoPuntuacion() {
             }
             return d.color;
         })
-        .attr("stroke-width", 2)
+        .attr("stroke-width", 1)
         .attr("stroke-opacity", 1)
         .attr("fill-opacity", 0.8)
-        .attr("stroke", "#666666");
+        .attr("stroke", "#ced8db");
     svg.select('.mapa').transition().duration(300).delay((d, i) => i * 30)
         .attr('visibility', 'visible');
     svg.select('.leyendas').transition().duration(300).attr('visibility', 'visible');

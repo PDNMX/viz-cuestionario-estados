@@ -105,8 +105,8 @@ function chartPictograma(data, tipo) {
 
     tdEnter
       .attr('class', d => d.cl)
-      .style('background-color', '#fff')
-      .style('border-bottom', '.5px solid white');
+      .style('background-color', '#0d3b49')
+      /* .style('border-bottom', '.5px solid white') */;
 
     tdEnter.merge(tdUpdate).html(d => d.html);
   }
@@ -114,12 +114,12 @@ function chartPictograma(data, tipo) {
 
 function mouseenter() {
   d3.select(this).selectAll('td')
-    .style('background-color', '#f0f0f0')
-    .style('border-bottom', '.5px solid slategrey');
+    .style('background-color', 'rgba(0, 0, 0, 0.20)')
+    .style('font-color', 'red')
+    /* .style('border-bottom', '.5px solid slategrey') */;
 }
 
 function mouseleave() {
   d3.select(this).selectAll('td')
-    .style('background-color', '#fff')
-    .style('border-bottom', '.5px solid white');
+    .style('background-color', '#0d3b49');
 }
