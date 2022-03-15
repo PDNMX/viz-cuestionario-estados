@@ -397,7 +397,7 @@ right:0px; */
 }
 
 .footer-row{
-margin-top: 10px;
+    margin-top: 20px;
 }
 
 .footer-aling {
@@ -405,7 +405,7 @@ justify-content: flex-end !important
 }
 
 #img-github {
-width: 80px;
+    width: 80px;
 }
 
 .article {
@@ -451,3 +451,8 @@ color: #d0d7d9 !important;
 
 }
 
+.footer-link:hover {
+    color: #FFF !important;
+    border-bottom: 2px solid #3ab0e5;
+    text-decoration: none;
+}

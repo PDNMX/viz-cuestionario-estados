@@ -315,9 +315,10 @@ text, line, .domain {
   background-color: #ced8db;
 }
 
-
 .site-footer a {
-  color: #ced8db
+  color: #ced8db;
 }
 
-
+#footer-about {
+  color: #666;
+}
