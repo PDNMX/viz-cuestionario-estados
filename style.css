@@ -307,8 +307,12 @@ text, line, .domain {
   
 }
 
-.modal-body, .modal-footer, .progress {
+.modal-body, .modal-footer {
   background-color: #ced8db !important;
+}
+
+.progress {
+  background-color: #ced8db26 !important; 
 }
 
 .modal-header {
