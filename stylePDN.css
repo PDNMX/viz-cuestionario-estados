@@ -355,64 +355,54 @@ path.entidad:hover {
     color: #081F2C;
 }
 
-
-.iconos-footer {
-    height: 90px;
-    /* padding-top: 0px;
-    padding-left: 56px;
-    padding-right: 56px;
-    padding-bottom: 15px; */
-    padding: 0px 56px 15px 0px;
-}
-
 .iconos-footer1 {
     border: 0 none;
     display: inline-block;
     vertical-align: middle;
     width: 30px;
     margin-left: 30px;
-}
-
-.column-sola {
+  }
+  
+  .column-sola {
     background-color: #6b808a;
     height: 250px;
-    margin-top: -30px;
-    max-width: 50px;
-}
-
-.row-solo {
+    margin-top: -50px;
+    max-width: 50px !important;
+  }
+  
+  .row-solo {
     background-color:#bae3f7;
     /* padding-left: 0px;
     padding-right: 0px; */
     /* padding-left: -500px */
-}
-
-#row-background {
-/* height: 274px; */
-/* margin-top: -24px; */
-background-color: #124759;
-/* position:fixed; */
-/* top:0px;
-right:0px; */
-}
-
-.footer-row{
+  }
+  
+  #row-background {
+  /* height: 274px; */
+  /* margin-top: -24px; */
+  background-color: #124759;
+  /* position:fixed; */
+  /* top:0px;
+  right:0px; */
+  }
+  
+  .footer-row{
     margin-top: 20px;
-}
-
-.footer-aling {
-justify-content: flex-end !important
-}
-
-#img-github {
+  }
+  
+  .footer-aling {
+  justify-content: flex-end !important
+  }
+  
+  #img-github {
     width: 80px;
-}
-
-.article {
-color: #d0d7d9 !important;
-}
-
-@media (max-width: 576px) {
+  }
+  
+  .article {
+  color: #d0d7d9 !important;
+  }
+  
+  @media (max-width: 576px) {
     .site-footer {
         text-align: center !important;
         align-items: center !important;
@@ -426,7 +416,7 @@ color: #d0d7d9 !important;
         justify-content: center !important;
     }
     .iconos-footer {
-        height: 90px;
+        height: 50px;
         padding: 0;
         margin-top: 20px
     }
@@ -443,16 +433,35 @@ color: #d0d7d9 !important;
     #text-sesion {
         display: none;
     }
-}
-
-.site-footer {
-    margin-top: 20px;
-    padding-top: 30px;
-
-}
-
-.footer-link:hover {
+  }
+  
+  .site-footer {
+    /* margin-top: 20px; */
+    padding-top: 50px;
+  
+  }
+  
+  .footer-link:hover {
     color: #FFF !important;
     border-bottom: 2px solid #3ab0e5;
     text-decoration: none;
-}
+  }
+  
+  
+  .site-footer a {
+    color: #ced8db;
+  }
+  
+  #footer-about {
+    color: #666;
+  }
+  
+  .iconos-footer {
+    height: 90px;
+    /* padding-top: 0px;
+    padding-left: 56px;
+    padding-right: 56px;
+    padding-bottom: 15px;
+    padding: 0px 56px 15px 0px; */
+    margin:5px;
+  }
