@@ -29,12 +29,12 @@ Promise.all([
         datasetEdos.shift(); // elimina el primer row que tiene los encabezados de columna
         datasetEdos = datasetEdos.sort((a, b) => new Date(b[1]) - new Date(a[1]));
         // carga los copys del ultimo registro
-        document.getElementById("copy1").append(datasetEdos[0][3]);
-        document.getElementById("copy4").append(datasetEdos[0][4]);
-        document.getElementById("copy5").append(datasetEdos[0][5]);
-        document.getElementById("copy6").append(datasetEdos[0][6]);
-        document.getElementById("copy7").append(datasetEdos[0][7]);
-        document.getElementById("copy8").append(datasetEdos[0][8]);
+        document.getElementById("copy1").innerHTML = datasetEdos[0][3];
+        document.getElementById("copy4").innerHTML = datasetEdos[0][4];
+        document.getElementById("copy5").innerHTML = datasetEdos[0][5];
+        document.getElementById("copy6").innerHTML = datasetEdos[0][6];
+        document.getElementById("copy7").innerHTML = datasetEdos[0][7];
+        document.getElementById("copy8").innerHTML = datasetEdos[0][8];
 
         fetch(datasetEdos[0][2])
         .then(response => response.json())
