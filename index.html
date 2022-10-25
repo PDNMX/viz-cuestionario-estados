@@ -51,12 +51,8 @@
                       <li><b>Desarrollo de mecanismos de comunicación</b>: ¿cómo van los trabajos para comunicar a la entidad federativa con la PDN? </li>
                   </ol> -->
 
-                  <ul class="no_bullet">
-                    <li class="normatividad"><b>Normatividad</b>: ¿la entidad federativa ya cuenta con bases para el funcionamiento de su Plataforma o Sistema de Información y ya analizó su normatividad aplicable?;</li>
-                    <li class="infraestructura"><b>Infraestructura</b>: ¿la entidad cuenta con los recursos necesarios para llevar a cabo el desarrollo;</li>
-                    <li class="capitalHumano"><b>Capital humano</b>: ¿la entidad cuenta con el personal para llevar a cabo el desarrollo?</li>
-                    <li class="mapeoGestion"><b>Mapeo y gestión de datos</b>: ¿cómo van los trabajos para que los datos sean proveídos por las autoridades locales?, y</li>
-                    <li class="devMecanismos"><b>Desarrollo de mecanismos de comunicación</b>: ¿cómo van los trabajos para comunicar a la entidad federativa con la PDN? </li>
+                  <ul id="bulletsCat" class="no_bullet">
+
                   </ul>
                   
                   <div class="form-group">
@@ -128,14 +124,14 @@
                   <p id="copy6"></p>
                 </section>
               </div>
-              <div class="step" data-step="7">
+              <div id="maxMin7" class="step" data-step="7">
                 <section class="seccion">
                   <h2 class="tituloSeccion">Mapeo y gestión de datos</h2>
                   <p>La categoría de mapeo y gestión de datos representa al trabajo, de las Secretarías Ejecutivas de las entidades federativas, para comunicar a la Plataforma Digital o Sistema de Información Local con las instituciones en su entidad federativa. Una parte de los puntos en esta categoría se obtienen por identificar qué instituciones del ámbito local generan y tienen en su posesión datos de personas servidoras públicas que intervienen en procedimientos de contrataciones públicas, y personas sancionadas. Además, para obtener la puntuación máxima de <b>30 puntos</b>, se deben establecer los mecanismos necesarios para transferir y actualizar datos entre la Secretaría Ejecutiva local y las instituciones proveedoras de las entidades federativas.</p>
                   <p id="copy7"></p>
                 </section>
               </div>
-              <div class="step" data-step="8">
+              <div id="maxMin8" class="step" data-step="8">
                 <section id="seccionUltima" class="seccion">
                   <h2 class="tituloSeccion">Desarrollo de mecanismos de comunicación </h2>
                   <p>Los mecanismos de comunicación o APIs son las piezas que permiten la comunicación o transferencia de datos entre las Secretarías Ejecutivas locales y la PDN. Esta categoría indica el avance en el desarrollo de las APIs  para los sistemas 2 y 3. 
@@ -152,13 +148,13 @@
               <div class="tableFixHead">
                   <table id="tablaScore" class="table table-sm table-hover table-responsive">
                       <thead>
-                          <tr>
+                          <tr id="encabezadosTabla" style="width: 100%;">
                               <th scope="col" style="width: 15%;"></th>
-                              <th scope="col" style="width: 17%;"><small>Normatividad</small></th>
-                              <th scope="col" style="width: 17%;"><small>Infraestructura</small></th>
-                              <th scope="col" style="width: 17%;"><small>Capital humano</small></th>
-                              <th scope="col" style="width: 17%;"><small>Mapeo y gestión de datos</small></th>
-                              <th scope="col" style="width: 17%;"><small>Desarrollo de mecanismos de comunicación</small></th>
+                              <th id="colNormatividad" scope="col" style="width: 17%;"></th>
+                              <th id="colInfra" scope="col" style="width: 17%;"></th>
+                              <th id="colCH" scope="col" style="width: 17%;"></th>
+                              <th id="colMGD" scope="col" style="width: 17%; display: none;"></th>
+                              <th id="colDMC" scope="col" style="width: 17%; display: none;"></th>
                           </tr>
                       </thead>
                       <tbody id="tablaData"></tbody>

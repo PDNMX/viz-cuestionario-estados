@@ -10,10 +10,12 @@ var dataMaxDevMinMecanismos = [];
 
 var dataPictogram = [];
 
-
 // Colores base para categorias 
 // Normatividad, Infraestructura, Capital Humano, Mapeo y gestión, Dev Mecanismos de comunicación
-const colorsCategorias = ['#34B3EB', '#34a853', '#674ea7', '#ff6d01', '#fbbc04'];
+let versionMetologia;
+
+const bulletsV1 = "<li class='normatividad'><b>Normatividad</b>: ¿la entidad federativa ya cuenta con bases para el funcionamiento de su Plataforma o Sistema de Información y ya analizó su normatividad aplicable?;</li> <li class='infraestructura'><b>Infraestructura</b>: ¿la entidad cuenta con los recursos necesarios para llevar a cabo el desarrollo;</li> <li class='capitalHumano'><b>Capital humano</b>: ¿la entidad cuenta con el personal para llevar a cabo el desarrollo?</li> <li class='mapeoGestion'><b>Mapeo y gestión de datos</b>: ¿cómo van los trabajos para que los datos sean proveídos por las autoridades locales?, y</li> <li class='devMecanismos'><b>Desarrollo de mecanismos de comunicación</b>: ¿cómo van los trabajos para comunicar a la entidad federativa con la PDN? </li>"
+const bulletsV2 = "<li class='normatividad'><b>Normatividad</b>: ¿la entidad federativa ya cuenta con bases para el funcionamiento de su Plataforma o Sistema de Información y ya analizó su normatividad aplicable?;</li> <li class='capitalHumano'><b>Capital humano</b>: ¿la entidad cuenta con el personal para llevar a cabo el desarrollo?</li> <li class='devMecanismos'><b>Interconexión</b>: ¿la entidad cuenta con ...?</li>"
 
 Promise.all([
     // dataset de trimestres
@@ -28,7 +30,13 @@ Promise.all([
         let datasetEdos = responseText[0].values;
         datasetEdos.shift(); // elimina el primer row que tiene los encabezados de columna
         datasetEdos = datasetEdos.sort((a, b) => new Date(b[1]) - new Date(a[1]));
+        versionMetologia = datasetEdos[0][9]; // SET versión de metodología
         // carga los copys del ultimo registro
+        if (versionMetologia == 'v1'){
+            /* document.getElementById("maxMin7").style.display = "none";
+            document.getElementById("maxMin7").style.display = "none"; */
+            document.getElementById("bulletsCat").innerHTML = bulletsV1;
+        }
         document.getElementById("copy1").innerHTML = datasetEdos[0][3];
         document.getElementById("copy4").innerHTML = datasetEdos[0][4];
         document.getElementById("copy5").innerHTML = datasetEdos[0][5];
@@ -36,11 +44,17 @@ Promise.all([
         document.getElementById("copy7").innerHTML = datasetEdos[0][7];
         document.getElementById("copy8").innerHTML = datasetEdos[0][8];
 
+        //console.log(versionMetologia);
+        if (versionMetologia == 'v2'){
+            document.getElementById("maxMin7").style.display = "none";
+            document.getElementById("maxMin8").style.display = "none";
+            document.getElementById("bulletsCat").innerHTML = bulletsV2;
+        }
         fetch(datasetEdos[0][2])
         .then(response => response.json())
         .then(data => {
             data.values.shift();
-            createScales(data.values);
+            //createScales(data.values);
             createTabla(data.values);
             //setTimeout(drawInitial(data.values), 100);
             drawInitial(data.values);
@@ -59,6 +73,7 @@ Promise.all([
             option.dataset.copy6 = item[6]
             option.dataset.copy7 = item[7]
             option.dataset.copy8 = item[8]
+            option.dataset.version = item[9]
             select.appendChild(option);
         });
 
@@ -107,21 +122,38 @@ function drawInitial(dataset) {
         element.properties.porcentajeGD=0;
         element.properties.porcentajeMC=0;
         dataset.forEach(function(newElement) {
+            //console.log(versionMetologia)
             if(parseInt(element.properties.clave)===parseInt(newElement[1])){
-                // Set data of Google Spreadsheets
-                element.properties.entidad=newElement[0];
-                element.properties.calificacion=newElement[17];
-                element.properties.pntNor=parseInt(newElement[2]);
-                element.properties.pntInf=parseInt(newElement[5]);
-                element.properties.pntCH=parseInt(newElement[8]);
-                element.properties.pntGD=parseInt(newElement[11]);
-                element.properties.pntMC=parseInt(newElement[14]);
-                // porcentajes
-                element.properties.porcentajeNor=parseInt(newElement[3]);
-                element.properties.porcentajeInf=parseInt(newElement[6]);
-                element.properties.porcentajeCH=parseInt(newElement[9]);
-                element.properties.porcentajeGD=parseInt(newElement[12]);
-                element.properties.porcentajeMC=parseInt(newElement[15]);
+                if(versionMetologia == 'v1'){
+                    // Set data of Google Spreadsheets
+                    element.properties.entidad=newElement[0];
+                    element.properties.calificacion=newElement[17];
+                    element.properties.pntNor=parseInt(newElement[2]);
+                    element.properties.pntInf=parseInt(newElement[5]);
+                    element.properties.pntCH=parseInt(newElement[8]);
+                    element.properties.pntGD=parseInt(newElement[11]);
+                    element.properties.pntMC=parseInt(newElement[14]);
+                    // porcentajes
+                    element.properties.porcentajeNor=parseInt(newElement[3]);
+                    element.properties.porcentajeInf=parseInt(newElement[6]);
+                    element.properties.porcentajeCH=parseInt(newElement[9]);
+                    element.properties.porcentajeGD=parseInt(newElement[12]);
+                    element.properties.porcentajeMC=parseInt(newElement[15]);
+                }
+                if(versionMetologia == 'v2'){
+                    // Set data of Google Spreadsheets
+                    element.properties.entidad=newElement[0];
+                    element.properties.calificacion=newElement[12];
+
+                    element.properties.pntNor=parseInt(newElement[5]);
+                    element.properties.pntInf=parseInt(newElement[8]);
+                    element.properties.pntCH=parseInt(newElement[11]);
+                    // porcentajes
+                    element.properties.porcentajeNor=parseInt(newElement[4]);
+                    element.properties.porcentajeInf=parseInt(newElement[7]);
+                    element.properties.porcentajeCH=parseInt(newElement[10]);
+
+                }
             }
         });
         
@@ -139,15 +171,28 @@ function drawInitial(dataset) {
         .join("path")
         .attr('class', 'entidad')
         .on('click', function (d) {
-            let dataTest = [
-                [
-                    {"area": "Desarrollo de mecanismos de comunicación ", "value": d.properties.porcentajeMC},
-                    {"area": "Normatividad ", "value": d.properties.porcentajeNor},
-                    {"area": "Mapeo y gestión de datos", "value": d.properties.porcentajeGD},
-                    {"area": "Capital humano ", "value": d.properties.porcentajeCH},
-                    {"area": "Infraestructura", "value": d.properties.porcentajeInf}
-                ]
-              ];
+            let dataTest;
+            if(versionMetologia == 'v1') {
+                dataTest = [
+                    [
+                        {"area": "Desarrollo de mecanismos de comunicación ", "value": d.properties.porcentajeMC},
+                        {"area": "Normatividad ", "value": d.properties.porcentajeNor},
+                        {"area": "Mapeo y gestión de datos", "value": d.properties.porcentajeGD},
+                        {"area": "Capital humano ", "value": d.properties.porcentajeCH},
+                        {"area": "Infraestructura", "value": d.properties.porcentajeInf}
+                    ]
+                  ];
+            }
+            if(versionMetologia == 'v2') {
+                dataTest = [
+                    [
+                        {"area": "Normatividad ", "value": d.properties.porcentajeNor},
+                        {"area": "Capital humano ", "value": d.properties.porcentajeCH},
+                        {"area": "Interconexión", "value": d.properties.porcentajeInf}
+                    ]
+                  ];
+            } 
+            
             let config = {
                 w: 300,
                 h: 300,
@@ -250,33 +295,74 @@ function drawInitial(dataset) {
     /*
         INICIO --> chartStackedBar
     */
-   let topData = dataset.sort(function (a, b) {
-        return d3.descending(+a[17], +b[17]);
-    }).slice(0, 10);
-    //console.log("topData:", topData);
 
-    let tableTop10 = document.getElementById('tableTop10');
-    tableTop10.innerHTML = '';
-    topData.forEach(function (d) {
-        let estado = d[0];
-        let puntaje = d[17];
-        tableTop10.innerHTML += `<tr>
-         <td>${estado}</td>
-         <td>${puntaje}</td>
-       </tr>`
-    });
 
     let dataStacked = [];
+    let topData
+    let group;
+    let tableTop10;
+    let z;
+    if (versionMetologia == 'v1'){
+        z = d3.scaleOrdinal(['#34B3EB', '#34a853', '#674ea7', '#ff6d01', '#fbbc04']);
+        group = ["Normatividad", "Infraestructura", "Capital humano", "Mapeo y gestión de datos", "Desarrollo de mecanismos de comunicación"];
+        topData = dataset.sort(function (a, b) {
+            return d3.descending(+a[12], +b[12]);
+        }).slice(0, 10);
+
+        tableTop10 = document.getElementById('tableTop10');
+        tableTop10.innerHTML = '';
+        topData.forEach(function (d) {
+            let estado = d[0];
+            let puntaje = d[17];
+            tableTop10.innerHTML += `<tr>
+             <td>${estado}</td>
+             <td>${puntaje}</td>
+           </tr>`
+        });
+    }
+    if (versionMetologia == 'v2'){
+        z = d3.scaleOrdinal(['#34B3EB', '#674ea7', '#fbbc04']);
+        group = ["Normatividad", "Capital humano", "Interconexión"];
+        topData = dataset.sort(function (a, b) {
+            return d3.descending(+a[12], +b[12]);
+        }).slice(0, 10);
+
+        tableTop10 = document.getElementById('tableTop10');
+        tableTop10.innerHTML = '';
+        topData.forEach(function (d) {
+            let estado = d[0];
+            let puntaje = d[13];
+            tableTop10.innerHTML += `<tr>
+             <td>${estado}</td>
+             <td>${puntaje}</td>
+           </tr>`
+        });
+    }
+    //console.log("topData:", topData);
+
     dataset.forEach(function(d) {
-        let tempData = {
-            Entidad: d[0],
-            'Normatividad': Number.parseFloat(d[2]),
-            'Infraestructura': Number.parseFloat(d[5]),
-            'Capital humano': Number.parseFloat(d[8]),
-            'Mapeo y gestión de datos': Number.parseFloat(d[11]),
-            'Desarrollo de mecanismos de comunicación': Number.parseFloat(d[14]),
-            total: Number.parseFloat(d[17])
-        };
+        let tempData;
+        if (versionMetologia == 'v1'){
+            tempData = {
+                Entidad: d[0],
+                'Normatividad': Number.parseFloat(d[2]),
+                'Infraestructura': Number.parseFloat(d[5]),
+                'Capital humano': Number.parseFloat(d[8]),
+                'Mapeo y gestión de datos': Number.parseFloat(d[11]),
+                'Desarrollo de mecanismos de comunicación': Number.parseFloat(d[14]),
+                total: Number.parseFloat(d[17])
+            };
+        }
+        if (versionMetologia == 'v2'){
+            tempData = {
+                Entidad: d[0],
+                'Normatividad': Number.parseFloat(d[5]),
+                'Capital humano': Number.parseFloat(d[8]),
+                'Interconexión': Number.parseFloat(d[11]),
+                total: Number.parseFloat(d[13])
+            };
+        }
+        
         dataStacked.push(tempData);
     });
     
@@ -289,7 +375,6 @@ function drawInitial(dataset) {
         right: 150
     }
 
-    let group = ["Normatividad", "Infraestructura", "Capital humano", "Mapeo y gestión de datos", "Desarrollo de mecanismos de comunicación"];
     //let mainDiv = "#vis";
     let mainDivName = "vis";
     /* width = +svg.attr("width"),
@@ -308,7 +393,7 @@ function drawInitial(dataset) {
         return d.Entidad;
     }))
 
-    let z = d3.scaleOrdinal(['#34B3EB', '#34a853', '#674ea7', '#ff6d01', '#fbbc04']);
+    
 
     let maing = svg.append("g")
         .attr('class', 'stackedBar')
@@ -418,6 +503,9 @@ function drawInitial(dataset) {
             case 'Mapeo y gestión de datos':
             case 'Desarrollo de mecanismos de comunicación':
                 txtTotal = 30;
+              break;
+            case 'Interconexión':
+                txtTotal = 70;
               break;
         }
         d3.selectAll("#recttooltipText_" + mainDivName).append("tspan").attr("x", 0).attr("y", 2).attr("dy", "1.9em").text(tooltipData.key + ":  " + tooltipData.value + " de " + txtTotal);
@@ -539,7 +627,8 @@ function drawInitial(dataset) {
         INICIO --> chartPictogram
     */
    dataPictogram = [];
-   dataset.forEach(function(d) {
+   if (versionMetologia == 'v1'){
+    dataset.forEach(function(d) {
         let tempData = {
             'entidad': d[0],
             'cat1': Number.parseFloat(d[2]),
@@ -555,7 +644,21 @@ function drawInitial(dataset) {
         };
         dataPictogram.push(tempData);
     });
-    
+   }
+   if (versionMetologia == 'v2'){ 
+    dataset.forEach(function(d) {
+        let tempData = {
+            'entidad': d[0],
+            'cat1': Number.parseFloat(d[5]),
+            'cat1_dif': Number.parseFloat(d[3]),
+            'cat2': Number.parseFloat(d[8]),
+            'cat2_dif': Number.parseFloat(d[6]),
+            'cat3': Number.parseFloat(d[11]),
+            'cat3_dif': Number.parseFloat(d[9]),
+        };
+        dataPictogram.push(tempData);
+    });
+   }
 
 }
 
@@ -585,6 +688,7 @@ function mouseOut2(d, i) {
 
 //Cleaning Function
 function clean(chartType) {
+    //console.log(versionMetologia)
     let svg = d3.select('#vis').select('svg')
     if (chartType !== "chartStackedBar") {
         svg.select('.stackedBar').transition().attr('visibility', 'hidden');
@@ -606,10 +710,10 @@ function clean(chartType) {
     if (chartType !== "chartCapitalHumano") {
         svg.select('.chartCapitalHumano').transition().attr('visibility', 'hidden');
     }
-    if (chartType !== "chartMapeoGestion") {
+    if (chartType !== "chartMapeoGestion" || versionMetologia == "v1") {
         svg.select('.chartMapeoGestion').transition().attr('visibility', 'hidden');
     }
-    if (chartType !== "chartDevMecanismos") {
+    if (chartType !== "chartDevMecanismos" || versionMetologia == "v1") {
         svg.select('.chartDevMecanismos').transition().attr('visibility', 'hidden');
     }
     if (chartType !== "tablaScore") {
@@ -622,65 +726,122 @@ function clean(chartType) {
 
 function createTabla(data) {
     let idShow = 'tablaScore';
+    document.getElementById("colDMC").style.display = "";
+    document.getElementById("colMGD").style.display = "";
     clean(idShow);
-
-    let sortData = data.sort(function (a, b) {
-        // ordena la columna de puntaje total de forma descendiente
-        return d3.descending(+a[17], +b[18]);
-    });
-    //console.log(sortData);
+    //console.log(versionMetologia);
     let targetNode = document.getElementById('tablaData');
     // limpia los elementos de la tablas
     targetNode.innerHTML = '';
-    sortData.forEach(function (d) {
-        let barraNor = d[3] > 0 ? `<div class="barraNor progress-bar" aria-valuenow="${d[3]}" aria-valuemin="0" aria-valuemax="100"><small>${d[3]}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[3]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
 
-        let barraInf =  d[6] > 0 ? `<div class="barraInf progress-bar" aria-valuenow="${d[6]}" aria-valuemin="0" aria-valuemax="100"><small>${d[6]}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[6]}"><small>0%</small></div>`;
+    if(versionMetologia == 'v1'){
+        document.getElementById("encabezadosTabla").innerHTML = `<th scope='col' style='width: 15%;'></th>
+        <th id='colNormatividad' scope='col' style='width: 17%;'><small>Normatividad</small></th>
+        <th id='colInfra' scope='col' style='width: 17%;'><small>Infraestructura</small></th>
+        <th id='colCH' scope='col' style='width: 17%;'><small>Capital humano</small></th>
+        <th id='colMGD' scope='col' style='width: 17%;'><small>Mapeo y gestión de datos</small></th>
+        <th id='colDMC' scope='col' style='width: 17%;'><small>Desarrollo de mecanismos de comunicación</small></th>`;
+        let sortData = data.sort(function (a, b) {
+            // ordena la columna de puntaje total de forma descendiente
+            return d3.descending(+a[17], +b[18]);
+        });
+        //console.log(sortData);
+        sortData.forEach(function (d) {
+            let barraNor = d[3] > 0 ? `<div class="barraNor progress-bar" aria-valuenow="${d[3]}" aria-valuemin="0" aria-valuemax="100"><small>${d[3]}%</small></div>`
+                :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[3]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+    
+            let barraInf =  d[6] > 0 ? `<div class="barraInf progress-bar" aria-valuenow="${d[6]}" aria-valuemin="0" aria-valuemax="100"><small>${d[6]}%</small></div>`
+                :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[6]}"><small>0%</small></div>`;
+    
+            let barraMGD = d[12] > 0 ? `<div class="barraGD progress-bar" role="progressbar" aria-valuenow="${d[12]}" aria-valuemin="0" aria-valuemax="100"><small>${d[12]}%</small></div>`
+                :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[12]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+    
+            let barraCH = d[9] > 0 ? `<div class="barraCH progress-bar" role="progressbar" aria-valuenow="${d[9]}" aria-valuemin="0" aria-valuemax="100"><small>${d[9]}%</small></div>`
+                :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[9]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+    
+            let barraDMC = d[15] > 0 ? `<div class="barraMC progress-bar" role="progressbar" aria-valuenow="${d[15]}" aria-valuemin="0" aria-valuemax="100"><small>${d[15]}%</small></div>`
+                :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[15]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+    
+            targetNode.innerHTML += `
+            <tr>
+                <td>
+                    <small>${d[0]}</small>
+                </td>
+                <td>
+                    <div class="progress" style="height: 15px;">
+                        ${barraNor}
+                    </div>
+                </td>
+                <td>
+                    <div class="progress" style="height: 15px;">
+                        ${barraInf}            
+                    </div>
+                </td>
+                <td>
+                    <div class="progress" style="height: 15px;">
+                        ${barraCH}    
+                    </div>
+                </td>
+                <td>
+                    <div class="progress" style="height: 15px;">
+                        ${barraMGD}    
+                    </div>
+                </td>
+                <td>
+                    <div class="progress" style="height: 15px;">
+                        ${barraDMC}
+                    </div>
+                </td>
+            </tr>
+          `
+        });
 
-        let barraMGD = d[12] > 0 ? `<div class="barraGD progress-bar" role="progressbar" aria-valuenow="${d[12]}" aria-valuemin="0" aria-valuemax="100"><small>${d[12]}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[12]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+    } 
+    if(versionMetologia == 'v2'){
+        document.getElementById("colDMC").style.display = "none";
+        document.getElementById("colMGD").style.display = "none";
 
-        let barraCH = d[9] > 0 ? `<div class="barraCH progress-bar" role="progressbar" aria-valuenow="${d[9]}" aria-valuemin="0" aria-valuemax="100"><small>${d[9]}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[9]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+        document.getElementById("encabezadosTabla").innerHTML = `<th scope="col" style="width: 15%;"></th> <th id="colNormatividad" scope="col" style="width: 17%;"><small>Normatividad</small></th> <th id="colInfra" scope="col" style="width: 17%;"><small>Infraestructura</small></th> <th id="colCH" scope="col" style="width: 17%;"><small>Capital humano</small></th> <th id="colMGD" scope="col" style="width: 17%; display: none"><small>Mapeo y gestión de datos</small></th> <th id="colDMC" scope="col" style="width: 17%; display: none"><small>Desarrollo de mecanismos de comunicación</small></th>`;
+        let sortData = data.sort(function (a, b) {
+            // ordena la columna de puntaje total de forma descendiente
+            return d3.descending(+a[17], +b[18]);
+        });
+        //console.log(sortData);
+        sortData.forEach(function (d) {
+            let barNormatividad = d[4] > 0 ? `<div class="barraNor progress-bar" aria-valuenow="${d[4]}" aria-valuemin="0" aria-valuemax="100"><small>${d[4]}%</small></div>`
+                :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[4]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+    
+            let barCH = d[7] > 0 ? `<div class="barraCH progress-bar" role="progressbar" aria-valuenow="${d[7]}" aria-valuemin="0" aria-valuemax="100"><small>${d[7]}%</small></div>`
+                :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[7]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+    
+            let barPInterconexion = d[10] > 0 ? `<div class="barraMC progress-bar" role="progressbar" aria-valuenow="${d[10]}" aria-valuemin="0" aria-valuemax="100"><small>${d[10]}%</small></div>`
+                :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[10]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
+    
+            targetNode.innerHTML += `
+            <tr>
+                <td>
+                    <small>${d[0]}</small>
+                </td>
+                <td>
+                    <div class="progress" style="height: 15px;">
+                        ${barNormatividad}
+                    </div>
+                </td>
+                <td>
+                    <div class="progress" style="height: 15px;">
+                        ${barCH}            
+                    </div>
+                </td>
+                <td>
+                    <div class="progress" style="height: 15px;">
+                        ${barPInterconexion}    
+                    </div>
+                </td>
+            </tr>
+          `
+        });
+    }
 
-        let barraDMC = d[15] > 0 ? `<div class="barraMC progress-bar" role="progressbar" aria-valuenow="${d[15]}" aria-valuemin="0" aria-valuemax="100"><small>${d[15]}%</small></div>`
-            :  `<div class="barraCero progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="${d[15]}" aria-valuemin="0" aria-valuemax="100"><small>0%</small></div>`;
-
-        targetNode.innerHTML += `
-        <tr>
-            <td>
-                <small>${d[0]}</small>
-            </td>
-            <td>
-                <div class="progress" style="height: 15px;">
-                    ${barraNor}
-                </div>
-            </td>
-            <td>
-                <div class="progress" style="height: 15px;">
-                    ${barraInf}            
-                </div>
-            </td>
-            <td>
-                <div class="progress" style="height: 15px;">
-                    ${barraCH}    
-                </div>
-            </td>
-            <td>
-                <div class="progress" style="height: 15px;">
-                    ${barraMGD}    
-                </div>
-            </td>
-            <td>
-                <div class="progress" style="height: 15px;">
-                    ${barraDMC}
-                </div>
-            </td>
-        </tr>
-      `
-    });
     $("#tablaScore .progress div").each(function () {
         let display = $(this),
             nextValue = $(this).attr("aria-valuenow");
@@ -824,12 +985,24 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("copy8").innerHTML = '';
         document.getElementById("copy8").append(event.target.options[event.target.selectedIndex].dataset.copy8);
 
+        versionMetologia = event.target.options[event.target.selectedIndex].dataset.version;
+        if (versionMetologia == 'v2'){
+            document.getElementById("maxMin7").style.display = "none";
+            document.getElementById("maxMin8").style.display = "none";
+            document.getElementById("bulletsCat").innerHTML = bulletsV2;
+            
+        }
+        if (versionMetologia == 'v1'){
+            document.getElementById("maxMin7").style.display = "";
+            document.getElementById("maxMin8").style.display = "";
+            document.getElementById("bulletsCat").innerHTML = bulletsV1;
+        }
         fetch(event.target.value)
         .then(response => response.json())
         .then(data => {
             //console.log(data);
             data.values.shift();
-            createScales(data.values);
+            //createScales(data.values);
             createTabla(data.values);
             //setTimeout(drawInitial(data.values), 100);
             drawInitial(data.values);

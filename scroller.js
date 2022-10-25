@@ -60,7 +60,7 @@ function handleStepEnter(response) {
 
   // update graphic based on step
   let activationFunctions = [chartTabla, chartMexicoPuntuacion, chartStackedBar, chartNormatividad, chartInfraestructura, chartCapitalHumano, chartMapeoGestion, chartDevMecanismos]
-  activationFunctions.forEach((data, index) => {
+  activationFunctions.forEach((_, index) => {
     if (index === response.index) {
       activationFunctions[index]();
     }
