@@ -15,8 +15,11 @@ var dataPictogram = [];
 let versionMetologia;
 
 const bulletsV1 = "<li class='normatividad'><b>Normatividad</b>: ¿la entidad federativa ya cuenta con bases para el funcionamiento de su Plataforma o Sistema de Información y ya analizó su normatividad aplicable?;</li> <li class='infraestructura'><b>Infraestructura</b>: ¿la entidad cuenta con los recursos necesarios para llevar a cabo el desarrollo;</li> <li class='capitalHumano'><b>Capital humano</b>: ¿la entidad cuenta con el personal para llevar a cabo el desarrollo?</li> <li class='mapeoGestion'><b>Mapeo y gestión de datos</b>: ¿cómo van los trabajos para que los datos sean proveídos por las autoridades locales?, y</li> <li class='devMecanismos'><b>Desarrollo de mecanismos de comunicación</b>: ¿cómo van los trabajos para comunicar a la entidad federativa con la PDN? </li>"
-const bulletsV2 = "<li class='normatividad'><b>Normatividad</b>: ¿la entidad federativa ya cuenta con bases para el funcionamiento de su Plataforma o Sistema de Información y ya analizó su normatividad aplicable?;</li> <li class='capitalHumano'><b>Capital humano</b>: ¿la entidad cuenta con el personal para llevar a cabo el desarrollo?</li> <li class='devMecanismos'><b>Interconexión</b>: ¿la entidad cuenta con ...?</li>"
-
+const bulletsV2 = "<li class='normatividad'><b>Normatividad</b>: ¿la entidad federativa ya cuenta con bases para el funcionamiento de su Plataforma o Sistema de Información y ya analizó su normatividad aplicable?;</li> <li class='infraestructura-v2'><b>Infraestructura</b>: ¿la entidad cuenta con los recursos necesarios para llevar a cabo el desarrollo;</li> <li class='devMecanismos'><b>Interconexión</b>: ¿la entidad cuenta con ...?</li>"
+const labelInterconexión = '<h2 class="tituloSeccion">Interconexión</h2> <p>Esta categoría permite conocer el avance de las Secretarías Ejecutivas de los Sistemas Estatales Anticorrupción y de las instituciones públicas en la incorporación de datos a la PDN.</p>'
+const labelCapitalHumano = '<h2 class="tituloSeccion">Capital humano</h2> <p>Esta categoría muestra si la Secretaría Ejecutiva Estatal cuenta con personal suficiente adscrito a su institución o contratado por algún otro mecanismo para el desarrollo de su Plataforma Digital o Sistema de información. Además, en esta categoría se refleja si el equipo técnico cuenta con el grado de conocimiento técnico actual para lograr la interconexión con la PDN. <br>La puntuación máxima para esta categoría es <b>10</b>. </p>'
+const puntajeV1 = "<li><b>Normatividad</b>: 10 puntos;</li> <li><b>Infraestructura</b>: 20 puntos;</li> <li><b>Capital humano</b>: 10 puntos;</li> <li><b>Mapeo y gestión de datos</b>: 30 puntos, y</li> <li><b>Desarrollo de mecanismos de comunicación</b>: 30 puntos.</li>"
+const puntajeV2 = "<li><b>Normatividad</b>: 10 puntos;</li> <li><b>Infraestructura</b>: 20 puntos;</li> <li><b>Interconexión</b>: 70 puntos;</li>"
 Promise.all([
     // dataset de trimestres
     fetch('https://sheets.googleapis.com/v4/spreadsheets/1x17q4Ny8ENBniRT0WrlIVLU7LEs2fU1u7q2rxEypMNg/values/edos?key=AIzaSyDrvQehuVTPGJVCFVx3FUeAq2zqYbTCFDo'),
@@ -33,9 +36,9 @@ Promise.all([
         versionMetologia = datasetEdos[0][9]; // SET versión de metodología
         // carga los copys del ultimo registro
         if (versionMetologia == 'v1'){
-            /* document.getElementById("maxMin7").style.display = "none";
-            document.getElementById("maxMin7").style.display = "none"; */
             document.getElementById("bulletsCat").innerHTML = bulletsV1;
+            document.getElementById("seccionCapitalHumano").innerHTML = labelCapitalHumano;
+            document.getElementById("bulletsPuntaje").innerHTML = puntajeV1;
         }
         document.getElementById("copy1").innerHTML = datasetEdos[0][3];
         document.getElementById("copy4").innerHTML = datasetEdos[0][4];
@@ -49,6 +52,8 @@ Promise.all([
             document.getElementById("maxMin7").style.display = "none";
             document.getElementById("maxMin8").style.display = "none";
             document.getElementById("bulletsCat").innerHTML = bulletsV2;
+            document.getElementById("seccionCapitalHumano").innerHTML = labelInterconexión;
+            document.getElementById("bulletsPuntaje").innerHTML = puntajeV2;
         }
         fetch(datasetEdos[0][2])
         .then(response => response.json())
@@ -322,7 +327,7 @@ function drawInitial(dataset) {
     }
     if (versionMetologia == 'v2'){
         z = d3.scaleOrdinal(['#34B3EB', '#674ea7', '#fbbc04']);
-        group = ["Normatividad", "Capital humano", "Interconexión"];
+        group = ["Normatividad", "Infraestructura", "Interconexión"];
         topData = dataset.sort(function (a, b) {
             return d3.descending(+a[12], +b[12]);
         }).slice(0, 10);
@@ -357,7 +362,7 @@ function drawInitial(dataset) {
             tempData = {
                 Entidad: d[0],
                 'Normatividad': Number.parseFloat(d[5]),
-                'Capital humano': Number.parseFloat(d[8]),
+                'Infraestructura': Number.parseFloat(d[8]),
                 'Interconexión': Number.parseFloat(d[11]),
                 total: Number.parseFloat(d[13])
             };
@@ -651,10 +656,10 @@ function drawInitial(dataset) {
             'entidad': d[0],
             'cat1': Number.parseFloat(d[5]),
             'cat1_dif': Number.parseFloat(d[3]),
-            'cat2': Number.parseFloat(d[8]),
-            'cat2_dif': Number.parseFloat(d[6]),
-            'cat3': Number.parseFloat(d[11]),
-            'cat3_dif': Number.parseFloat(d[9]),
+            'catV2-Infra': Number.parseFloat(d[8]),
+            'catV2-Infra_dif': Number.parseFloat(d[6]),
+            'catV2-Interconexion': Number.parseFloat(d[11]),
+            'catV2-Interconexion_dif': Number.parseFloat(d[9]),
         };
         dataPictogram.push(tempData);
     });
@@ -726,8 +731,8 @@ function clean(chartType) {
 
 function createTabla(data) {
     let idShow = 'tablaScore';
-    document.getElementById("colDMC").style.display = "";
-    document.getElementById("colMGD").style.display = "";
+    /* document.getElementById("colDMC").style.display = "";
+    document.getElementById("colMGD").style.display = ""; */
     clean(idShow);
     //console.log(versionMetologia);
     let targetNode = document.getElementById('tablaData');
@@ -801,7 +806,7 @@ function createTabla(data) {
         document.getElementById("colDMC").style.display = "none";
         document.getElementById("colMGD").style.display = "none";
 
-        document.getElementById("encabezadosTabla").innerHTML = `<th scope="col" style="width: 15%;"></th> <th id="colNormatividad" scope="col" style="width: 17%;"><small>Normatividad</small></th> <th id="colInfra" scope="col" style="width: 17%;"><small>Infraestructura</small></th> <th id="colCH" scope="col" style="width: 17%;"><small>Capital humano</small></th> <th id="colMGD" scope="col" style="width: 17%; display: none"><small>Mapeo y gestión de datos</small></th> <th id="colDMC" scope="col" style="width: 17%; display: none"><small>Desarrollo de mecanismos de comunicación</small></th>`;
+        document.getElementById("encabezadosTabla").innerHTML = `<th scope="col" style="width: 15%;"></th> <th id="colNormatividad" scope="col" style="width: 17%;"><small>Normatividad</small></th> <th id="colInfra" scope="col" style="width: 17%;"><small>Infraestructura</small></th> <th id="colCH" scope="col" style="width: 17%;"><small>Interconexión</small></th> <th id="colMGD" scope="col" style="width: 17%; display: none"><small>Mapeo y gestión de datos</small></th> <th id="colDMC" scope="col" style="width: 17%; display: none"><small>Desarrollo de mecanismos de comunicación</small></th>`;
         let sortData = data.sort(function (a, b) {
             // ordena la columna de puntaje total de forma descendiente
             return d3.descending(+a[17], +b[18]);
@@ -877,7 +882,9 @@ function chartNormatividad() {
 function chartInfraestructura() {
     let classShow = 'chartInfraestructura';
     clean(classShow);
-    chartPictograma(dataPictogram, 'cat2');
+    //console.log(versionMetologia);
+    let tipoCat = versionMetologia == 'v1' ? "cat2" : "catV2-Infra"; // evalua la versión y define el tipo de categoría
+    chartPictograma(dataPictogram, tipoCat);
     document.getElementById('pictograma').style.display = "block";
     document.getElementById('vis').style.display = "none";
     //dataMaxMinInfraestructura = [];
@@ -886,7 +893,8 @@ function chartInfraestructura() {
 function chartCapitalHumano() {
     let classShow = 'chartCapitalHumano';
     clean(classShow);
-    chartPictograma(dataPictogram, 'cat3');
+    let tipoCat = versionMetologia == 'v1' ? "cat3" : "catV2-Interconexion";
+    chartPictograma(dataPictogram, tipoCat);
     document.getElementById('pictograma').style.display = "block";
     document.getElementById('vis').style.display = "none";
 }
@@ -990,12 +998,16 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("maxMin7").style.display = "none";
             document.getElementById("maxMin8").style.display = "none";
             document.getElementById("bulletsCat").innerHTML = bulletsV2;
+            document.getElementById("seccionCapitalHumano").innerHTML = labelInterconexión;
+            document.getElementById("bulletsPuntaje").innerHTML = puntajeV2;
             
         }
         if (versionMetologia == 'v1'){
             document.getElementById("maxMin7").style.display = "";
             document.getElementById("maxMin8").style.display = "";
             document.getElementById("bulletsCat").innerHTML = bulletsV1;
+            document.getElementById("seccionCapitalHumano").innerHTML = labelCapitalHumano;
+            document.getElementById("bulletsPuntaje").innerHTML = puntajeV1;
         }
         fetch(event.target.value)
         .then(response => response.json())

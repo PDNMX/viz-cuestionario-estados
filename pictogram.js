@@ -43,7 +43,7 @@ function chartPictograma(data, tipo) {
           value = `${row[tipo + '_dif']}%`
         }
         const scale = d3.scaleThreshold()
-          .domain([0, 1])
+          .domain([0, 10])
           .range(['fa-arrow-down', 'fa-equals', 'fa-arrow-up']);
 
         const icon = `<span class='fa ${scale(row[tipo + '_dif'])}'></span>`;

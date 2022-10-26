@@ -208,6 +208,15 @@ td.colEntidad {
   background-size: auto 100%;
   fill: black;
 }
+.icon-catV2-Infra {
+  background-image: url(img/icon-infraestructura-v2.svg);
+  background-size: auto 100%;
+}
+
+.icon-catV2-Interconexion {
+  background-image: url(img/icon-comunicacion.svg);
+  background-size: auto 100%;
+}
 
 .icon {
   display: inline-block;
@@ -240,6 +249,16 @@ li.normatividad {
 
 li.infraestructura {
   background: url(img/icon-infraestructura.svg) no-repeat left top;
+  height: 100%;
+  padding-left: 50px;
+  /* padding-top: 3px; */
+  padding-bottom: 10px;
+  background-size: auto 32px;
+  display: block;
+}
+
+li.infraestructura-v2 {
+  background: url(img/icon-infraestructura-v2.svg) no-repeat left top;
   height: 100%;
   padding-left: 50px;
   /* padding-top: 3px; */
