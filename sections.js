@@ -14,12 +14,23 @@ var dataPictogram = [];
 // Normatividad, Infraestructura, Capital Humano, Mapeo y gestión, Dev Mecanismos de comunicación
 let versionMetologia;
 
-const bulletsV1 = "<li class='normatividad'><b>Normatividad</b>: ¿la entidad federativa ya cuenta con bases para el funcionamiento de su Plataforma o Sistema de Información y ya analizó su normatividad aplicable?;</li> <li class='infraestructura'><b>Infraestructura</b>: ¿la entidad cuenta con los recursos necesarios para llevar a cabo el desarrollo;</li> <li class='capitalHumano'><b>Capital humano</b>: ¿la entidad cuenta con el personal para llevar a cabo el desarrollo?</li> <li class='mapeoGestion'><b>Mapeo y gestión de datos</b>: ¿cómo van los trabajos para que los datos sean proveídos por las autoridades locales?, y</li> <li class='devMecanismos'><b>Desarrollo de mecanismos de comunicación</b>: ¿cómo van los trabajos para comunicar a la entidad federativa con la PDN? </li>"
-const bulletsV2 = "<li class='normatividad'><b>Normatividad</b>: ¿la entidad federativa ya cuenta con bases para el funcionamiento de su Plataforma o Sistema de Información y ya analizó su normatividad aplicable?;</li> <li class='infraestructura-v2'><b>Infraestructura</b>: ¿la entidad cuenta con los recursos necesarios para llevar a cabo el desarrollo;</li> <li class='devMecanismos'><b>Interconexión</b>: ¿la entidad cuenta con ...?</li>"
+//const txt1v1 = "<li class='normatividad'><b>Normatividad</b>: ¿la entidad federativa ya cuenta con bases para el funcionamiento de su Plataforma o Sistema de Información y ya analizó su normatividad aplicable?;</li> <li class='infraestructura'><b>Infraestructura</b>: ¿la entidad cuenta con los recursos necesarios para llevar a cabo el desarrollo;</li> <li class='capitalHumano'><b>Capital humano</b>: ¿la entidad cuenta con el personal para llevar a cabo el desarrollo?</li> <li class='mapeoGestion'><b>Mapeo y gestión de datos</b>: ¿cómo van los trabajos para que los datos sean proveídos por las autoridades locales?, y</li> <li class='devMecanismos'><b>Desarrollo de mecanismos de comunicación</b>: ¿cómo van los trabajos para comunicar a la entidad federativa con la PDN? </li>"
+//const bulletsV2 = "<li class='normatividad'><b>Normatividad</b>: ¿la entidad federativa ya cuenta con bases para el funcionamiento de su Plataforma o Sistema de Información y ya analizó su normatividad aplicable?;</li> <li class='capitalHumano'><b>Capital Humano</b>: ¿la entidad cuenta con el personal para llevar a cabo el desarrollo?</li> <li class='devMecanismos'><b>Interconexión</b>: ¿la entidad cuenta con ...?</li>"
 const labelInterconexión = '<h2 class="tituloSeccion">Interconexión</h2> <p>Esta categoría permite conocer el avance de las Secretarías Ejecutivas de los Sistemas Estatales Anticorrupción y de las instituciones públicas en la incorporación de datos a la PDN.</p>'
 const labelCapitalHumano = '<h2 class="tituloSeccion">Capital humano</h2> <p>Esta categoría muestra si la Secretaría Ejecutiva Estatal cuenta con personal suficiente adscrito a su institución o contratado por algún otro mecanismo para el desarrollo de su Plataforma Digital o Sistema de información. Además, en esta categoría se refleja si el equipo técnico cuenta con el grado de conocimiento técnico actual para lograr la interconexión con la PDN. <br>La puntuación máxima para esta categoría es <b>10</b>. </p>'
 const puntajeV1 = "<li><b>Normatividad</b>: 10 puntos;</li> <li><b>Infraestructura</b>: 20 puntos;</li> <li><b>Capital humano</b>: 10 puntos;</li> <li><b>Mapeo y gestión de datos</b>: 30 puntos, y</li> <li><b>Desarrollo de mecanismos de comunicación</b>: 30 puntos.</li>"
-const puntajeV2 = "<li><b>Normatividad</b>: 10 puntos;</li> <li><b>Infraestructura</b>: 20 puntos;</li> <li><b>Interconexión</b>: 70 puntos;</li>"
+const puntajeV2 = "<li><b>General</b>: 10 puntos,</li> <li><b>Normatividad</b>: 10 puntos,</li> <li><b>Capital humano</b>: 20 puntos y</li> <li><b>Proceso de interconexión</b>: 70 puntos.</li>"
+
+const txt1v1 = "<h2 class='tituloSeccion'>Avances de interconexión subnacional. Sistemas 2 y 3. </h2> <h3>Puntos por Categoría </h3> <p>Este tablero representa los avances de las Secretarías Ejecutivas de los Sistemas Locales Anticorrupción en el desarrollo de los sistemas (2) de servidores públicos que intervengan en procedimientos de contrataciones públicas y (3) de servidores públicos y particulares sancionados. Trimestralmente, las Secretarías Ejecutivas Locales responden un cuestionario elaborado por la SESNA para reportar sus avances en las siguientes categorías:</p> <ul class='no_bullet'><li class='normatividad'><b>Normatividad</b>: ¿la entidad federativa ya cuenta con bases para el funcionamiento de su Plataforma o Sistema de Información y ya analizó su normatividad aplicable?;</li> <li class='infraestructura'><b>Infraestructura</b>: ¿la entidad cuenta con los recursos necesarios para llevar a cabo el desarrollo;</li> <li class='capitalHumano'><b>Capital humano</b>: ¿la entidad cuenta con el personal para llevar a cabo el desarrollo?</li> <li class='mapeoGestion'><b>Mapeo y gestión de datos</b>: ¿cómo van los trabajos para que los datos sean proveídos por las autoridades locales?, y</li> <li class='devMecanismos'><b>Desarrollo de mecanismos de comunicación</b>: ¿cómo van los trabajos para comunicar a la entidad federativa con la PDN? </li></ul> </div>"
+const txt1v2 = "<h2 class='tituloSeccion'>Avances de interconexión subnacional. Sistemas 1, 2 y 3. </h2> <h3>Puntos por Categoría</h3> <p>Este tablero representa los avances trimestrales de las Secretarías Ejecutivas de los Sistemas Locales Anticorrupción en el desarrollo de los sistemas: (1) de evolución patrimonial, de declaración de intereses y constancia de presentación de declaración fiscal, (2) de servidores públicos que intervengan en procedimientos de contrataciones públicas y (3) de servidores públicos y particulares sancionados, con base en un cuestionario que incluye las siguientes categorías: </p> <ul class='no_bullet'> <li class='general'><b>General</b>: permite recabar información para mantener contacto con personal encargado del desarrollo de la Plataforma Digital o un Sistema de Información de las  Secretarías Ejecutivas de los Sistemas Estatales Anticorrupción.</li> <li class='normatividad'><b>Normatividad</b>: permite conocer el avance de las Secretarías Ejecutivas de los Sistemas Estatales Anticorrupción en la elaboración de sus bases para el funcionamiento de su plataforma digital o sistema de información.</li> <li class='capitalHumano'><b>Capital Humano</b>: permite saber si las Secretarías Ejecutivas de los Sistemas Estatales Anticorrupción cuentan con un equipo interno o externo encargado del desarrollo de su plataforma digital o sistema de información.</li> <li class='devMecanismos'><b>Proceso de interconexión</b>: permite conocer el avance de las Secretarías Ejecutivas de los Sistemas Estatales Anticorrupción en la incorporación de datos a la PDN.</li></ul>"
+const txt1v1After = "<p><strong>La tabla de la derecha muestra el porcentaje de avance de las entidades federativas que respondieron el cuestionario, para cada una de las categorías evaluadas, de manera independiente.</strong></p> <p>Cada columna corresponde a una categoría evaluada. Es importante considerar que cada categoría implica cumplir con una serie de actividades para estar completa. El cumplimiento del total de las actividades evaluadas, para cada categoría, representa el 100% de avance.</p> <p>Los resultados muestran las categorías donde las Secretarías han avanzado más o, en su caso, deberán concentrar esfuerzos hasta interconectar los datos de su entidad federativa con la PDN.</p>"
+const txt1v2After = "<p><strong>La tabla de la derecha muestra el porcentaje de avance de las entidades federativas para cada una de las categorías evaluadas. </strong></p><p>La categoría General, no cuenta con un puntaje asignado, ya que las preguntas que la integran, permiten recabar información sobre el personal encargado del desarrollo de la Plataforma Digital o un Sistema de Información de las Secretarías Ejecutivas de los Sistemas Estatales Anticorrupción.</p>"
+
+const txtMapav1 = "<p>Este mapa muestra el grado de avance general de las entidades federativas en los trabajos para alcanzar la interconexión con la PDN en los sistemas 2 y 3. Da clic en cualquier entidad federativa para consultar su gráfico de radar, en el que los ejes representan cada una de las categorías contempladas para medir los avances.</p>"
+const txtMapav2 = "<p>Este mapa muestra el grado de avance de las entidades federativas en los trabajos para alcanzar la interconexión con la PDN en los sistemas 1, 2 y 3. Da clic en cualquier estado para consultar su gráfico de radar, en el que los ejes representan las categorías contempladas para medir los avances.</p>"
+
+const labelInfra = '<h2 class="tituloSeccion">Infraestructura</h2> <p>Esta categoría permite conocer si la Secretaría Ejecutiva Estatal cuenta con la infraestructura necesaria, o con los recursos para rentarla o adquirirla, para almacenar y procesar la información que se desprende de los sistemas 2 y 3. <br> El puntaje total de la categoría <b>son 20 puntos</b>. </p>'
+const labelCapitalHumanoV2 = '<h2 class="tituloSeccion">Capital humano</h2> <p>Esta categoría muestra si la Secretaría Ejecutiva Estatal cuenta con personal suficiente adscrito a su institución o contratado por algún otro mecanismo para el desarrollo de su Plataforma Digital o Sistema de información. Además, en esta categoría se refleja si el equipo técnico cuenta con el grado de conocimiento técnico actual para lograr la interconexión con la PDN. <br>La puntuación máxima para esta categoría es <b>20</b>. </p>'
 Promise.all([
     // dataset de trimestres
     fetch('https://sheets.googleapis.com/v4/spreadsheets/1x17q4Ny8ENBniRT0WrlIVLU7LEs2fU1u7q2rxEypMNg/values/edos?key=AIzaSyDrvQehuVTPGJVCFVx3FUeAq2zqYbTCFDo'),
@@ -36,9 +47,12 @@ Promise.all([
         versionMetologia = datasetEdos[0][9]; // SET versión de metodología
         // carga los copys del ultimo registro
         if (versionMetologia == 'v1'){
-            document.getElementById("bulletsCat").innerHTML = bulletsV1;
+            document.getElementById("txt1").innerHTML = txt1v1;
+            document.getElementById("txt1After").innerHTML = txt1v1After;
             document.getElementById("seccionCapitalHumano").innerHTML = labelCapitalHumano;
             document.getElementById("bulletsPuntaje").innerHTML = puntajeV1;
+            document.getElementById("seccionInfra").innerHTML = labelInfra;
+            document.getElementById("txtMapa").innerHTML = txtMapav1;
         }
         document.getElementById("copy1").innerHTML = datasetEdos[0][3];
         document.getElementById("copy4").innerHTML = datasetEdos[0][4];
@@ -51,9 +65,13 @@ Promise.all([
         if (versionMetologia == 'v2'){
             document.getElementById("maxMin7").style.display = "none";
             document.getElementById("maxMin8").style.display = "none";
-            document.getElementById("bulletsCat").innerHTML = bulletsV2;
+            document.getElementById("txt1").innerHTML = txt1v2;
+            document.getElementById("txt1After").innerHTML = txt1v2After; 
             document.getElementById("seccionCapitalHumano").innerHTML = labelInterconexión;
             document.getElementById("bulletsPuntaje").innerHTML = puntajeV2;
+            document.getElementById("seccionInfra").innerHTML = labelCapitalHumanoV2;
+            document.getElementById("txtMapa").innerHTML = txtMapav2;
+
         }
         fetch(datasetEdos[0][2])
         .then(response => response.json())
@@ -327,7 +345,7 @@ function drawInitial(dataset) {
     }
     if (versionMetologia == 'v2'){
         z = d3.scaleOrdinal(['#34B3EB', '#674ea7', '#fbbc04']);
-        group = ["Normatividad", "Infraestructura", "Interconexión"];
+        group = ["Normatividad", "Capital humano", "Interconexión"];
         topData = dataset.sort(function (a, b) {
             return d3.descending(+a[12], +b[12]);
         }).slice(0, 10);
@@ -362,7 +380,7 @@ function drawInitial(dataset) {
             tempData = {
                 Entidad: d[0],
                 'Normatividad': Number.parseFloat(d[5]),
-                'Infraestructura': Number.parseFloat(d[8]),
+                'Capital humano': Number.parseFloat(d[8]),
                 'Interconexión': Number.parseFloat(d[11]),
                 total: Number.parseFloat(d[13])
             };
@@ -656,8 +674,8 @@ function drawInitial(dataset) {
             'entidad': d[0],
             'cat1': Number.parseFloat(d[5]),
             'cat1_dif': Number.parseFloat(d[3]),
-            'catV2-Infra': Number.parseFloat(d[8]),
-            'catV2-Infra_dif': Number.parseFloat(d[6]),
+            'catV2-CapitalHumano': Number.parseFloat(d[8]),
+            'catV2-CapitalHumano_dif': Number.parseFloat(d[6]),
             'catV2-Interconexion': Number.parseFloat(d[11]),
             'catV2-Interconexion_dif': Number.parseFloat(d[9]),
         };
@@ -806,7 +824,7 @@ function createTabla(data) {
         document.getElementById("colDMC").style.display = "none";
         document.getElementById("colMGD").style.display = "none";
 
-        document.getElementById("encabezadosTabla").innerHTML = `<th scope="col" style="width: 15%;"></th> <th id="colNormatividad" scope="col" style="width: 17%;"><small>Normatividad</small></th> <th id="colInfra" scope="col" style="width: 17%;"><small>Infraestructura</small></th> <th id="colCH" scope="col" style="width: 17%;"><small>Interconexión</small></th> <th id="colMGD" scope="col" style="width: 17%; display: none"><small>Mapeo y gestión de datos</small></th> <th id="colDMC" scope="col" style="width: 17%; display: none"><small>Desarrollo de mecanismos de comunicación</small></th>`;
+        document.getElementById("encabezadosTabla").innerHTML = `<th scope="col" style="width: 15%;"></th> <th id="colNormatividad" scope="col" style="width: 17%;"><small>Normatividad</small></th> <th id="colInfra" scope="col" style="width: 17%;"><small>Capital humano</small></th> <th id="colCH" scope="col" style="width: 17%;"><small>Interconexión</small></th> <th id="colMGD" scope="col" style="width: 17%; display: none"><small>Mapeo y gestión de datos</small></th> <th id="colDMC" scope="col" style="width: 17%; display: none"><small>Desarrollo de mecanismos de comunicación</small></th>`;
         let sortData = data.sort(function (a, b) {
             // ordena la columna de puntaje total de forma descendiente
             return d3.descending(+a[17], +b[18]);
@@ -883,7 +901,7 @@ function chartInfraestructura() {
     let classShow = 'chartInfraestructura';
     clean(classShow);
     //console.log(versionMetologia);
-    let tipoCat = versionMetologia == 'v1' ? "cat2" : "catV2-Infra"; // evalua la versión y define el tipo de categoría
+    let tipoCat = versionMetologia == 'v1' ? "cat2" : "catV2-CapitalHumano"; // evalua la versión y define el tipo de categoría
     chartPictograma(dataPictogram, tipoCat);
     document.getElementById('pictograma').style.display = "block";
     document.getElementById('vis').style.display = "none";
@@ -997,17 +1015,23 @@ document.addEventListener("DOMContentLoaded", function() {
         if (versionMetologia == 'v2'){
             document.getElementById("maxMin7").style.display = "none";
             document.getElementById("maxMin8").style.display = "none";
-            document.getElementById("bulletsCat").innerHTML = bulletsV2;
+            document.getElementById("txt1").innerHTML = txt1v2;
+            document.getElementById("txt1After").innerHTML = txt1v2After;
             document.getElementById("seccionCapitalHumano").innerHTML = labelInterconexión;
             document.getElementById("bulletsPuntaje").innerHTML = puntajeV2;
+            document.getElementById("seccionInfra").innerHTML = labelCapitalHumanoV2;
+            document.getElementById("txtMapa").innerHTML = txtMapav2;
             
         }
         if (versionMetologia == 'v1'){
             document.getElementById("maxMin7").style.display = "";
             document.getElementById("maxMin8").style.display = "";
-            document.getElementById("bulletsCat").innerHTML = bulletsV1;
+            document.getElementById("txt1").innerHTML = txt1v1;
+            document.getElementById("txt1After").innerHTML = txt1v1After;
             document.getElementById("seccionCapitalHumano").innerHTML = labelCapitalHumano;
             document.getElementById("bulletsPuntaje").innerHTML = puntajeV1;
+            document.getElementById("seccionInfra").innerHTML = labelInfra;
+            document.getElementById("txtMapa").innerHTML = txtMapav1;
         }
         fetch(event.target.value)
         .then(response => response.json())

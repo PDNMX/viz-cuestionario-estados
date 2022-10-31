@@ -208,8 +208,8 @@ td.colEntidad {
   background-size: auto 100%;
   fill: black;
 }
-.icon-catV2-Infra {
-  background-image: url(img/icon-infraestructura-v2.svg);
+.icon-catV2-CapitalHumano {
+  background-image: url(img/icon-capital-humano.svg);
   background-size: auto 100%;
 }
 
@@ -289,6 +289,16 @@ li.mapeoGestion {
 
 li.devMecanismos {
   background: url(img/icon-comunicacion.svg) no-repeat left top;
+  height: 100%;
+  padding-left: 50px;
+  /* padding-top: 3px; */
+  padding-bottom: 10px;
+  background-size: auto 32px;
+  display: block;
+}
+
+li.general {
+  background: url(img/icon-general.svg) no-repeat left top;
   height: 100%;
   padding-left: 50px;
   /* padding-top: 3px; */
