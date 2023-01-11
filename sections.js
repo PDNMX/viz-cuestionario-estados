@@ -210,8 +210,8 @@ function drawInitial(dataset) {
                 dataTest = [
                     [
                         {"area": "Normatividad ", "value": d.properties.porcentajeNor},
-                        {"area": "Capital humano ", "value": d.properties.porcentajeCH},
-                        {"area": "Interconexión", "value": d.properties.porcentajeInf}
+                        {"area": "Capital humano ", "value": d.properties.porcentajeInf},
+                        {"area": "Interconexión", "value": d.properties.porcentajeCH}
                     ]
                   ];
             } 
