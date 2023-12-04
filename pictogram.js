@@ -105,7 +105,7 @@ function chartPictograma(data, tipo) {
 
     tdEnter
       .attr('class', d => d.cl)
-      .style('background-color', '#0d3b49')
+      .style('background-color', '#f2f0f2')
       /* .style('border-bottom', '.5px solid white') */;
 
     tdEnter.merge(tdUpdate).html(d => d.html);
@@ -121,5 +121,5 @@ function mouseenter() {
 
 function mouseleave() {
   d3.select(this).selectAll('td')
-    .style('background-color', '#0d3b49');
+    .style('background-color', '#f2f0f2');
 }

@@ -72,7 +72,7 @@
 }
 
 #tablaScore thead tr:nth-child(1) th {
-  background: #0d3b49;
+  background: #f2f0f2;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -90,7 +90,7 @@
 /* pictogram */
 .table {
   color: #ced8db !important;
-  background-color: #0d3b49;
+  background-color: #f2f0f2;
 }
 
 .table-container {
@@ -330,7 +330,7 @@ text, line, .domain {
 }
 
 .custom-select {
-  background-color:#0d3b49 !important;
+  background-color:#f2f0f2 !important;
   color:#3aafe4 !important;
   background: #3aaee400 url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%233aafe4' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") right 0.75rem center/8px 10px no-repeat !important;
   
@@ -356,4 +356,11 @@ text, line, .domain {
   color: #666;
 }
 
+.item {
+  flex: 1 1 300px;
+}
+
+.item1 {
+  flex-shrink: 3;
+}
 /* estilos footer */
