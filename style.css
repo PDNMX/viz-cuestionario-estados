@@ -337,7 +337,7 @@ text, line, .domain {
 }
 
 .modal-body, .modal-footer {
-  background-color: #ced8db !important;
+  background-color: #f2f0f2 !important;
 }
 
 .progress {
@@ -345,7 +345,7 @@ text, line, .domain {
 }
 
 .modal-header {
-  background-color: #ced8db;
+  background-color: #f2f0f2;
 }
 
 .site-footer a {
