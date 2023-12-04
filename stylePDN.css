@@ -449,7 +449,7 @@ path.entidad:hover {
   
   
   .site-footer a {
-    color: #ced8db;
+    color: #000;
   }
   
   #footer-about {
@@ -609,8 +609,6 @@ li, p, tr, .tituloSeccion, .seccion, #txt1, #vis, #pictograma th{
   text-decoration: underline;
 }
 
-
-
 .footer .rellenar-altura {
   display: flex;
   height: 100%;
@@ -624,8 +622,19 @@ li, p, tr, .tituloSeccion, .seccion, #txt1, #vis, #pictograma th{
   height: 100%;
 }
 
+.footer li a {
+  padding: 0;
+  text-transform: none;
+}
+
+.footer li a:hover {
+  text-decoration: underline;
+}
 .footer ul {
+  list-style: none !important;
+  margin: 0;
   padding: 10px;
+  list-style-type: none;
 }
 
 /* Este es el media Query del footer*/

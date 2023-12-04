@@ -364,3 +364,26 @@ text, line, .domain {
   flex-shrink: 3;
 }
 /* estilos footer */
+
+/* Este es el media Query del footer*/
+@media screen and (min-width: 960px) {
+  .flex-container {
+    display: flex;
+  }
+}
+/*este es el media Query*/
+@media only screen and (max-width: 600px) {
+   
+  .footer {
+    background: white;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+
+  .site-footer {
+    text-align: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+}
