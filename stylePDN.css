@@ -465,3 +465,171 @@ path.entidad:hover {
     padding: 0px 56px 15px 0px; */
     margin:5px;
   }
+
+
+  /*  Estilos para el nav del rediseño */
+  #navbarHeadLegislacion{
+    background:transparent linear-gradient(230deg, #1C7CBF 0%, #1C7CBF 4%, #9F58E2 49%, #6D4061 100%) 0% 0% no-repeat padding-box !important; z-index: 2; position: relative;
+    color: f2f0f2;
+  }
+
+/* .txt1v1, .txt1v2, .txt1v1After, .txt1v2After, {
+    color: #000;
+} */
+
+li, p, tr, .tituloSeccion, .seccion, #txt1, #vis, #pictograma th{
+    color: #000 !important;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #000 !important;
+  }
+
+  .custom-select{
+    border: 1px solid #666 !important;
+    border-radius: 0;
+  }
+
+ ext, line, span.text, span.title, .domain {
+    color: #000;
+  } 
+
+  .stackedBar text {
+    fill: #000;
+  }
+  
+  .fa-equals {
+    color: #000;
+  }
+
+  .color-rosa{
+    color: #713972 !important;
+  }
+
+.tablaPictograma.th, .tablaPictograma.tr {
+    background-color: ebe9f9 !important;
+}
+
+/* 
+  #pictograma{
+    background-color: #f2f0f2 !important;
+  } */
+
+.tituloLegislacion{
+    color: #FFF !important;
+}
+
+/* footer */
+
+/********* SECCIÓN FOOTER **********/
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    /* height: 500px; */ /* Set the fixed height of the footer here */
+    line-height: 1.46429em;
+    /*background-color: rgba(102, 102, 102, 1);
+    color: #fff;
+    min-height: 150px;*/
+    background: #fff !important;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+  
+
+.footer .item1 img {
+    height: 27px;
+  }
+  
+  .footer .acerca {
+    background: transparent linear-gradient(230deg, #1C7CBF 0%, #1C7CBF 4%, #9F58E2 49%, #6D4061 100%) 0% 0% no-repeat padding-box;
+  }
+  
+  .footer .acerca p {
+  
+    text-align: right;
+    color: #e8e8e8;
+  }
+  
+  .footer .acerca p a {
+    color: #e8e8e8;
+    text-decoration: none;
+  }
+  
+  .footer .acerca p a:hover {
+    text-decoration: underline;
+  }
+  
+  
+  .footer p {
+    padding: 5px 10px 5px 10px;
+  }
+  
+  
+  .footer a {
+    font-size: .8em
+  }
+  
+  .footer .redes, .footer .acerca, .footer .logos1 {
+    margin: 20px 0;
+  }
+  
+  .footer .item1 {
+    padding: 2rem 7rem 2rem 0;
+  }
+  
+  .footer .item3 {
+    padding: 2rem 0rem 2rem 0;
+  }
+  
+  .footer .item3 img {
+    height: 80px;
+    padding: 0px 15px 20px 0px;
+  }
+  
+  
+  .footer .logos1, .footer .logos2 {
+    display: flex;
+    justify-content: center;
+  }
+  
+  
+  .footer .item2 {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer .item0 {
+    background: #7f5277;
+    color:#fff;
+  }
+  
+  .footer li a {
+    padding: 0;
+    text-transform: none;
+  }
+  
+  .footer li a:hover {
+    text-decoration: underline;
+  }
+  
+  
+  
+  .footer .rellenar-altura {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .footer .col2 {
+    background: #815474;
+    width: 100px;
+    height: 100%;
+  }
+  
+  .footer ul {
+    padding: 10px;
+  }
+  

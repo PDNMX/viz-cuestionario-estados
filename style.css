@@ -109,7 +109,7 @@
 }
 
 .table-container th {
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid #000;
   padding-bottom: 10px;
   cursor: pointer;
   font-size: 80%;
@@ -355,3 +355,5 @@ text, line, .domain {
 #footer-about {
   color: #666;
 }
+
+/* estilos footer */
