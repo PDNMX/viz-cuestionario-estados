@@ -72,7 +72,7 @@
 }
 
 #tablaScore thead tr:nth-child(1) th {
-  background: #f2f0f2;
+  background: white;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -90,7 +90,7 @@
 /* pictogram */
 .table {
   color: #ced8db !important;
-  background-color: #f2f0f2;
+  background-color: white;
 }
 
 .table-container {
@@ -321,7 +321,7 @@ text, line, .domain {
 }
 
 #pictograma th {
-  color: #ced8db;
+  color: white;
 }
 
 #pictograma tr:hover {
@@ -337,7 +337,7 @@ text, line, .domain {
 }
 
 .modal-body, .modal-footer {
-  background-color: #f2f0f2 !important;
+  background-color: white !important;
 }
 
 .progress {
@@ -345,15 +345,7 @@ text, line, .domain {
 }
 
 .modal-header {
-  background-color: #f2f0f2;
-}
-
-.site-footer a {
-  color: #ced8db;
-}
-
-#footer-about {
-  color: #666;
+  background-color: white !important;
 }
 
 .item {
