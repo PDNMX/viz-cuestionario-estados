@@ -577,7 +577,7 @@ function drawInitial(dataset) {
     ele.selectAll("text")
 
     let rectTooltipg = svg.select(".stackedBar").append("g")
-        .attr("font-family", 'Roboto')
+        .attr("font-family", 'Muli')
         .attr("font-size", 10)
         .attr("text-anchor", "end")
         .attr("id", "recttooltip_" + mainDivName)
@@ -594,7 +594,7 @@ function drawInitial(dataset) {
 
     rectTooltipg
         .append("text")
-        .attr("font-family", 'Roboto')
+        .attr("font-family", 'Muli')
         .attr("id", "recttooltipText_" + mainDivName)
         .attr("x", 30)
         .attr("y", 15)
@@ -605,7 +605,7 @@ function drawInitial(dataset) {
             return 10;
         })
         .style("font-family", function(d) {
-            return 'Roboto';
+            return 'Muli';
         })
         .text(function(d, i) {
             return "";
@@ -618,7 +618,7 @@ function drawInitial(dataset) {
     textTotal.enter().append("text")
         .attr("text-anchor", "start")
         .merge(textTotal)
-        .attr("font-family", 'Roboto')
+        .attr("font-family", 'Muli')
         .attr("font-size", 8)
         .attr("y", d => y(d.Entidad) + y.bandwidth() / 1.5)
         .attr("x", d => x(d.total) + 5)
