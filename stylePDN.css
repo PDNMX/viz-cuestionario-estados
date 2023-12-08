@@ -533,6 +533,17 @@ p, tr, .tituloSeccion, .seccion, #txt1, #vis, #pictograma th{
   margin: 5px;
 }
 
+#logoFooter1 {
+    max-width: 85px;
+/*     width: 70px;
+    height: 90px; */
+}
+
+.mt-lg-0, .my-lg-0 {
+    margin-top: 50 !important;
+  }
+
+
 /* Este es el media Query del footer*/
 @media screen and (min-width: 960px) {
   .flex-container {
