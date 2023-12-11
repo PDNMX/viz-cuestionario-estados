@@ -19,16 +19,16 @@
 
 <body>
   <div id="tooltip"></div>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
-    style="background: transparent linear-gradient(230deg, #1C7CBF 0%, #1C7CBF 4%, #9F58E2 49%, #6D4061 100%) 0% 0% !important; z-index: 10;">
-    <div class="container">
-      <div class="align-middle !important; padding-top: 0.5em; width: 50px; height:70px !important;">
-                  <img id="logoFooter1" src="./img/ico-interconexion-s1-2-3.svg" alt="PDN" width="50px">
-      <p class="navbar-text" style="color: white !important; padding-left: 10px; font-size: 1.875rem; padding-top: 0.5em;"> Sistemas 1,2 y 3</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+  style="background: transparent linear-gradient(230deg, #1C7CBF 0%, #1C7CBF 4%, #9F58E2 49%, #6D4061 100%) 0% 0% !important; z-index: 10;" id="navSistemas" >
+  <div id="encabezado" >
+    <div class="align-middle">
+                <img id="logoFooter1" src="./img/ico-interconexion-s1-2-3.svg" alt="PDN" width="50px" style="margin-left: 15px">
+    <p class="navbar-text" id="letrasSistemas" style="color: white !important; padding-left: 10px; font-size: 1.875rem;" > Sistemas 1,2 y 3</p>
+    </div>
+              <div><img id="logoHeader" alt="PDN" src="./img/logo_pdn-transparente.svg" ></div>
       </div>
-                <div><img class="padding-top: 0.5em;" id="logoHeader" alt="PDN" src="./img/logo_pdn-transparente.svg"></div>
-        </div>
-  </nav>
+</nav>
   
 <!-- 
 
@@ -313,7 +313,7 @@ style="border-top: 5px solid; border-image: linear-gradient(230deg, #1C7CBF 0%, 
                 <p style="text-align: justify;">El siguiente tablero refleja las respuestas de las Secretarías Ejecutivas Estatales a los cuestionarios de avance realizados por la SESNA. Cada Secretaría es la responsable de la información que envía.
                   Si quieres conocer más acerca de la metodología de evaluación, haz clic aquí:</p>
                   <div class="dropdown show">
-                    <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="btn btn-outline-secondary dropdown-toggle botonModal" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Descarga la metodología
                     </a>
                   
@@ -328,7 +328,7 @@ style="border-top: 5px solid; border-image: linear-gradient(230deg, #1C7CBF 0%, 
               </div>
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-secondary botonModal" data-dismiss="modal">Cerrar</button>
           </div>
       </div>
   </div>

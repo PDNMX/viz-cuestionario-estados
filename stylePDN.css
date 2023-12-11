@@ -99,11 +99,13 @@ li {
 
 #logoFooter {
     max-width: 85px;
-    padding-top: 15px;
+    /* padding-top: 15px; */
 }
 
 #logoHeader {
     max-width: 85px;
+    margin-left: 1497px;
+   /*  margin-left: 80px; */
 }
 
 #libreUso {
@@ -464,11 +466,17 @@ path.entidad:hover {
 
 
   /*  Estilos para el nav del rediseño */
-  #navbarHeadLegislacion{
+ /*  #navbarHeadLegislacion{
     background:transparent linear-gradient(230deg, #1C7CBF 0%, #1C7CBF 4%, #9F58E2 49%, #6D4061 100%) 0% 0% no-repeat padding-box !important; z-index: 2; position: relative;
-    color: f2f0f2;
+    color: f2f0f2; 
+  } */
+  #navbarHeadLegislacion {
+    background: transparent linear-gradient(230deg, #1C7CBF 0%, #1C7CBF 4%, #9F58E2 49%, #6D4061 100%) 0% 0% no-repeat padding-box !important;
+    z-index: 2;
+    position: relative;
+    color: whitesmoke;
+    align-items: center;
   }
-
 /* .txt1v1, .txt1v2, .txt1v1After, .txt1v2After, {
     color: #000;
 } */
@@ -530,19 +538,31 @@ p, tr, .tituloSeccion, .seccion, #txt1, #vis, #pictograma th{
   padding-right: 56px;
   padding-bottom: 15px;
   padding: 0px 56px 15px 0px; */
-  margin: 5px;
+ /*  margin: 5px; */
 }
 
 #logoFooter1 {
     max-width: 85px;
+    /* margin-left: 15px !important; */
 /*     width: 70px;
     height: 90px; */
 }
 
-.mt-lg-0, .my-lg-0 {
+/* .mt-lg-0, .my-lg-0 {
     margin-top: 50 !important;
-  }
+  } */
 
+#encabezado {
+    display: flex;
+    align-items: center;
+    /* margin-left: 12px;
+    padding-left: 15px; */
+} 
+
+#navSistemas {
+    /* padding: 0.5rem 1rem !important; */
+    padding: 0 !important;
+}
 
 /* Este es el media Query del footer*/
 @media screen and (min-width: 960px) {
@@ -565,3 +585,16 @@ p, tr, .tituloSeccion, .seccion, #txt1, #vis, #pictograma th{
     justify-content: center !important;
   }
 }
+
+#navSistemas{
+ padding: 0;   
+ align-items: center;
+}
+.botonModal{
+    background-color: #552a4f !important;
+    color: white !important;
+}
+/* 
+#letrasSistemas{
+    align-items: center;
+} */
