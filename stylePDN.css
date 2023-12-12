@@ -104,7 +104,7 @@ li {
 
 #logoHeader {
     max-width: 85px;
-    margin-left: 1497px;
+    /* margin-left: 1497px; */
     padding-top: 15px;
     /*
     margin-left: 80px; 
@@ -232,6 +232,17 @@ path.entidad:hover {
 .table td, .table th {
     vertical-align: middle !important;
     border-top: unset !important;
+}
+
+#tooltip{
+    width: auto;
+    height: auto;
+
+}
+
+#contenttViz{
+    height: 527.434px !important;
+    top: 65.55px !important;
 }
 
 /* Tamaño Container */
@@ -559,6 +570,7 @@ p, tr, .tituloSeccion, .seccion, #txt1, #vis, #pictograma th{
 
 #encabezado {
     display: flex;
+    flex-direction: row;
     padding-top: 10px;
     padding-bottom: 10px;
     /*align-items: center;
