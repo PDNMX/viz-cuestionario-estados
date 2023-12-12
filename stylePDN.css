@@ -105,7 +105,12 @@ li {
 #logoHeader {
     max-width: 85px;
     margin-left: 1497px;
-   /*  margin-left: 80px; */
+    padding-top: 15px;
+    /*
+    margin-left: 80px; 
+    position: relative;
+    width: 100%;
+    margin-left: auto;*/
 }
 
 #libreUso {
@@ -302,7 +307,7 @@ path.entidad:hover {
 #vis svg {
     position: absolute;
     /* top: 0px; */
-    margin-top: -10%;
+    /* margin-top: -10%; */
 }
 
 #tablaScore th[role=columnheader]:not(.no-sort) {
@@ -473,9 +478,9 @@ path.entidad:hover {
   #navbarHeadLegislacion {
     background: transparent linear-gradient(230deg, #1C7CBF 0%, #1C7CBF 4%, #9F58E2 49%, #6D4061 100%) 0% 0% no-repeat padding-box !important;
     z-index: 2;
-    position: relative;
+    /* position: relative; */
     color: whitesmoke;
-    align-items: center;
+    /* align-items: center; */
   }
 /* .txt1v1, .txt1v2, .txt1v1After, .txt1v2After, {
     color: #000;
@@ -554,15 +559,19 @@ p, tr, .tituloSeccion, .seccion, #txt1, #vis, #pictograma th{
 
 #encabezado {
     display: flex;
-    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /*align-items: center;
     /* margin-left: 12px;
     padding-left: 15px; */
 } 
 
-#navSistemas {
-    /* padding: 0.5rem 1rem !important; */
-    padding: 0 !important;
-}
+#letrasSistemas {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+
 
 /* Este es el media Query del footer*/
 @media screen and (min-width: 960px) {
@@ -586,10 +595,10 @@ p, tr, .tituloSeccion, .seccion, #txt1, #vis, #pictograma th{
   }
 }
 
-#navSistemas{
+/* #navSistemas{
  padding: 0;   
  align-items: center;
-}
+} */
 .botonModal{
     background-color: #552a4f !important;
     color: white !important;
