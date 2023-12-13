@@ -411,12 +411,10 @@ function drawInitial(dataset) {
 
     let sortFn = (a, b) => d3.ascending(a.total, b.total);
 
-    let y = d3.scaleBand().rangeRound([currentHeight - margin.bottom, margin.top]).padding(0.2);
+    let y = d3.scaleBand().rangeRound([currentHeight - margin.bottom, margin.top]).padding(0.3);
     y.domain(dataStacked.sort(sortFn).map(function(d) {
         return d.Entidad;
     }))
-
-    
 
     let maing = svg.append("g")
         .attr('class', 'stackedBar')
@@ -438,7 +436,7 @@ function drawInitial(dataset) {
         .attr('height', y.bandwidth)
         .attr('width', function(d) {return x(100);} );
         /* .attr('fill', 'gray')
-        .attr("stroke", "#ced8db"); */
+        .attr("stroke", "#2a2a2a"); */
 
     let g = maing.enter().append("g")
         .attr("fill", function(d) {
@@ -474,8 +472,8 @@ function drawInitial(dataset) {
         .attr("x", function(d) {
             return x(d[0]);
         })
-        /* .attr("stroke", "#ced8db") */
-        /* .attr("fill", "#ced8db") */
+        /* .attr("stroke", "#2a2a2a") */
+        /* .attr("fill", "#2a2a2a") */
         .attr("y", function(d) {
             return y(d.data.Entidad);
         })
@@ -531,7 +529,7 @@ function drawInitial(dataset) {
                 txtTotal = 70;
               break;
         }
-        d3.selectAll("#recttooltipText_" + mainDivName).append("tspan").attr("x", 0).attr("y", 2).attr("dy", "1.9em").text(tooltipData.key + ":  " + tooltipData.value + " de " + txtTotal);
+        d3.selectAll("#recttooltipText_" + mainDivName).append("tspan").attr("x", 0).attr("y", 2).attr("dy", "1.9em").text(tooltipData.key + ":  " + tooltipData.value + " de " + txtTotal).attr("fill", "#fff");
         yPos = yPos + 1;
         //CBT:calculate width of the text based on characters
         let dims = helpers.getDimensions("recttooltipText_" + mainDivName);
@@ -565,19 +563,19 @@ function drawInitial(dataset) {
         .attr("x", currentWidth / 2)
         .attr("y", margin.bottom + 20)
         .attr("dx", "0.32em")
-        .attr("fill", "#ced8db")
+        .attr("fill", "#2a2a2a")
         .attr("font-weight", "bold")
         .attr("text-anchor", "middle")
         .text("Puntaje Total");
 
     let ele = svg.select(".stackedBar").append("g")
         .attr("transform", "translate(" + margin.left + ",0)")
-        /* .attr("stroke", "#ced8db") */
+        /* .attr("stroke", "#2a2a2a") */
         .call(d3.axisLeft(y));
     ele.selectAll("text")
 
     let rectTooltipg = svg.select(".stackedBar").append("g")
-        .attr("font-family", 'Roboto')
+        .attr("font-family", 'Muli')
         .attr("font-size", 10)
         .attr("text-anchor", "end")
         .attr("id", "recttooltip_" + mainDivName)
@@ -590,11 +588,11 @@ function drawInitial(dataset) {
         .attr("width", 120)
         .attr("height", 80)
         .attr("opacity", 0.71)
-        .style("fill", "#000000");
+        .style("fill", "#2a2a2a");
 
     rectTooltipg
         .append("text")
-        .attr("font-family", 'Roboto')
+        .attr("font-family", 'Muli')
         .attr("id", "recttooltipText_" + mainDivName)
         .attr("x", 30)
         .attr("y", 15)
@@ -605,7 +603,7 @@ function drawInitial(dataset) {
             return 10;
         })
         .style("font-family", function(d) {
-            return 'Roboto';
+            return 'Muli';
         })
         .text(function(d, i) {
             return "";
@@ -618,7 +616,7 @@ function drawInitial(dataset) {
     textTotal.enter().append("text")
         .attr("text-anchor", "start")
         .merge(textTotal)
-        .attr("font-family", 'Roboto')
+        .attr("font-family", 'Muli')
         .attr("font-size", 8)
         .attr("y", d => y(d.Entidad) + y.bandwidth() / 1.5)
         .attr("x", d => x(d.total) + 5)
@@ -978,7 +976,7 @@ function chartMexicoPuntuacion() {
         .attr("stroke-width", 1)
         .attr("stroke-opacity", 1)
         .attr("fill-opacity", 0.8)
-        .attr("stroke", "#ced8db");
+        .attr("stroke", "#2a2a2a");
     svg.select('.mapa').transition().duration(300).delay((d, i) => i * 30)
         .attr('visibility', 'visible');
     svg.select('.leyendas').transition().duration(300).attr('visibility', 'visible');

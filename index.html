@@ -1,247 +1,303 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Avances de Interconexión Subnacional</title>
   <meta name="description" content="Plataforma Digital Nacional: interconexión subnacional y avances">
   <meta name="author" content="Sergio Rodríguez">
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="stylePDN.css" />
-  <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
 </head>
 
-<body style="background-color: #0d3b49;">
+<body style="background-color: #fff;">
   <div id="tooltip"></div>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
-    style="background-color:#3E5866 !important; z-index: 10;">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <a class="navbar-brand" href="https://www.plataformadigitalnacional.org"><img id="logoHeader" alt="PDN"
-              src="img/pdn.png"></a>
-        </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top pt-2 pb-2"
+    style="background: transparent linear-gradient(230deg, #1C7CBF 0%, #1C7CBF 4%, #9F58E2 49%, #6D4061 100%) 0% 0% !important; z-index: 10;"
+    id="navSistemas">
+    <div id="encabezado" class="container">
+      <div class="align-middle d-flex">
+        <img id="logoFooter1" src="./img/ico-interconexion-s1-2-3.svg" alt="PDN" width="50px">
+        <h2 class="navbar-text pl-3" id="letrasSistemas"
+          style="color: white !important; margin-bottom: 0; padding-bottom: 0;"> Sistemas 1,2 y 3</h2>
       </div>
-
+      <div><img id="logoHeader" alt="PDN" src="./img/logo_pdn-transparente.svg"></div>
     </div>
   </nav>
   <div class="container">
     <main>
-        <section id="scrolly" class="row">
-            <article class="col-md-4">
-              <div class="step" data-step="1">
-                <section id="seccionPrimera" class="seccion">
-                  <br>
-                  <div id="txt1"> </div>
-                  <div class='form-group'>
-                    <label for='sel1'>Selecciona el periodo que desees consultar:</label>
-                    <select class='custom-select' id='selectTrimestre' data-style='btn-primary'></select>
-                  </div>
-                  <div id="txt1After"> </div>
-                  <p id="copy1"></p>
-              </section>
+      <section id="scrolly" class="row">
+        <article class="col-md-4">
+          <div class="step" data-step="1">
+            <section id="seccionPrimera" class="seccion">
+              <br>
+              <div id="txt1"> </div>
+              <div class='form-group'>
+                <label for='sel1'>Selecciona el periodo que desees consultar:</label>
+                <select class='custom-select' id='selectTrimestre' data-style='btn-primary'></select>
               </div>
-              <div class="step" data-step="2">
-                <section class="seccion">
-                  <h3>Avance por entidad</h2>
-                  <div id="txtMapa"></div>
-                </section>
-              </div>
-              <div class="step" data-step="3">
-                <section class='seccion'>
-                  <h2 class="tituloSeccion">Puntaje cuestionario</h2>
-                    <p>El puntaje máximo que se puede obtener en el cuestionario es <b>100</b>, dividido de la siguiente manera entre las categorías:</p>
-                    <ul id="bulletsPuntaje"> </ul>
-                    <p>Las 10 entidades con mayor puntuación en el cuestionario son:</p>
-                    <!-- Esto debe ser dinamico -->
-                    <table class="table table-striped table-sm" >
-                      <thead>
-                        <tr>
-                          <th scope="col">Entidad federativa</th>
-                          <th scope="col">Puntos</th>
-                        </tr>
-                      </thead>
-                      <tbody id='tableTop10'>
-                      </tbody>
-                    </table>
-                </section>
-              </div>
-              <div class="step" data-step="4">
-                <section class="seccion">
-                  <h2 class="tituloSeccion">Normatividad</h2>
-                  <p>Esta categoría se refiere al grado de avance de cada Secretaría Ejecutiva Local, en términos de la normatividad necesaria para su Plataforma Digital o Sistema de Información Estatal. Básicamente, la entidad federativa obtiene puntos cuando su comité coordinador ya aprobó las bases para el funcionamiento de la Plataforma o Sistema de Información. Además, la puntuación máxima se obtiene cuando ya se identificó qué características debe cumplir la Plataforma o Sistema de Información según la normatividad aplicable.
-                      <br>El puntaje total de la categoría <b>son 10 puntos</b>.
-                  </p>
-                  <p id="copy4"></p>
-                </section>
-              </div>
-              <div id="maxMin5" class="step" data-step="5">
-                <section class="seccion">
-                  <div id="seccionInfra"></div>
-                  <p id="copy5"></p>
-                </section>
-              </div>
-              <div class="step" data-step="6">
-                <section class="seccion">
-                  <div id="seccionCapitalHumano"></div>
-                  <p id="copy6"></p>
-                </section>
-              </div>
-              <div id="maxMin7" class="step" data-step="7">
-                <section class="seccion">
-                  <h2 class="tituloSeccion">Mapeo y gestión de datos</h2>
-                  <p>La categoría de mapeo y gestión de datos representa al trabajo, de las Secretarías Ejecutivas de las entidades federativas, para comunicar a la Plataforma Digital o Sistema de Información Local con las instituciones en su entidad federativa. Una parte de los puntos en esta categoría se obtienen por identificar qué instituciones del ámbito local generan y tienen en su posesión datos de personas servidoras públicas que intervienen en procedimientos de contrataciones públicas, y personas sancionadas. Además, para obtener la puntuación máxima de <b>30 puntos</b>, se deben establecer los mecanismos necesarios para transferir y actualizar datos entre la Secretaría Ejecutiva local y las instituciones proveedoras de las entidades federativas.</p>
-                  <p id="copy7"></p>
-                </section>
-              </div>
-              <div id="maxMin8" class="step" data-step="8">
-                <section id="seccionUltima" class="seccion">
-                  <h2 class="tituloSeccion">Desarrollo de mecanismos de comunicación </h2>
-                  <p>Los mecanismos de comunicación o APIs son las piezas que permiten la comunicación o transferencia de datos entre las Secretarías Ejecutivas locales y la PDN. Esta categoría indica el avance en el desarrollo de las APIs  para los sistemas 2 y 3. 
-                      <br>El puntaje total para la categoría <b>son 30 puntos</b>.
-                      </p>
-                  <p id="copy8"></p>
-                </section>
-              </div>
-            </article>
-          <div class="col-md-8">
-            <div id="contentViz">
-              <div id="vis"></div>
-              <div class="tableFixHead">
-                  <table id="tablaScore" class="table table-sm table-hover table-responsive">
-                      <thead>
-                          <tr id="encabezadosTabla" style="width: 100%;">
-                              <th scope="col" style="width: 15%;"></th>
-                              <th id="colNormatividad" scope="col" style="width: 17%;"></th>
-                              <th id="colInfra" scope="col" style="width: 17%;"></th>
-                              <th id="colCH" scope="col" style="width: 17%;"></th>
-                              <th id="colMGD" scope="col" style="width: 17%; display: none;"></th>
-                              <th id="colDMC" scope="col" style="width: 17%; display: none;"></th>
-                          </tr>
-                      </thead>
-                      <tbody id="tablaData"></tbody>
-                  </table>
-              </div>
-              <div id="pictograma" class='table-container'>
-                <table id='tablaPictograma'></table>
-              </div>
+              <div id="txt1After"> </div>
+              <p id="copy1"></p>
+            </section>
+          </div>
+          <div class="step" data-step="2">
+            <section class="seccion">
+              <h3>Avance por entidad</h2>
+                <div id="txtMapa"></div>
+            </section>
+          </div>
+          <div class="step" data-step="3">
+            <section class='seccion'>
+              <h2 class="tituloSeccion">Puntaje cuestionario</h2>
+              <p>El puntaje máximo que se puede obtener en el cuestionario es <b>100</b>, dividido de la siguiente
+                manera entre las categorías:</p>
+              <ul id="bulletsPuntaje"> </ul>
+              <p>Las 10 entidades con mayor puntuación en el cuestionario son:</p>
+              <!-- Esto debe ser dinamico -->
+              <table class="table table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">Entidad federativa</th>
+                    <th scope="col">Puntos</th>
+                  </tr>
+                </thead>
+                <tbody id='tableTop10'>
+                </tbody>
+              </table>
+            </section>
+          </div>
+          <div class="step" data-step="4">
+            <section class="seccion">
+              <h2 class="tituloSeccion">Normatividad</h2>
+              <p>Esta categoría se refiere al grado de avance de cada Secretaría Ejecutiva Local, en términos de la
+                normatividad necesaria para su Plataforma Digital o Sistema de Información Estatal. Básicamente, la
+                entidad federativa obtiene puntos cuando su comité coordinador ya aprobó las bases para el
+                funcionamiento de la Plataforma o Sistema de Información. Además, la puntuación máxima se obtiene cuando
+                ya se identificó qué características debe cumplir la Plataforma o Sistema de Información según la
+                normatividad aplicable.
+                <br>El puntaje total de la categoría <b>son 10 puntos</b>.
+              </p>
+              <p id="copy4"></p>
+            </section>
+          </div>
+          <div id="maxMin5" class="step" data-step="5">
+            <section class="seccion">
+              <div id="seccionInfra"></div>
+              <p id="copy5"></p>
+            </section>
+          </div>
+          <div class="step" data-step="6">
+            <section class="seccion">
+              <div id="seccionCapitalHumano"></div>
+              <p id="copy6"></p>
+            </section>
+          </div>
+          <div id="maxMin7" class="step" data-step="7">
+            <section class="seccion">
+              <h2 class="tituloSeccion">Mapeo y gestión de datos</h2>
+              <p>La categoría de mapeo y gestión de datos representa al trabajo, de las Secretarías Ejecutivas de las
+                entidades federativas, para comunicar a la Plataforma Digital o Sistema de Información Local con las
+                instituciones en su entidad federativa. Una parte de los puntos en esta categoría se obtienen por
+                identificar qué instituciones del ámbito local generan y tienen en su posesión datos de personas
+                servidoras públicas que intervienen en procedimientos de contrataciones públicas, y personas
+                sancionadas. Además, para obtener la puntuación máxima de <b>30 puntos</b>, se deben establecer los
+                mecanismos necesarios para transferir y actualizar datos entre la Secretaría Ejecutiva local y las
+                instituciones proveedoras de las entidades federativas.</p>
+              <p id="copy7"></p>
+            </section>
+          </div>
+          <div id="maxMin8" class="step" data-step="8">
+            <section id="seccionUltima" class="seccion">
+              <h2 class="tituloSeccion">Desarrollo de mecanismos de comunicación </h2>
+              <p>Los mecanismos de comunicación o APIs son las piezas que permiten la comunicación o transferencia de
+                datos entre las Secretarías Ejecutivas locales y la PDN. Esta categoría indica el avance en el
+                desarrollo de las APIs para los sistemas 2 y 3.
+                <br>El puntaje total para la categoría <b>son 30 puntos</b>.
+              </p>
+              <p id="copy8"></p>
+            </section>
+          </div>
+        </article>
+        <div class="col-md-8">
+          <div id="contentViz">
+            <div id="vis"></div>
+            <div class="tableFixHead">
+              <table id="tablaScore" class="table table-sm table-hover table-responsive">
+                <thead>
+                  <tr id="encabezadosTabla" style="width: 100%;">
+                    <th scope="col" style="width: 15%;"></th>
+                    <th id="colNormatividad" scope="col" style="width: 17%;"></th>
+                    <th id="colInfra" scope="col" style="width: 17%;"></th>
+                    <th id="colCH" scope="col" style="width: 17%;"></th>
+                    <th id="colMGD" scope="col" style="width: 17%; display: none;"></th>
+                    <th id="colDMC" scope="col" style="width: 17%; display: none;"></th>
+                  </tr>
+                </thead>
+                <tbody id="tablaData"></tbody>
+              </table>
+            </div>
+            <div id="pictograma" class='table-container'>
+              <table id='tablaPictograma'></table>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
     </main>
   </div>
 
-	
-<footer class="site-footer outer" style="background-color:#3E5866 !important;">
-		<div class="container" style="max-width: 100% !important;">
-		  <div class="row">
-			<div class="col-md-4 col-sm-12">
-				<div class="row">
-					<div class="col-12 d-flex footer-aling align-items-center">
-						<a class="footer-link" href="mailto:pdn@sesna.gob.mx">pdn@sesna.gob.mx</a>
-						
-						<a href="https://www.youtube.com/channel/UCJ0nWmB2-ADfn95r5cjmLJA/">
-							<img src="img/yt.svg" alt="PDN" class="iconos-footer1">
-						</a>
-						<a href="https://twitter.com/SESNAOficial">
-							<img src="img/tw.svg" alt="PDN" class="iconos-footer1">
-						</a>
-						<a href="https://www.facebook.com/SESNAOficial/" style="padding-right: 1rem;">
-							<img src="img/fb.svg" alt="PDN" class="iconos-footer1">
-						</a>
-					</div>
-					<div class="col-12 d-flex footer-aling align-items-center row-solo footer-row" style="margin-left: -20px; height: 50px;">
-						<a target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/deed.es">
-							<img src="img/CC.png" alt="PDN" style="margin-right: 20px; display: inline;">
-						</a>
-						<a id="footer-about" class="text-right footer-link" href="https://www.plataformadigitalnacional.org/about">Acerca de la PDN</a>
-					</div>
-					<div class="col-12 d-flex footer-aling align-items-center footer-row">
-						<a class="nav-link" href="https://github.com/orgs/PDNMX/">
-							<img id="img-github" src="img/github.svg" alt="PDN" class="">
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-12">
-				<div class="row">
-					<div class="col-md-5 col-sm-12 d-flex align-items-end flex-column" style="margin-top: 3px;">
-						<a class="text-right footer-link" href="https://www.plataformadigitalnacional.org/mapa-sla/">Avances de Interconexión</a>
-						<a style="margin-top: 5px;" class="text-right footer-link" href="https://mda.plataformadigitalnacional.org/">Mercado Digital Anticorrupción</a>
-					</div>
-					<div class="col-md-1 d-none d-md-block column-sola"></div>
-					<div class="col-md-5 col-sm-12 d-flex align-items-start flex-column" style="margin-top: 3px;">
-						<a class="footer-link" href="https://www.plataformadigitalnacional.org/faq">Preguntas frecuentes</a>
-						<a style="margin-top: 5px;" class="footer-link" href="https://www.youtube.com/channel/UCJ0nWmB2-ADfn95r5cjmLJA/">Videos</a>
-						<a style="margin-top: 5px;" class="footer-link" href="https://drive.google.com/drive/folders/1t_vGUfagr75TAZ8-E4NZfL-fU0BcsPlZ">Boletines y prensa</a>
-					</div>
-				
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-12">
-				<div class="row">
-					<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-start">
-						<img src="img/sna.svg" alt="PDN" class="iconos-footer">
-					</div>
-					<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 d-flex justify-content-start">
-						<img src="img/logo_pdn2.svg" alt="PDN" class="iconos-footer">
-					</div>
-				</div>
-			</div>
-	  
-		  </div>
-		</div>
-</footer>
 
-
-<div class="modal" id="mapaModal">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header" id="modalHeader">
-              <h2 id="modalTitle" class="modal-title"></h2>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
+  <!--Aqui comienza en footer nuevo-->
+  <footer class="footer"
+    style="border-top: 5px solid; border-image: linear-gradient(230deg, #1C7CBF 0%, #1C7CBF 4%, #9F58E2 49%, #6D4061 100%) 1 0 0 0">
+    <div class="container" style="max-width: 1200px !important">
+      <div class="row mt-5 justify-content-between">
+        <div class="col-md-3 col-sm-12 text-center">
+          <img src="./img/logotipo-sna.svg" class="img-fluid" alt="logo-sna" style="max-height:90px">
+        </div>
+        <div class="col-md-3 col-sm-12 text-center">
+          <img src="./img/logo-sesna.svg" class="img-fluid" alt="logo-sesna" style="max-height:90px">
+        </div>
+        <div class="col-md-3 col-sm-12 text-center">
+          <img src="./img/logo-pdn.svg" class="img-fluid" alt="logo-pdn" style="max-height:90px">
+        </div>
+      </div>
+      <div class="row justify-content-between mt-3">
+        <div class="col-12">
+          <div class="dropdown-divider">
           </div>
-          <div class="modal-body">
-              <div id="radarChart"></div>
-              <div id="txtAviso">
-                <p style="text-align: justify;">El siguiente tablero refleja las respuestas de las Secretarías Ejecutivas Estatales a los cuestionarios de avance realizados por la SESNA. Cada Secretaría es la responsable de la información que envía.
-                  Si quieres conocer más acerca de la metodología de evaluación, haz clic aquí:</p>
-                  <div class="dropdown show">
-                    <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Descarga la metodología
-                    </a>
-                  
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <a class="dropdown-item" target="_blank" href="https://drive.google.com/file/d/1r6E-e49aCqO_S1IXEukDx0ul0UbcG9Wc/view">Versión 1</a>
-                      <a class="dropdown-item" target="_blank" href="https://drive.google.com/file/d/1Ji2-OVQT9uRZns5reZeNCEEGYpeZaHWf/view">Versión 2</a>
-                    </div>
-                  </div>
-                <!-- <a id='downloadMetodologia' class="btn btn-outline-secondary" target="_blank"
+        </div>
+      </div>
+      <div class="row justify-content-between mt-1">
+        <div class="col-md-3 col-sm-6 text-center">
+          <ul style="display: flex; flex-direction: column; gap: 0.4rem;">
+            <li><a target="_blank" href="https://www.plataformadigitalnacional.org/about">Acerca de la PDN</a></li>
+            <li><a target="_blank" href="https://www.plataformadigitalnacional.org/mapa-sla/">Avances de
+                Interconexión</a></li>
+            <li><a target="_blank" href="https://mda.plataformadigitalnacional.org/">Mercado Digital Anticorrupción</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-sm-6 text-center">
+          <ul style="display: flex; flex-direction: column; gap: 0.4rem;">
+            <li><a target="_blank" href="https://www.plataformadigitalnacional.org/faq">Preguntas
+                frecuentes</a></li>
+            <li><a target="_blank" href="https://www.youtube.com/channel/UCJ0nWmB2-ADfn95r5cjmLJA/">Videos</a></li>
+            <li> <a target="_blank"
+                href="https://drive.google.com/drive/folders/1t_vGUfagr75TAZ8-E4NZfL-fU0BcsPlZ">Boletines
+                y prensa</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-sm-6 text-center">
+          <ul style="display: flex; flex-direction: column; gap: 0.4rem;">
+            <li><a target="_blank"
+                href="https://www.plataformadigitalnacional.org/mesa-de-ayuda">Mesa de ayuda</a></li>
+            <li><a target="_blank"
+                href="https://www.plataformadigitalnacional.org/especificaciones">Especificaciones Técnicas</a></li>
+            <li><a target="_blank" href="https://www.plataformadigitalnacional.org/blog/">Blog</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="row justify-content-between mt-1">
+        <div class="col-12">
+          <div class="dropdown-divider">
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-between mt-3 mb-5" style="font-size: 2rem;">
+        <div class="col-md-2 col-sm-4 text-center">
+          <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.es" target="_blank"><i
+              class="fab fa-creative-commons" aria-hidden="true" style="color: #815474"></i></a>
+        </div>
+        <div class="col-md-2 col-sm-4 text-center">
+          <a href="https://twitter.com/SESNAOficial" target="_blank"><i class="fab fa-twitter" aria-hidden="true"
+              style="color: #815474"></i></a>
+        </div>
+        <div class="col-md-2 col-sm-4 text-center">
+          <a href="https://www.facebook.com/SESNAOficial/" target="_blank"><i class="fab fa-facebook-square"
+              aria-hidden="true" style="color: #815474"></i></a>
+        </div>
+        <div class="col-md-2 col-sm-6 text-center">
+          <a href="https://github.com/orgs/PDNMX/" target="_blank"><i class="fab fa-github" aria-hidden="true"
+              style="color: #815474"></i></a>
+        </div>
+        <div class="col-md-2 col-sm-6 text-center">
+          <a href="https://www.youtube.com/channel/UCRUpiHth_WRkNo2sBmZIyfQ/featured" target="_blank"><i
+              class="fab fa-youtube" aria-hidden="true" style="color: #815474"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <div class="modal" id="mapaModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" id="modalHeader">
+          <h2 id="modalTitle" class="modal-title"></h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="radarChart"></div>
+          <div id="txtAviso">
+            <p style="text-align: justify;">El siguiente tablero refleja las respuestas de las Secretarías Ejecutivas
+              Estatales a los cuestionarios de avance realizados por la SESNA. Cada Secretaría es la responsable de la
+              información que envía.
+              Si quieres conocer más acerca de la metodología de evaluación, haz clic aquí:</p>
+            <div class="dropdown show">
+              <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Descarga la metodología
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" target="_blank"
+                  href="https://drive.google.com/file/d/1r6E-e49aCqO_S1IXEukDx0ul0UbcG9Wc/view">Versión 1</a>
+                <a class="dropdown-item" target="_blank"
+                  href="https://drive.google.com/file/d/1Ji2-OVQT9uRZns5reZeNCEEGYpeZaHWf/view">Versión 2</a>
+              </div>
+            </div>
+            <!-- <a id='downloadMetodologia' class="btn btn-outline-secondary" target="_blank"
                   href="https://drive.google.com/file/d/1r6E-e49aCqO_S1IXEukDx0ul0UbcG9Wc/view?usp=sharing">Descarga
                     la metodología</a> -->
-              </div>
           </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
       </div>
+    </div>
   </div>
-</div>
 
   <!-- <div class='debug'></div> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js" integrity="sha512-F/gIMdDfda6OD2rnzt/Iyp2V9JLHlFQ+EUyixDg9+rkwjqgW1snpkpx7FD5FV1+gG2fmFj7I3r6ReQDUidHelA==" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js" integrity="sha512-dRD755QRxlybm0h3LXXIGrFcjNakuxW3reZqnPtUkMv6YsSWoJf+slPjY5v4lZvx2ss+wBZQFegepmA7a2W9eA==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"
+    integrity="sha512-F/gIMdDfda6OD2rnzt/Iyp2V9JLHlFQ+EUyixDg9+rkwjqgW1snpkpx7FD5FV1+gG2fmFj7I3r6ReQDUidHelA=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"
+    integrity="sha512-dRD755QRxlybm0h3LXXIGrFcjNakuxW3reZqnPtUkMv6YsSWoJf+slPjY5v4lZvx2ss+wBZQFegepmA7a2W9eA=="
+    crossorigin="anonymous"></script>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script> 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js" integrity="sha512-igl8WEUuas9k5dtnhKqyyld6TzzRjvMqLC79jkgT3z02FvJyHAuUtyemm/P/jYSne1xwFI06ezQxEwweaiV7VA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  <script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js"
+    integrity="sha512-igl8WEUuas9k5dtnhKqyyld6TzzRjvMqLC79jkgT3z02FvJyHAuUtyemm/P/jYSne1xwFI06ezQxEwweaiV7VA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://unpkg.com/d3@5.9.1/dist/d3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollama/2.2.1/scrollama.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" integrity="sha512-F5QTlBqZlvuBEs9LQPqc1iZv2UMxcVXezbHzomzS6Df4MZMClge/8+gXrKw2fl5ysdk4rWjR0vKS7NNkfymaBQ==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
+    integrity="sha512-F5QTlBqZlvuBEs9LQPqc1iZv2UMxcVXezbHzomzS6Df4MZMClge/8+gXrKw2fl5ysdk4rWjR0vKS7NNkfymaBQ=="
+    crossorigin="anonymous"></script>
 
   <script src='pictogram.js'></script>
   <script src="sections.js"></script>

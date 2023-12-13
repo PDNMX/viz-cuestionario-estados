@@ -1,3 +1,24 @@
+@font-face {
+  font-family: "Muli";
+  src: url("/fonts/Muli-Regular.woff2") format("woff2"), url("/fonts/Muli-Regular.woff") format("woff"), url("/fonts/Muli-Regular.otf") format("opentype");
+  font-display: auto;
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Muli", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* background-color: rgba(102, 102, 102, 1); */
+  font-weight: 300;
+  color: #2a2a2a;
+}
+
 #outro {
   height: 640px;
 }
@@ -39,7 +60,7 @@
 .step {
   /* margin: 0 auto 2rem auto;
   background-color: #3b3b3b; */
-  color:#ced8db;
+  color:#2a2a2a;
 }
 
 .step:last-child {
@@ -72,7 +93,7 @@
 }
 
 #tablaScore thead tr:nth-child(1) th {
-  background: #0d3b49;
+  background: #fff;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -89,8 +110,8 @@
 
 /* pictogram */
 .table {
-  color: #ced8db !important;
-  background-color: #0d3b49;
+  color: #2a2a2a !important;
+  background-color: #fff;
 }
 
 .table-container {
@@ -134,12 +155,12 @@ span.text {
   text-align: right;
   padding-right: 10px;
   font-size: 80%;
-  color:#ced8db;
+  color:#2a2a2a;
 }
 
 span.title {
   font-size: 80%;
-  color:#ced8db;
+  color:#2a2a2a;
 }
 
 th.puntaje,
@@ -308,7 +329,7 @@ li.general {
 }
 
 text, line, .domain {
-  color: #ced8db;
+  color: #2a2a2a;
 }
 
 #tablaData tr:hover {
@@ -317,11 +338,11 @@ text, line, .domain {
 }
 
 .stackedBar text {
-  fill: #ced8db;
+  fill: #2a2a2a;
 }
 
 #pictograma th {
-  color: #ced8db;
+  color: #2a2a2a;
 }
 
 #pictograma tr:hover {
@@ -330,28 +351,45 @@ text, line, .domain {
 }
 
 .custom-select {
-  background-color:#0d3b49 !important;
+  background-color:#fff !important;
   color:#3aafe4 !important;
   background: #3aaee400 url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%233aafe4' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") right 0.75rem center/8px 10px no-repeat !important;
   
 }
 
 .modal-body, .modal-footer {
-  background-color: #ced8db !important;
+  background-color: #fff !important;
 }
 
 .progress {
-  background-color: #ced8db26 !important; 
+  background-color: #2a2a2a26 !important; 
 }
 
 .modal-header {
-  background-color: #ced8db;
+  background-color: #fff;
 }
 
 .site-footer a {
-  color: #ced8db;
+  color: #2a2a2a;
 }
 
 #footer-about {
   color: #666;
+}
+
+footer li a {
+  text-align: center;
+  text-decoration: none;
+  padding: 0em 0.5em;
+  color: #57585A;
+  transition: all 250ms cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+footer li a:hover {
+  text-decoration: none;
+  color: #165ba8;
+}
+
+.footer ul {
+  padding: 10px;
 }
