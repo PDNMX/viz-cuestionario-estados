@@ -99,7 +99,7 @@ a {
 }
 
 #logoHeader {
-    max-width: 85px;
+    max-width: 75px;
 }
 
 #libreUso {
@@ -221,6 +221,10 @@ path.entidad:hover {
 .table td, .table th {
     vertical-align: middle !important;
     border-top: unset !important;
+}
+
+#letrasSistemas {
+    font-size: 1.45rem;
 }
 
 /* Tamaño Container */
