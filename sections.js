@@ -347,8 +347,9 @@ function drawInitial(dataset) {
         z = d3.scaleOrdinal(['#34B3EB', '#674ea7', '#fbbc04']);
         group = ["Normatividad", "Capital humano", "Interconexión"];
         topData = dataset.sort(function (a, b) {
-            return d3.descending(+a[12], +b[12]);
+            return d3.descending(+a[13], +b[13]);
         }).slice(0, 10);
+        //console.log(dataset)
 
         tableTop10 = document.getElementById('tableTop10');
         tableTop10.innerHTML = '';
