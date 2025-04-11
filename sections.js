@@ -36,8 +36,8 @@ const labelInfra = '<h2 class="tituloSeccion">Infraestructura</h2> <p>Esta categ
 const labelCapitalHumanoV2 = '<h2 class="tituloSeccion">Capital humano</h2> <p>Esta categoría muestra si la Secretaría Ejecutiva Estatal cuenta con personal suficiente adscrito a su institución o contratado por algún otro mecanismo para el desarrollo de su Plataforma Digital o Sistema de información. Además, en esta categoría se refleja si el equipo técnico cuenta con el grado de conocimiento técnico actual para lograr la interconexión con la PDN. <br>La puntuación máxima para esta categoría es <b>20</b>. </p>'
 Promise.all([
     // dataset de trimestres
-    //  fetch('https://sheets.googleapis.com/v4/spreadsheets/1x17q4Ny8ENBniRT0WrlIVLU7LEs2fU1u7q2rxEypMNg/values/edos?key=AIzaSyDrvQehuVTPGJVCFVx3FUeAq2zqYbTCFDo'),
-    fetch('data/ejemploEdos.json'),
+    fetch('https://sheets.googleapis.com/v4/spreadsheets/1x17q4Ny8ENBniRT0WrlIVLU7LEs2fU1u7q2rxEypMNg/values/edos?key=AIzaSyDrvQehuVTPGJVCFVx3FUeAq2zqYbTCFDo'),
+    //fetch('data/ejemploEdos.json'),
     fetch('data/mexico.json')
 ]).then(async ([aa, bb]) => {
     const a = await aa.json();
