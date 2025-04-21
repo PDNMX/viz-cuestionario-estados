@@ -86,6 +86,14 @@ Promise.all([
             document.getElementById("bulletsPuntaje").innerHTML = puntajeV3;
             document.getElementById("seccionInfra").innerHTML = labelCapitalHumanoV2;
             document.getElementById("txtMapa").innerHTML = txtMapav2;
+
+            document.getElementById("seccion1").innerHTML = "Avance en la Normativa";
+            document.getElementById("descripcionSeccion1").innerHTML = "Esta sección se refiere al grado de avance de cada Secretaría Ejecutiva Local, en términos de la normativa necesaria para su Plataforma Digital o Sistema de Información Estatal. Básicamente, la entidad federativa obtiene puntos cuando su comité coordinador ya aprobó las bases para el funcionamiento de la Plataforma o Sistema de Información.";
+            document.getElementById("seccionCapitalHumano").innerHTML = '<h2 class="tituloSeccion">Herramientas de interconexión </h2><p>Esta sección permite conocer el avance de las Secretarías Ejecutivas de los Sistemas Estatales Anticorrupción y de las instituciones públicas en la incorporación de datos a la PDN.</p>';
+            document.getElementById("seccionInfra").innerHTML = '<h2 class="tituloSeccion">Capital humano </h2><p>Esta sección muestra si la Secretaría Ejecutiva Estatal cuenta con personal suficiente adscrito a su institución o contratado por algún otro mecanismo para el desarrollo de su Plataforma Digital o Sistema de información. Además, en esta categoría se refleja si el equipo técnico cuenta con el grado de conocimiento técnico actual para lograr la interconexión con la PDN.</p>';
+            //document.querySelector("#seccionCapitalHumano h2").innerHTML = "Esta sección permite conocer el avance de las Secretarías Ejecutivas de los Sistemas Estatales Anticorrupción y de las instituciones públicas en la incorporación de datos a la PDN.";
+            
+
         }
 
         fetch(datasetEdos[0][2])
@@ -1069,13 +1077,22 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("maxMin8").style.display = "none";
             document.getElementById("txt1").innerHTML = txt1v3;
             document.getElementById("txt1After").innerHTML = txt1v3After; 
-            document.getElementById("seccionCapitalHumano").innerHTML = labelInterconexión;
+            //document.getElementById("seccionCapitalHumano").innerHTML = labelInterconexión;
             document.getElementById("bulletsPuntaje").innerHTML = puntajeV3;
-            document.getElementById("seccionInfra").innerHTML = labelCapitalHumanoV2;
+            //document.getElementById("seccionInfra").innerHTML = labelCapitalHumanoV2;
             document.getElementById("txtMapa").innerHTML = txtMapav2;
+
+            document.getElementById("seccion1").innerHTML = "Avance en la Normativa";
+            document.getElementById("descripcionSeccion1").innerHTML = "Esta sección se refiere al grado de avance de cada Secretaría Ejecutiva Local, en términos de la normativa necesaria para su Plataforma Digital o Sistema de Información Estatal. Básicamente, la entidad federativa obtiene puntos cuando su comité coordinador ya aprobó las bases para el funcionamiento de la Plataforma o Sistema de Información.";
+            document.getElementById("seccionCapitalHumano").innerHTML = '<h2 class="tituloSeccion">Herramientas de interconexión </h2><p>Esta sección permite conocer el avance de las Secretarías Ejecutivas de los Sistemas Estatales Anticorrupción y de las instituciones públicas en la incorporación de datos a la PDN.</p>';
+            document.getElementById("seccionInfra").innerHTML = '<h2 class="tituloSeccion">Capital humano </h2><p>Esta sección muestra si la Secretaría Ejecutiva Estatal cuenta con personal suficiente adscrito a su institución o contratado por algún otro mecanismo para el desarrollo de su Plataforma Digital o Sistema de información. Además, en esta categoría se refleja si el equipo técnico cuenta con el grado de conocimiento técnico actual para lograr la interconexión con la PDN.</p>';
+            
         }
 
         if (versionMetologia == 'v2'){
+            document.getElementById("seccion1").innerHTML = "Normativa";
+            document.getElementById("descripcionSeccion1").innerHTML = "Esta categoría se refiere al grado de avance de cada Secretaría Ejecutiva Local, en términos de la normatividad necesaria para su Plataforma Digital o Sistema de Información Estatal. Básicamente, la entidad federativa obtiene puntos cuando su comité coordinador ya aprobó las bases para el funcionamiento de la Plataforma o Sistema de Información. Además, la puntuación máxima se obtiene cuando ya se identificó qué características debe cumplir la Plataforma o Sistema de Información según la normatividad aplicable.";
+            
             document.getElementById("maxMin7").style.display = "none";
             document.getElementById("maxMin8").style.display = "none";
             document.getElementById("txt1").innerHTML = txt1v2;
@@ -1087,6 +1104,9 @@ document.addEventListener("DOMContentLoaded", function() {
             
         }
         if (versionMetologia == 'v1'){
+            document.getElementById("seccion1").innerHTML = "Normativa";
+            document.getElementById("descripcionSeccion1").innerHTML = "Esta categoría se refiere al grado de avance de cada Secretaría Ejecutiva Local, en términos de la normatividad necesaria para su Plataforma Digital o Sistema de Información Estatal. Básicamente, la entidad federativa obtiene puntos cuando su comité coordinador ya aprobó las bases para el funcionamiento de la Plataforma o Sistema de Información. Además, la puntuación máxima se obtiene cuando ya se identificó qué características debe cumplir la Plataforma o Sistema de Información según la normatividad aplicable.";
+            
             document.getElementById("maxMin7").style.display = "";
             document.getElementById("maxMin8").style.display = "";
             document.getElementById("txt1").innerHTML = txt1v1;
